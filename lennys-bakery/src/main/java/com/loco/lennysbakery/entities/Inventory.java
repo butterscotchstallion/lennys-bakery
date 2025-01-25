@@ -1,10 +1,9 @@
 package com.loco.lennysbakery.entities;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "inventory")
@@ -19,7 +18,16 @@ public class Inventory {
     private String description;
     private BigDecimal price;
 
+    @Override
     public String toString() {
-        return "Inventory(id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ")";
+        return "Inventory(id="
+                + id
+                + ", name="
+                + name
+                + ", description="
+                + description
+                + ", price="
+                + price
+                + ")";
     }
 }
