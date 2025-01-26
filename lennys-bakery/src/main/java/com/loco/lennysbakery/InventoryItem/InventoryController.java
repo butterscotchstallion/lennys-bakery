@@ -1,20 +1,21 @@
-package com.loco.lennysbakery.inventory;
+package com.loco.lennysbakery.InventoryItem;
 
-import java.util.ArrayList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/inventory")
 public class InventoryController {
     @GetMapping("")
-    public ResponseEntity<ArrayList<Inventory>> inventoryList() {
-        ArrayList<Inventory> inventoryList = new ArrayList<>();
-        Inventory pbTreat = new Inventory();
+    public ResponseEntity<ArrayList<InventoryItem>> inventoryList() {
+        ArrayList<InventoryItem> inventoryItemList = new ArrayList<>();
+        InventoryItem pbTreat = new InventoryItem();
         pbTreat.setName("Pb Treat");
-        inventoryList.add(pbTreat);
-        return ResponseEntity.ok(inventoryList);
+        inventoryItemList.add(pbTreat);
+        return ResponseEntity.ok(inventoryItemList);
     }
 }

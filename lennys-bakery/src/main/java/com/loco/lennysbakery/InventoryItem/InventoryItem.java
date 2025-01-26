@@ -1,11 +1,12 @@
-package com.loco.lennysbakery.inventory;
+package com.loco.lennysbakery.InventoryItem;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "inventory", schema = "public")
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-public class Inventory {
+public class InventoryItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -22,7 +23,7 @@ public class Inventory {
     private String description;
     private BigDecimal price;
 
-    public Inventory(String name, String description, BigDecimal price) {
+    public InventoryItem(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;
