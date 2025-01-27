@@ -1,12 +1,11 @@
-package com.loco.lennysbakery.InventoryItem;
+package com.loco.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "inventory", schema = "public")
@@ -19,8 +18,13 @@ public class InventoryItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "description", nullable = false)
     private String description;
+
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
 
     public InventoryItem(String name, String description, BigDecimal price) {

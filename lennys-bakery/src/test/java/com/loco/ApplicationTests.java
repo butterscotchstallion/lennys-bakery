@@ -1,13 +1,11 @@
-package com.loco.lennysbakery;
+package com.loco;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LennysBakeryApplicationTests {
+class ApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
+    @Test
+    void contextLoads() {}
 }

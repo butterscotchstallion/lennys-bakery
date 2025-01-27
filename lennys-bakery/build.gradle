@@ -1,88 +1,93 @@
 buildscript {
-    ext {
-        springBootVersion = '${springBootVersion}'
-        queryDslVersion = '5.0.0'
-    }
+	ext {
+		springBootVersion = '${springBootVersion}'
+		queryDslVersion = '5.0.0'
+	}
 }
 
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.4.2'
-    id 'io.spring.dependency-management' version '1.1.7'
-    id("com.diffplug.spotless") version "7.0.2"
-    id("org.hibernate.orm") version "7.0.0.Beta2"
+	id 'java'
+	id 'org.springframework.boot' version '3.4.2'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id("com.diffplug.spotless") version "7.0.2"
+	id("org.hibernate.orm") version "7.0.0.Beta2"
 }
 
 group = 'com.loco'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(23)
-    }
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(23)
+	}
 }
 
 configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
 }
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.session:spring-session-core'
-    implementation group: 'org.hibernate.orm', name: 'hibernate-community-dialects', version: '6.2.7.Final'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.session:spring-session-core'
+	implementation group: 'org.hibernate.orm', name: 'hibernate-community-dialects', version: '6.2.7.Final'
 
-    compileOnly('org.springframework.boot:spring-boot-starter-data-jpa')
-    compileOnly('org.springframework.boot:spring-boot-starter-web')
-    compileOnly('org.springframework.boot:spring-boot-devtools')
+	//implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+	implementation('org.springframework.boot:spring-boot-starter-data-jpa') {
+		exclude group: 'com.zaxxer', module: 'HikariCP'
+	}
+	implementation('org.springframework.boot:spring-boot-starter-jdbc') {
+		exclude group: 'com.zaxxer', module: 'HikariCP'
+	}
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation('org.springframework.boot:spring-boot-devtools')
 
-    compileOnly "com.querydsl:querydsl-sql:${queryDslVersion}"
-    annotationProcessor("com.querydsl:querydsl-apt:${queryDslVersion}:general")
+	implementation "com.querydsl:querydsl-sql:${queryDslVersion}"
+	annotationProcessor("com.querydsl:querydsl-apt:${queryDslVersion}:general")
 
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	compileOnly group: 'org.xerial', name: 'sqlite-jdbc', version: '3.41.2.2'
 
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
-    compileOnly group: 'org.xerial', name: 'sqlite-jdbc', version: '3.41.2.2'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+	useJUnitPlatform()
 }
 
 spotless {
-    // optional: limit format enforcement to just the files changed by this feature branch
-    ratchetFrom 'origin/main'
+	// optional: limit format enforcement to just the files changed by this feature branch
+	ratchetFrom 'origin/main'
 
-    format 'misc', {
-        // define the files to apply `misc` to
-        target '*.gradle', '.gitattributes', '.gitignore'
+	format 'misc', {
+		// define the files to apply `misc` to
+		target '*.gradle', '.gitattributes', '.gitignore'
 
-        // define the steps to apply to those files
-        trimTrailingWhitespace()
-        leadingSpacesToTabs() // or leadingTabsToSpaces. Takes an integer argument if you don't like 4
-        endWithNewline()
-    }
-    java {
-        // don't need to set target, it is inferred from java
+		// define the steps to apply to those files
+		trimTrailingWhitespace()
+		leadingSpacesToTabs() // or leadingTabsToSpaces. Takes an integer argument if you don't like 4
+		endWithNewline()
+	}
+	java {
+		// don't need to set target, it is inferred from java
 
-        // apply a specific flavor of google-java-format
-        googleJavaFormat('1.17.0').aosp().reflowLongStrings().skipJavadocFormatting()
-        // fix formatting of type annotations
-        formatAnnotations()
-        // make sure every file has the following copyright header.
-        // optionally, Spotless can set copyright years by digging
-        // through git history (see "license" section below)
-        //licenseHeader '/* (C)$YEAR */'
-    }
+		// apply a specific flavor of google-java-format
+		googleJavaFormat('1.17.0').aosp().reflowLongStrings().skipJavadocFormatting()
+		// fix formatting of type annotations
+		formatAnnotations()
+		// make sure every file has the following copyright header.
+		// optionally, Spotless can set copyright years by digging
+		// through git history (see "license" section below)
+		//licenseHeader '/* (C)$YEAR */'
+	}
 }
