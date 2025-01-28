@@ -1,8 +1,10 @@
 package com.loco.service;
 
-/*@Service
-public class InventoryItemService {
+import org.springframework.stereotype.Service;
 
+@Service
+public class InventoryItemService {
+    /*
     private final InventoryItemRepository inventoryItemRepository;
 
     public InventoryItemService(InventoryItemRepository inventoryItemRepository) {
@@ -23,5 +25,5 @@ public class InventoryItemService {
 
     public void deleteInventoryItem(Long id) {
         inventoryItemRepository.deleteById(id);
-    }
-}*/
+    }*/
+}
