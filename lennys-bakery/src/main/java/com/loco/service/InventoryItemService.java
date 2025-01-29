@@ -1,11 +1,16 @@
 package com.loco.service;
 
+import com.loco.model.InventoryItem;
+import com.loco.repository.InventoryItemRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InventoryItemService {
-    /*
-    private final InventoryItemRepository inventoryItemRepository;
+    //@Autowired
+    InventoryItemRepository inventoryItemRepository;
 
     public InventoryItemService(InventoryItemRepository inventoryItemRepository) {
         this.inventoryItemRepository = inventoryItemRepository;
@@ -25,5 +30,5 @@ public class InventoryItemService {
 
     public void deleteInventoryItem(Long id) {
         inventoryItemRepository.deleteById(id);
-    }*/
+    }
 }
