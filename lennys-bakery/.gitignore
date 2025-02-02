@@ -37,3 +37,4 @@ out/
 .vscode/
 
 build
+node_modules
