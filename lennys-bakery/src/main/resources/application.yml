@@ -2,14 +2,11 @@ logging:
   level:
     ROOT: DEBUG
 spring:
-  profile: dev
   datasource:
-    url: jdbc:sqlite:./db/db.sqlite
-    driver-class-name: org.sqlite.JDBC
-    username: sa
-    password: sa
-    hikari:
-      maximum-pool-size: 1
-  sql:
-    init:
-      mode: always
+    driver-class-name: org.postgresql.Driver
+    password: another canned concierge blinked debate email sculpture
+    url: jdbc:postgresql://localhost:5432/lennys_bakery
+    username: loki
+  jpa:
+    hibernate:
+      ddl-auto: create
