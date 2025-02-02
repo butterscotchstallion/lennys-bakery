@@ -1,0 +1,2 @@
+INSERT INTO inventory_items(price, name, short_description, description) VALUES('3.50', 'Peanut Butter Delight', 'Made with all natural peanut butter', 'Our favorite treat');
+INSERT INTO inventory_items(price, name, short_description, description) VALUES('2.00', 'Apple Fritter', 'Packed with real apples', 'The most appley apple treat');

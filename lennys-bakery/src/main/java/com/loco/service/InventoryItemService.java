@@ -1,11 +1,9 @@
 package com.loco.service;
 
-import com.loco.model.InventoryItem;
-
+import com.loco.model.InventoryItems;
+import com.loco.repository.InventoryItemRepository;
 import java.util.List;
 import java.util.Optional;
-
-import com.loco.repository.InventoryItemRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,15 +14,15 @@ public class InventoryItemService {
         this.inventoryItemRepository = inventoryItemRepository;
     }
 
-    public List<InventoryItem> getAllInventoryItems() {
+    public List<InventoryItems> getAllInventoryItems() {
         return inventoryItemRepository.findAll();
     }
 
-    public Optional<InventoryItem> getInventoryItemById(Long id) {
+    public Optional<InventoryItems> getInventoryItemById(Long id) {
         return inventoryItemRepository.findById(id);
     }
 
-    public InventoryItem saveInventoryItem(InventoryItem inventoryItem) {
+    public InventoryItems saveInventoryItem(InventoryItems inventoryItem) {
         return inventoryItemRepository.save(inventoryItem);
     }
 
