@@ -20,10 +20,10 @@ import jakarta.validation.constraints.NotNull;
 @NoArgsConstructor
 public class InventoryItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inventory_item_id_gen")
     @SequenceGenerator(name = "inventory_item_id_gen", sequenceName = "inventory_item_id_seq")
-    @Column(name = "id", nullable = false)
-    private long id;
+    @Column(name = "id", nullable = false, columnDefinition = "serial")
+    private Long id;
 
     @Size(max = 200)
     @Column(name = "name", nullable = false)
