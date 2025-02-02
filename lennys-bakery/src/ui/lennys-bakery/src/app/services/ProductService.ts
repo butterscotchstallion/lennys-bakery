@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Observable, Subscriber} from 'rxjs';
+import {IProduct} from '../models/IProduct';
+import {getApiUrl} from './ApiService';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private readonly apiUrl = '/api/v1/inventory';
+  private readonly apiUrl = getApiUrl('inventory');
 
   constructor() {}
 
@@ -14,15 +16,15 @@ export class ProductService {
    * @returns Observable<IProduct[]> - An observable of the product list.
    */
   getProducts(): Observable<IProduct[]> {
-    return new Observable((observer) => {
+    return new Observable((observer: Subscriber<IProduct[]>) => {
       fetch(this.apiUrl)
-        .then((response) => {
+        .then((response: Response): Promise<IProduct[]> => {
           if (!response.ok) {
             throw new Error(`Failed to fetch products: ${response.status} ${response.statusText}`);
           }
           return response.json(); // Convert the response to JSON
         })
-        .then((data) => {
+        .then((data: IProduct[]) => {
           observer.next(data); // Emit the product data
           observer.complete(); // Complete the observable
         })

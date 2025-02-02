@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  templateUrl: './productCardComponent.html',
+  styleUrls: ['./productCardStyles.css']
 })
 export class ProductComponent {
   @Input() productName: string = '';

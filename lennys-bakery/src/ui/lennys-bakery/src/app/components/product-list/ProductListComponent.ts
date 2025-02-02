@@ -1,18 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable, catchError, of } from 'rxjs';
 import {ProductService} from '../../services/ProductService';
-import {Observable} from 'rxjs';
+import {IProduct} from '../../models/IProduct';
+import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {ProductComponent} from '../product/ProductComponent';
 
 @Component({
   selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  templateUrl: './ProductListComponent.html',
+  styleUrls: [],
+  imports: [
+    NgIf,
+    NgForOf,
+    ProductComponent,
+    AsyncPipe
+  ]
 })
-export class ProductListComponent {
-  products: Observable<IProduct[]> = [];
-
-  ngOnInit() {
-    this.products = this.productService.getProducts();
-  }
+export class ProductListComponent implements OnInit {
+  products$: Observable<IProduct[]> = of([]);
+  error: string | null = null;
 
   constructor(private productService: ProductService) {}
+
+  ngOnInit() {
+    this.fetchProducts();
+  }
+
+  fetchProducts() {
+    this.products$ = this.productService.getProducts().pipe(
+      catchError((err) => {
+        console.error('Error fetching products:', err);
+        this.error = 'Failed to load products. Please try again later.';
+        return of([]); // Return an observable with an empty array if there's an error
+      })
+    );
+  }
 }
