@@ -14,12 +14,12 @@ public class InventoryItemService {
         this.inventoryItemRepository = inventoryItemRepository;
     }
 
-    public List<InventoryItems> getAllInventoryItems() {
-        return inventoryItemRepository.findAll();
+    public InventoryItems getInventoryItemBySlug(String slug) {
+        return inventoryItemRepository.findBySlug(slug);
     }
 
-    public Optional<InventoryItems> getInventoryItemById(Long id) {
-        return inventoryItemRepository.findById(id);
+    public List<InventoryItems> getAllInventoryItems() {
+        return inventoryItemRepository.findAll();
     }
 
     public InventoryItems saveInventoryItem(InventoryItems inventoryItem) {

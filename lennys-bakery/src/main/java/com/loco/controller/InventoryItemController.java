@@ -5,6 +5,7 @@ import com.loco.service.InventoryItemService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +22,11 @@ public class InventoryItemController {
     public ResponseEntity<List<InventoryItems>> inventoryList() {
         List<InventoryItems> inventoryItemList = this.inventoryItemService.getAllInventoryItems();
         return ResponseEntity.ok(inventoryItemList);
+    }
+
+    @GetMapping("/{slug}")
+    public ResponseEntity<InventoryItems> inventoryItemBySlug(@PathVariable String slug) {
+        InventoryItems inventoryItem = this.inventoryItemService.getInventoryItemBySlug(slug);
+        return ResponseEntity.ok(inventoryItem);
     }
 }

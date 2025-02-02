@@ -25,18 +25,24 @@ public class InventoryItems {
     @Column(name = "id", nullable = false, columnDefinition = "serial")
     private Long id;
 
+    @NotNull
     @Size(max = 25)
-    @Column(name = "slug", nullable = true, unique = true)
+    @Column(name = "slug", nullable = false, unique = true)
     private String slug;
 
     @Size(max = 200)
+    @NotNull
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Size(max = 200) @Column(name = "short_description", nullable = false)
+    @NotNull
+    @Size(max = 200)
+    @Column(name = "short_description", nullable = false)
     private String shortDescription;
 
-    @Size(max = 1000) @Column(name = "description", nullable = false)
+    @NotNull
+    @Size(max = 1000)
+    @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "price", nullable = false)
