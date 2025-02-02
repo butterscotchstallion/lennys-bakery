@@ -1,5 +1,6 @@
 package com.loco.model;
 
+import com.loco.service.UrlSafeStringGenerator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,7 +25,12 @@ public class InventoryItems {
     @Column(name = "id", nullable = false, columnDefinition = "serial")
     private Long id;
 
-    @Size(max = 200) @Column(name = "name", nullable = false)
+    @Size(max = 25)
+    @Column(name = "slug", nullable = true, unique = true)
+    private String slug;
+
+    @Size(max = 200)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Size(max = 200) @Column(name = "short_description", nullable = false)
@@ -57,6 +63,7 @@ public class InventoryItems {
         this.shortDescription = shortDescription;
         this.price = price;
         this.imageFilename = imageFilename;
+        this.slug = UrlSafeStringGenerator.generateUrlSafeString(name);
     }
 
     @Override
