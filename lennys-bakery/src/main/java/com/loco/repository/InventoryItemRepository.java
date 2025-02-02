@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InventoryItemRepository extends PagingAndSortingRepository<InventoryItems, Long> {
     InventoryItems findBySlug(String slug);
+    void save(InventoryItems inventoryItem);
 }

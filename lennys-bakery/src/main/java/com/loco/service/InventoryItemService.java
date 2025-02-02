@@ -22,4 +22,8 @@ public class InventoryItemService {
         return (List<InventoryItems>)
                 inventoryItemRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
+
+    public void saveInventoryItem(InventoryItems inventoryItem) {
+        inventoryItemRepository.save(inventoryItem);
+    }
 }
