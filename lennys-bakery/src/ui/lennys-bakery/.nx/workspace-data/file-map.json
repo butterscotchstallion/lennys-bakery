@@ -1,0 +1,198 @@
+{
+  "version": "6.0",
+  "nxVersion": "20.4.0",
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {
+      "lennys-bakery": [
+        {
+          "file": ".editorconfig",
+          "hash": "8037249353422744134"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "10175894702052279752"
+        },
+        {
+          "file": "README.md",
+          "hash": "492957003350607444"
+        },
+        {
+          "file": "angular.json",
+          "hash": "12886705827079452899"
+        },
+        {
+          "file": "package-lock.json",
+          "hash": "3178176338701095491"
+        },
+        {
+          "file": "package.json",
+          "hash": "7497527210842202523",
+          "deps": [
+            "npm:@angular-devkit/build-angular",
+            "npm:@angular-devkit/core",
+            "npm:@angular-devkit/schematics",
+            "npm:@angular/cli",
+            "npm:@angular/compiler-cli",
+            "npm:@nx/angular",
+            "npm:@nx/workspace",
+            "npm:@schematics/angular",
+            "npm:@types/jasmine",
+            "npm:jasmine-core",
+            "npm:karma",
+            "npm:karma-chrome-launcher",
+            "npm:karma-coverage",
+            "npm:karma-jasmine",
+            "npm:karma-jasmine-html-reporter",
+            "npm:nx",
+            "npm:typescript",
+            "npm:@angular/animations",
+            "npm:@angular/common",
+            "npm:@angular/compiler",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/platform-browser",
+            "npm:@angular/platform-browser-dynamic",
+            "npm:@angular/router",
+            "npm:@tailwindcss/postcss",
+            "npm:autoprefixer",
+            "npm:postcss",
+            "npm:postcss-import",
+            "npm:rxjs",
+            "npm:tailwindcss",
+            "npm:tslib",
+            "npm:zone.js"
+          ]
+        },
+        {
+          "file": "public/favicon.ico",
+          "hash": "3988961587069885523"
+        },
+        {
+          "file": "src/.postcssrc.json",
+          "hash": "9861171742520747497"
+        },
+        {
+          "file": "src/app/app.component.html",
+          "hash": "6222136697924508413"
+        },
+        {
+          "file": "src/app/app.component.scss",
+          "hash": "15036214574332298676"
+        },
+        {
+          "file": "src/app/app.component.spec.ts",
+          "hash": "14968584153767014469",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "src/app/app.component.ts",
+          "hash": "17558505907116545193",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "src/app/app.config.ts",
+          "hash": "16561019206697382666",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "src/app/app.routes.ts",
+          "hash": "15805362740956526214",
+          "deps": [
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "src/app/components/product-list/ProductListComponent.html",
+          "hash": "2458319737731173275"
+        },
+        {
+          "file": "src/app/components/product-list/ProductListComponent.ts",
+          "hash": "642814589951706242",
+          "deps": [
+            "npm:@angular/core",
+            "npm:rxjs",
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "src/app/components/product/ProductComponent.ts",
+          "hash": "8719480820683694153",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "src/app/components/product/productCardComponent.html",
+          "hash": "4104934050913432415"
+        },
+        {
+          "file": "src/app/components/product/productCardStyles.css",
+          "hash": "15803628558036259399"
+        },
+        {
+          "file": "src/app/models/IProduct.ts",
+          "hash": "10169586414322815528"
+        },
+        {
+          "file": "src/app/services/ApiService.ts",
+          "hash": "11049373772309875675"
+        },
+        {
+          "file": "src/app/services/ProductService.ts",
+          "hash": "9303783678884341852",
+          "deps": [
+            "npm:@angular/core",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "src/index.html",
+          "hash": "7146565919322472282"
+        },
+        {
+          "file": "src/main.ts",
+          "hash": "4169901790405087765",
+          "deps": [
+            "npm:@angular/platform-browser"
+          ]
+        },
+        {
+          "file": "src/styles.css",
+          "hash": "3391553823493686170"
+        },
+        {
+          "file": "src/tailwind.config.js",
+          "hash": "11943684466126553661",
+          "deps": [
+            "npm:postcss-import",
+            "npm:tailwindcss",
+            "npm:autoprefixer"
+          ]
+        },
+        {
+          "file": "tsconfig.app.json",
+          "hash": "14560978611694835822"
+        },
+        {
+          "file": "tsconfig.json",
+          "hash": "5540552589929968073"
+        },
+        {
+          "file": "tsconfig.spec.json",
+          "hash": "11023685540591620072"
+        }
+      ]
+    },
+    "nonProjectFiles": []
+  }
+}
