@@ -27,12 +27,14 @@ export class ProductListComponent implements OnInit {
   }
 
   fetchProducts() {
-    this.products$ = this.productService.getProducts().pipe(
-      catchError((err) => {
-        console.error('Error fetching products:', err);
-        this.error = 'Failed to load products. Please try again later.';
-        return of([]); // Return an observable with an empty array if there's an error
-      })
+    this.products$ = this.productService.getProducts()
+      .pipe(
+        catchError((err) => {
+          console.error('Error fetching products:', err);
+          this.error = 'Failed to load products. Please try again later.';
+          return of([]); // Return an observable with an empty array if there's an error
+        }
+      )
     );
   }
 }
