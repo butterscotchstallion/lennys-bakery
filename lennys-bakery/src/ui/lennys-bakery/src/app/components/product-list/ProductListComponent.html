@@ -9,7 +9,7 @@
   <div *ngIf="error" class="text-red-500 text-center mt-4">Error fetching products: {{ error }}</div>
 
   <!-- Products Grid -->
-  <div *ngIf="products$ | async as products" class="flex flex-wrap items-center">
+  <div *ngIf="products$ | async as products" class="product-list flex flex-wrap items-center">
     <app-product
       *ngFor="let product of products"
       [productName]="product.name"
