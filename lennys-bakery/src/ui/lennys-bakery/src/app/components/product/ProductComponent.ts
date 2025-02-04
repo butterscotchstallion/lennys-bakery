@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
+import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-product',
   templateUrl: './productCardComponent.html',
   imports: [
-    NgOptimizedImage
+    NgOptimizedImage,
+    Button
   ],
   styleUrls: ['./productCardStyles.css']
 })
