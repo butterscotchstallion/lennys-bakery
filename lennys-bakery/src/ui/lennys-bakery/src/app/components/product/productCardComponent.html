@@ -1,9 +1,9 @@
 <div class="product-image">
   <img ngSrc="/images/dog-treat.png" priority alt="{{productDescription}}" height="202" width="300"/>
 </div>
-<div class="product-card bg-[var(--color-card-background)] p-4">
-  <h2 class="font-bold text-white">{{ productName }}</h2>
-  <p class="product-description mb-4">{{ productDescription }}</p>
+<div class="product-card bg-[var(--color-card-background)] p-4 text-center">
+  <h2 class="font-bold text-white mt-0">{{ productName }}</h2>
+  <p class="mb-4 text-[var(--color-secondary)]">{{ productDescription }}</p>
 
   <div class="mt-4 flex justify-between">
     <div class="product-price text-green-500 font-bold">${{ productPrice.toFixed(2) }}</div>

@@ -1,3 +1,5 @@
+@use "tailwindcss";
+
 // App styles
 @use "../app/app.component";
 @use "../app/components/product-list/productList";
@@ -5,4 +7,4 @@
 // Themes
 @use "themes/orchid";
 
-@import "tailwindcss";
+
