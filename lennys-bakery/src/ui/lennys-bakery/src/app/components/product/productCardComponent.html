@@ -1,12 +1,12 @@
 <div class="product-image">
   <img ngSrc="/images/dog-treat.png" priority alt="{{productDescription}}" height="202" width="300"/>
 </div>
-<div class="product-card bg-white">
-  <h2 class="product-name font-bold">{{ productName }}</h2>
+<div class="product-card bg-[var(--color-card-background)] p-4">
+  <h2 class="font-bold text-white">{{ productName }}</h2>
   <p class="product-description mb-4">{{ productDescription }}</p>
 
   <div class="mt-4 flex justify-between">
-    <div class="product-price font-bold">${{ productPrice.toFixed(2) }}</div>
+    <div class="product-price text-green-500 font-bold">${{ productPrice.toFixed(2) }}</div>
 
     <p-button label="Add to Cart" class="product-button"></p-button>
   </div>

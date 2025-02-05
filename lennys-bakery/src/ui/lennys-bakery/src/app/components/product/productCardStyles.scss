@@ -1,7 +1,4 @@
 .product-card {
-  /*border: 1px solid #ccc;
-  border-top: 0;
-  border-radius: 0 0 8px 8px;*/
   padding: 16px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -9,17 +6,12 @@
 }
 
 .product-image {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  width: 300px;
+  object-fit: cover;
 }
 
 .product-card h2 {
   margin-top: 0;
-  color: #333;
-}
-
-.product-description {
-  color: #777;
-}
-
-.product-price {
-  color: #008000;
 }

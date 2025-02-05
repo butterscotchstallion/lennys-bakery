@@ -9,7 +9,7 @@ import {Button} from 'primeng/button';
     NgOptimizedImage,
     Button
   ],
-  styleUrls: ['./productCardStyles.css']
+  styleUrls: ['./productCardStyles.scss']
 })
 export class ProductComponent {
   @Input() productName: string = '';
