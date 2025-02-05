@@ -1,8 +1,8 @@
-@use "../../node_modules/tailwindcss/dist/lib.d.mts";
-
 // App styles
 @use "../app/app.component";
 @use "../app/components/product-list/productList";
 @use "../app/components/product/productCardStyles";
 // Themes
 @use "themes/orchid";
+
+@import "tailwindcss";
