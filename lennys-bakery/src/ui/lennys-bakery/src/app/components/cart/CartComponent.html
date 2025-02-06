@@ -8,15 +8,15 @@
     <ng-template #header>
       <tr>
         <th>Name</th>
-        <th>Quantity</th>
         <th>Price</th>
+        <th>Quantity</th>
       </tr>
     </ng-template>
     <ng-template #body let-product>
       <tr>
-        <td>{{ product.name }}</td>
-        <td>{{ product.quantity }}</td>
+        <td><a href="#">{{ product.name }}</a></td>
         <td>${{ product.price.toFixed(2) }}</td>
+        <td>{{ product.quantity }}</td>
       </tr>
     </ng-template>
   </p-table>
