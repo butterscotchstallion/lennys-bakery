@@ -36,8 +36,7 @@ public class CartItems {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @NonNull
-    @OneToOne(mappedBy = "id", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private Users userId;
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "users_id", nullable = false)
+    private Users user;
 }
