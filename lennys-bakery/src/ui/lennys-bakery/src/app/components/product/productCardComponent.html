@@ -11,10 +11,14 @@
         ${{ productPrice.toFixed(2) }}
       </div>
       <div>
-        <fa-icon [icon]="faComments"></fa-icon> 5 Reviews
+        <a href="#" class="text-[var(--color-secondary)]" title="View reviews">
+          <fa-icon [icon]="faComments"></fa-icon> {{ getRandomNumberOfReviews() }} Reviews
+        </a>
       </div>
     </div>
 
-    <p-button label="Add to Cart" class="product-button"></p-button>
+    <p-button label="Add to Cart" class="product-button" styleClass="bg-[var(--color-secondary)]">
+      <fa-icon [icon]="faCartPlus"></fa-icon>
+    </p-button>
   </div>
 </div>

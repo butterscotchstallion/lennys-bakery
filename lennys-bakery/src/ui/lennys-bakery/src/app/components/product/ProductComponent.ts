@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {Button} from 'primeng/button';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import { faComments } from '@fortawesome/free-solid-svg-icons';
+import { faComments, faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-product',
@@ -22,4 +22,10 @@ export class ProductComponent {
   constructor() {}
 
   protected readonly faComments = faComments;
+
+  getRandomNumberOfReviews() {
+    return ~~(Math.random() * 50) + 1;
+  }
+
+  protected readonly faCartPlus = faCartPlus;
 }
