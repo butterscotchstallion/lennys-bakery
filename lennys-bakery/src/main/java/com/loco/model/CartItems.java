@@ -23,7 +23,7 @@ public class CartItems {
 
     @OneToOne
     @JoinColumn(name = "inventory_item_id", referencedColumnName = "id", nullable = false)
-    private InventoryItems inventoryItemId;
+    private InventoryItems inventoryItem;
 
     @NonNull
     @Column(name = "quantity", nullable = false)

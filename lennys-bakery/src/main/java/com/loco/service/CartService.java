@@ -20,11 +20,11 @@ public class CartService {
         this.usersRepository = usersRepository;
     }
 
-    public List<CartItems> getCartItemsByUserId(Long userId) {
+    public List<CartItems> getCartItemsByUserId(long userId) {
         Users cartOwnerUser = usersRepository.getUsersById(userId);
         if (cartOwnerUser == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
-        return this.cartItemRepository.getCartItemsByUserId(cartOwnerUser);
+        return this.cartItemRepository.getCartItemsByUser(cartOwnerUser);
     }
 }

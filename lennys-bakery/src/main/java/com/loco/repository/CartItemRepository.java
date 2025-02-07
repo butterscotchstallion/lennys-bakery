@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CartItemRepository extends CrudRepository<CartItems, Long> {
-    List<CartItems> getCartItemsByUserId(@NonNull Users users);
+    List<CartItems> getCartItemsByUser(@NonNull Users users);
 }

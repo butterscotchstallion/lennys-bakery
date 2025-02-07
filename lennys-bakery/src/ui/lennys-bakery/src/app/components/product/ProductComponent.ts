@@ -1,7 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { Button } from 'primeng/button';
-import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import {
+  FaIconComponent,
+  IconDefinition,
+} from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faComments } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -15,12 +18,8 @@ export class ProductComponent {
   @Input() productPrice: number = 0;
   @Input() productDescription: string = '';
   @Input() productNumReviews: number = 0;
-  protected readonly faComments = faComments;
-  protected readonly faCartPlus = faCartPlus;
+  protected readonly faComments: IconDefinition = faComments;
+  protected readonly faCartPlus: IconDefinition = faCartPlus;
 
   constructor() {}
-
-  getRandomNumberOfReviews() {
-    return ~~(Math.random() * 50) + 1;
-  }
 }
