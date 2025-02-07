@@ -3,6 +3,8 @@ package com.loco.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
@@ -27,13 +29,13 @@ public class CartItems {
     @Column(name = "quantity", nullable = false)
     private Integer quantity = 1;
 
-    @NonNull
-    @ColumnDefault("now()")
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @CreationTimestamp
     private Instant createdAt;
 
-    @NonNull
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
+    @UpdateTimestamp
     private Instant updatedAt;
 
     @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
