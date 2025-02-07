@@ -1,0 +1,17 @@
+:host ::ng-deep {
+  .p-button {
+    .p-badge {
+      font-size: .75rem;
+      min-width: 2rem;
+      height: 2rem;
+      line-height: 2rem;
+
+      // Make sure the badge scales properly
+      &.p-badge-value {
+        font-size: .75rem;
+        font-weight: bold;
+        padding: 0 0.5rem;
+      }
+    }
+  }
+}
