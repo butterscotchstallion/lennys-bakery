@@ -5,4 +5,5 @@ export interface IProduct {
   description: string;
   shortDescription: string;
   slug: string;
+  numReviews: number;
 }

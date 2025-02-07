@@ -11,9 +11,10 @@
 <div *ngIf="products$ | async as products" class="product-list flex flex-wrap items-center">
   <app-product
     *ngFor="let product of products"
-    [productName]="product.name"
-    [productPrice]="product.price"
     [productDescription]="product.description"
+    [productName]="product.name"
+    [productNumReviews]="product.numReviews"
+    [productPrice]="product.price"
     class="flex-shrink-0"
   ></app-product>
 </div>
