@@ -4,7 +4,7 @@
 </p-button>
 
 <ng-container *ngIf="cartItems$ | async as cartItems; else loading">
-  <p-drawer [(visible)]="cartDrawerVisible" header="Cart" position="right">
+  <p-drawer [(visible)]="cartDrawerVisible" header="Cart" position="right" styleClass="!w-[28rem]">
     <p-table [value]="cartItems">
       <ng-template #header>
         <tr>

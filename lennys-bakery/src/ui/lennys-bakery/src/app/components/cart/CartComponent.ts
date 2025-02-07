@@ -26,6 +26,7 @@ import { ProgressSpinner } from 'primeng/progressspinner';
     CommonModule,
     ProgressSpinner,
   ],
+  styleUrls: ['CartComponent.scss'],
 })
 export class CartComponent implements OnInit {
   cartDrawerVisible = false;
