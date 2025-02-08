@@ -8,7 +8,7 @@ import {
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Drawer } from 'primeng/drawer';
 import { TableModule } from 'primeng/table';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { ICart } from '../../models/ICart';
 import { CartService } from '../../services/CartService';
 import { CommonModule } from '@angular/common';
@@ -29,6 +29,7 @@ import { ProgressSpinner } from 'primeng/progressspinner';
   styleUrls: ['CartComponent.scss'],
 })
 export class CartComponent implements OnInit {
+  cartSubtotal: number = 0;
   cartDrawerVisible = false;
   cartItems$: Observable<ICart[]> = of([]);
   error: string | null = null;
@@ -42,6 +43,13 @@ export class CartComponent implements OnInit {
 
   fetchCart() {
     this.cartItems$ = this.cartService.getUserCart().pipe(
+      map((cartItems: ICart[]) => {
+        this.cartSubtotal = cartItems.reduce(
+          (acc, item) => acc + item.inventoryItem.price * item.quantity,
+          0,
+        );
+        return cartItems;
+      }),
       catchError((err) => {
         console.error('Error fetching products:', err);
         this.error = 'Failed to load products. Please try again later.';
