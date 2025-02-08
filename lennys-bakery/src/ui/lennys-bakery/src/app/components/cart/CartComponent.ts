@@ -45,7 +45,8 @@ export class CartComponent implements OnInit {
     this.cartItems$ = this.cartService.getUserCart().pipe(
       map((cartItems: ICart[]) => {
         this.cartSubtotal = cartItems.reduce(
-          (acc, item) => acc + item.inventoryItem.price * item.quantity,
+          (acc: number, item: ICart) =>
+            acc + item.inventoryItem.price * item.quantity,
           0,
         );
         return cartItems;

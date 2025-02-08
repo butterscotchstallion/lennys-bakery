@@ -1,24 +1,30 @@
 <div class="product-image">
-  <img alt="{{productDescription}}" height="202" ngSrc="/images/dog-treat.png" priority width="300"/>
+  <img alt="{{product.description}}" height="202" ngSrc="/images/dog-treat.png" priority width="300"/>
 </div>
 <div class="product-card bg-[var(--color-card-background)] p-4 text-center text-white">
-  <h2 class="font-bold text-white mt-0">{{ productName }}</h2>
-  <p class="mb-4 text-[var(--color-secondary)]">{{ productDescription }}</p>
+  <h2 class="font-bold text-white mt-0">{{ product.name }}</h2>
+  <p class="mb-4 text-[var(--color-secondary)]">{{ product.description }}</p>
 
   <div class="mt-4 flex justify-between">
     <div class="text-left">
       <div class="product-price text-green-500 font-bold">
-        ${{ productPrice.toFixed(2) }}
+        ${{ product.price.toFixed(2) }}
       </div>
       <div>
         <a class="text-[var(--color-secondary)]" href="#" title="View reviews">
           <fa-icon [icon]="faComments"></fa-icon>
-          {{ productNumReviews }} Reviews
+          {{ product.numReviews }} Reviews
         </a>
       </div>
     </div>
 
-    <p-button class="product-button" label="Add to Cart" styleClass="bg-[var(--color-secondary)]">
+    <p-button
+      [disabled]="isLoading"
+      class="product-button"
+      label="Add to Cart"
+      onClick="addToCart(product)"
+      styleClass="bg-[var(--color-secondary)]"
+    >
       <fa-icon [icon]="faCartPlus"></fa-icon>
     </p-button>
   </div>

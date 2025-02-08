@@ -2,9 +2,10 @@ package com.loco.service;
 
 import com.loco.model.InventoryItems;
 import com.loco.repository.InventoryItemRepository;
-import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class InventoryItemService {
@@ -12,6 +13,10 @@ public class InventoryItemService {
 
     public InventoryItemService(InventoryItemRepository inventoryItemRepository) {
         this.inventoryItemRepository = inventoryItemRepository;
+    }
+
+    public InventoryItems getInventoryItemById(long id) {
+        return this.inventoryItemRepository.getInventoryItemById(id);
     }
 
     public InventoryItems getInventoryItemBySlug(String slug) {

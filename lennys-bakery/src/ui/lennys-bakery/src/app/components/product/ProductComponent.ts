@@ -6,20 +6,56 @@ import {
   IconDefinition,
 } from '@fortawesome/angular-fontawesome';
 import { faCartPlus, faComments } from '@fortawesome/free-solid-svg-icons';
+import { IProduct } from '../../models/IProduct';
+import { CartService } from '../../services/CartService';
+import { IAddToCartItem } from '../../models/IAddToCartItem';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-product',
   templateUrl: './productCardComponent.html',
-  imports: [NgOptimizedImage, Button, FaIconComponent],
+  imports: [NgOptimizedImage, Button, FaIconComponent, ToastModule],
+  providers: [MessageService],
   styleUrls: ['./productCardStyles.scss'],
 })
 export class ProductComponent {
-  @Input() productName: string = '';
-  @Input() productPrice: number = 0;
-  @Input() productDescription: string = '';
-  @Input() productNumReviews: number = 0;
+  @Input() product: IProduct;
+  isLoading = false;
   protected readonly faComments: IconDefinition = faComments;
   protected readonly faCartPlus: IconDefinition = faCartPlus;
 
-  constructor() {}
+  constructor(
+    private cartService: CartService,
+    private messageService: MessageService,
+  ) {}
+
+  addToCart(product: IProduct) {
+    this.isLoading = true;
+    const cartItem: IAddToCartItem = {
+      inventoryItem: {
+        id: product.id,
+      },
+      quantity: 1,
+    };
+    this.cartService
+      .addItemToCart(cartItem)
+      .then(() => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Item added to cart',
+        });
+      })
+      .catch((err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to add item to cart',
+        });
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
+  }
 }
