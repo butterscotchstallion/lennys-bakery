@@ -12,11 +12,24 @@
 <!-- Products Grid -->
 <div class="flex justify-between">
     <menu class="w-[30rem]">
+        <div class="mb-4">
+            <p-checkbox
+                [binary]="true"
+                id="product-filter-rapid-ship"
+                inputId="product-filter-rapid-ship"
+            />
+            <label class="pl-1 cursor-pointer" for="product-filter-rapid-ship">
+                <i class="pi pi-bolt"></i>
+                Rapid Ship&trade;
+            </label>
+        </div>
+
         <h3 class="text-lg font-bold">Categories</h3>
         <ul>
             @for (option of filterOptions; track option.id) {
                 <li class="pb-1">
                     <p-checkbox [binary]="true"
+                                id="product-filter-{{option.id}}"
                                 inputId="product-filter-{{option.id}}"/>
                     <label class="pl-1 cursor-pointer" for="product-filter-{{option.id}}">
                         {{ option.label }}

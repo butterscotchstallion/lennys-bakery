@@ -1,22 +1,44 @@
 <header class="bg-[var(--color-header)] p-4">
-  <div class="flex justify-between">
-    <div>
-      <h1 class="text-3xl font-bold text-white">Lenny's Bakery</h1>
-    </div>
+    <div class="flex">
+        <div class="flex">
+            <div class="w-[14rem]">
+                <h1 class="text-3xl font-bold text-white">Lenny's Bakery</h1>
+            </div>
 
-    <div class="pr-4 text-lg">
-      <div class="flex justify-between">
-        <app-cart/>
-        <app-user-menu/>
-      </div>
+            <div class="flex pl-10 pr-4 justify-items-center w-[20rem]">
+                <i class="pi pr-2 text-xl pi-map-marker content-center"></i>
+                Deliver to John
+                <br/>
+                Austin, TX 12345
+            </div>
+        </div>
+
+        <div class="flex justify-between items-center w-full">
+            <div class="flex gap-2">
+                <input
+                    class="w-[30rem] h-[3rem]"
+                    maxlength="25"
+                    minlength="3"
+                    pInputText
+                    placeholder="Search Gourmet Tasty Treats"
+                    type="text"
+                />
+            </div>
+
+            <div class="pr-4 text-lg">
+                <div class="flex justify-between">
+                    <app-cart/>
+                    <app-user-menu/>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 
 <main class="main bg-[var(--color-background)] pb-10">
-  <div class="container mx-auto">
-    <router-outlet/>
-  </div>
+    <div class="container mx-auto">
+        <router-outlet/>
+    </div>
 </main>
 
 <p-toast position="top-right"></p-toast>
