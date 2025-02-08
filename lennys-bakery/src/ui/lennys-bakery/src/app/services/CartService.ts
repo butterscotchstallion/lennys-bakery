@@ -1,6 +1,6 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { getApiUrl } from './ApiService';
-import { debounceTime, Observable, Subject, Subscriber } from 'rxjs';
+import { debounceTime, Subject } from 'rxjs';
 import { ICart } from '../models/ICart';
 import { IAddToCartItem } from '../models/IAddToCartItem';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -57,28 +57,30 @@ export class CartService {
 
   /**
    * Fetch current user's cart
-   * @returns Observable<ICart[]> - An observable of the product list.
+   * @returns Subject<ICart[]> - An observable of the product list.
    */
-  getUserCart(): Observable<ICart[]> {
-    return new Observable((observer: Subscriber<ICart[]>) => {
-      fetch(this.apiUrl)
-        .then((response: Response): Promise<ICart[]> => {
-          if (!response.ok) {
-            throw new Error(
-              `Failed to fetch user cart: ${response.status} ${response.statusText}`,
-            );
-          }
-          return response.json();
-        })
-        .then((cart: ICart[]) => {
-          this.cartUpdates$.next(cart);
-          this.cartMapUpdates$.next(this.getProductMapFromCart(cart));
-          observer.next(cart);
-          observer.complete();
-        })
-        .catch((error) => {
-          observer.error(error);
-        });
-    });
+  getUserCart(): Subject<ICart[]> {
+    const subject = new Subject<ICart[]>();
+
+    fetch(this.apiUrl)
+      .then((response: Response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch user cart: ${response.status} ${response.statusText}`,
+          );
+        }
+        return response.json();
+      })
+      .then((cart: ICart[]) => {
+        this.cartUpdates$.next(cart);
+        this.cartMapUpdates$.next(this.getProductMapFromCart(cart));
+        subject.next(cart);
+        subject.complete();
+      })
+      .catch((error) => {
+        subject.error(error);
+      });
+
+    return subject;
   }
 }
