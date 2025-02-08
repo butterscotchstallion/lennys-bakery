@@ -36,19 +36,20 @@ export class ProductComponent {
     };
     this.cartService
       .addItemToCart(cartItem)
-      .then(() => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Item added to cart',
-        });
-      })
-      .catch((err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Failed to add item to cart',
-        });
+      .then((response: Response) => {
+        if (response.ok) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Item added to cart',
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to add item to cart',
+          });
+        }
       })
       .finally(() => {
         this.isLoading = false;
