@@ -12,6 +12,7 @@ export class UserMenuComponent implements OnInit {
   userMenuVisible = false;
   userMenuItems = [
     { label: 'Profile', icon: 'pi pi-fw pi-user' },
+    { label: 'Settings', icon: 'pi pi-fw pi-cog' },
     { label: 'Logout', icon: 'pi pi-fw pi-power-off' },
   ];
   protected readonly faUser = faUser;
