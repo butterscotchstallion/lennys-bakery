@@ -9,14 +9,12 @@ import { faCartPlus, faComments } from '@fortawesome/free-solid-svg-icons';
 import { IProduct } from '../../models/IProduct';
 import { CartService } from '../../services/CartService';
 import { IAddToCartItem } from '../../models/IAddToCartItem';
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-product',
   templateUrl: './productCardComponent.html',
-  imports: [NgOptimizedImage, Button, FaIconComponent, ToastModule],
-  providers: [MessageService],
+  imports: [NgOptimizedImage, Button, FaIconComponent],
   styleUrls: ['./productCardStyles.scss'],
 })
 export class ProductComponent {
