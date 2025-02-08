@@ -20,9 +20,11 @@
 
     <p-button
       (onClick)="addToCart(product)"
+      [badge]="getCartQuantity(product.id)"
       [disabled]="isLoading"
+      [ngClass]="{ 'disabled': isLoading}"
       class="product-button"
-      label="Add to Cart"
+      label="Add"
       styleClass="bg-[var(--color-secondary)]"
     >
       <fa-icon [icon]="faCartPlus"></fa-icon>
