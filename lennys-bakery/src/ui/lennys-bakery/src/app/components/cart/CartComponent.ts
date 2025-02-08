@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MessageService } from 'primeng/api';
+import { Select } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
@@ -27,6 +29,8 @@ import { MessageService } from 'primeng/api';
     TableModule,
     CommonModule,
     ProgressSpinner,
+    Select,
+    FormsModule,
   ],
   styleUrls: ['CartComponent.scss'],
 })
@@ -35,6 +39,7 @@ export class CartComponent implements OnInit {
   cartDrawerVisible = false;
   cartItems$: Subject<ICart[]> = new Subject();
   error: string | null = null;
+  quantityOptions: any[] = [];
   protected readonly faShoppingCart: IconDefinition = faShoppingCart;
   private destroyRef: DestroyRef = inject(DestroyRef);
 
@@ -51,6 +56,10 @@ export class CartComponent implements OnInit {
         this.cartItems$.next(cart);
         this.recalculateSubtotal(cart);
       });
+    this.quantityOptions = Array.from({ length: 50 }, (_, i) => ({
+      label: String(i + 1),
+      value: i + 1,
+    }));
   }
 
   recalculateSubtotal(cartItems: ICart[]) {
