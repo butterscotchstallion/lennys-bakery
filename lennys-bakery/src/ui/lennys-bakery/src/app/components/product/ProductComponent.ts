@@ -33,9 +33,7 @@ export class ProductComponent {
   addToCart(product: IProduct) {
     this.isLoading = true;
     const cartItem: IAddToCartItem = {
-      inventoryItem: {
-        id: product.id,
-      },
+      inventoryItemId: product.id,
       quantity: 1,
     };
     this.cartService

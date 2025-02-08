@@ -1,6 +1,4 @@
 export interface IAddToCartItem {
-  inventoryItem: {
-    id: number;
-  };
+  inventoryItemId: number;
   quantity: number;
 }

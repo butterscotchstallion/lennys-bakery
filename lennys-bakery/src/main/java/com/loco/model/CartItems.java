@@ -14,6 +14,7 @@ import java.time.Instant;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@ToString
 public class CartItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "cart_items_sequence_gen")

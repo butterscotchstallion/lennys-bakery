@@ -7,10 +7,13 @@ import {
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { CartComponent } from './components/cart/CartComponent';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FontAwesomeModule, CartComponent],
+  imports: [RouterOutlet, FontAwesomeModule, CartComponent, ToastModule],
+  providers: [MessageService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

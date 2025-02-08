@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/cart")
 public class CartItemsController {
+    private final static org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(CartItemsController.class);
     private final ModelMapper modelMapper;
     private final CartItemsService cartItemsService;
     private final UserService userService;
@@ -35,15 +36,20 @@ public class CartItemsController {
     @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     @Valid
     public ResponseEntity<Object> addItemToCart(@RequestBody AddCartItemRequestDto cartItemRequestDto) {
-        CartItems cartItem = this.modelMapper.map(cartItemRequestDto, CartItems.class);
-        this.cartItemsService.addItemToCart(
-                cartItem.getInventoryItem().getId(),
-                this.userService.getUserIdFromSession(),
-                cartItemRequestDto.getQuantity()
-        );
-        HashMap<String, String> response = new HashMap<>();
-        response.put("status", "OK");
-        response.put("message", "Item added to cart");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        //CartItems cartItem = this.modelMapper.map(cartItemRequestDto, CartItems.class);
+        try {
+            this.cartItemsService.addItemToCart(
+                    cartItemRequestDto.getInventoryItemId(),
+                    this.userService.getUserIdFromSession(),
+                    cartItemRequestDto.getQuantity()
+            );
+            HashMap<String, String> response = new HashMap<>();
+            response.put("status", "OK");
+            response.put("message", "Item added to cart");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Error adding new cart item: {}", e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
