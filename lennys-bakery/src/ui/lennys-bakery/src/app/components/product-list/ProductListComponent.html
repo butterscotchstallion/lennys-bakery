@@ -1,5 +1,5 @@
 <div class="flex justify-between pr-[6rem] mt-3">
-    <h1 class="text-2xl font-bold my-4 text-[var(--color-secondary)]">Gourmet Baked Goods</h1>
+    <h1 class="text-2xl font-bold my-4 text-[var(--color-secondary)]">Gourmet Tasty Treats</h1>
     <p-select
         [(ngModel)]="sortOrder"
         [options]="sortOptions"
@@ -15,7 +15,6 @@
         <div class="mb-4">
             <p-checkbox
                 [binary]="true"
-                id="product-filter-rapid-ship"
                 inputId="product-filter-rapid-ship"
             />
             <label class="pl-1 cursor-pointer" for="product-filter-rapid-ship">
@@ -29,7 +28,6 @@
             @for (option of filterOptions; track option.id) {
                 <li class="pb-1">
                     <p-checkbox [binary]="true"
-                                id="product-filter-{{option.id}}"
                                 inputId="product-filter-{{option.id}}"/>
                     <label class="pl-1 cursor-pointer" for="product-filter-{{option.id}}">
                         {{ option.label }}
