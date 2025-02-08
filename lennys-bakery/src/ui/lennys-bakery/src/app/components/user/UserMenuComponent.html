@@ -1,0 +1,8 @@
+<p-avatar (click)="menu.toggle($event)"
+          class="mr-2 ml-6 cursor-pointer"
+          image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+          shape="circle"
+          size="large"
+/>
+
+<p-menu #menu [model]="userMenuItems" [popup]="true"/>

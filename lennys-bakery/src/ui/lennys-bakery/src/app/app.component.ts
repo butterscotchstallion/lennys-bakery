@@ -9,10 +9,17 @@ import {
 import { CartComponent } from './components/cart/CartComponent';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { UserMenuComponent } from './components/user/UserComponent';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FontAwesomeModule, CartComponent, ToastModule],
+  imports: [
+    RouterOutlet,
+    FontAwesomeModule,
+    CartComponent,
+    ToastModule,
+    UserMenuComponent,
+  ],
   providers: [MessageService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

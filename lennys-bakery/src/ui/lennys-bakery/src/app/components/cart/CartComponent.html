@@ -26,9 +26,10 @@
             {{ cartItem.quantity }}
             <p-select
               [(ngModel)]="cartItem.quantity"
+              [ngModelOptions]="{standalone: true}"
               [options]="quantityOptions"
               class="w-full"
-              optionLabel="quantity"
+              optionLabel="label"
             >
               <ng-template #selectedItem let-selectedOption>
                 <div *ngIf="selectedOption" class="flex items-center gap-2">
