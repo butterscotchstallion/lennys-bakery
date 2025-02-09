@@ -1,0 +1,50 @@
+<h1 class="text-2xl font-bold my-4 text-[var(--color-secondary)]">Account</h1>
+
+<div class="flex text-white">
+    <menu class="w-[15rem] bg-[var(--color-card-background)] p-4 text-lg">
+        <app-user-profile-menu/>
+    </menu>
+
+    <main class="bg-[var(--color-tertiary)] p-4 w-[60rem]">
+        <form>
+            <div class="border-b border-gray-900/10 pb-12">
+                <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="col-span-full">
+                        <label class="block text-sm/6 font-medium text-slate-200" for="photo">Avatar</label>
+                        <div class="mt-2 flex items-center gap-x-3">
+                            <svg (click)="uploadAvatar()"
+                                 aria-hidden="true"
+                                 class="size-20 cursor-pointer text-gray-300"
+                                 data-slot="icon"
+                                 fill="currentColor"
+                                 viewBox="0 0 24 24"
+                            >
+                                <path clip-rule="evenodd"
+                                      d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                                      fill-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="col-span-4">
+                        <label class="block text-sm/6 font-medium text-slate-200" for="about">About</label>
+                        <div class="mt-2">
+                                <textarea
+                                    class="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                    id="about"
+                                    maxlength="255"
+                                    name="about"
+                                    pTextarea
+                                    placeholder="Tell us about yourself"
+                                    rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+                <p-button icon="pi pi-save" iconPos="left" label="Save" type="submit"/>
+            </div>
+        </form>
+    </main>
+</div>

@@ -1,0 +1,9 @@
+<ul>
+    @for (option of menuItems; track option.url) {
+        <li class="pb-3">
+            <a routerLink="{{option.url}}">
+                <i class="{{option.icon}}"></i> {{ option.label }}
+            </a>
+        </li>
+    }
+</ul>
