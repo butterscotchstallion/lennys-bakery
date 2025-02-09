@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from "@angular/core";
-import { catchError, map, Observable, of } from "rxjs";
+import { catchError, map, Observable, of, tap } from "rxjs";
 import { ProductService } from "../../services/ProductService";
 import { IProduct } from "../../models/IProduct";
 import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
@@ -97,6 +97,9 @@ export class ProductListComponent implements OnInit {
                     ...product,
                     numReviews: Math.floor(Math.random() * 50) + 1,
                 }));
+            }),
+            tap((_) => {
+                this.cartService.getUserCart();
             }),
             catchError((err) => {
                 console.error("Error fetching products:", err);

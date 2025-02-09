@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { RouterOutlet } from "@angular/router";
+import { RouterLink, RouterOutlet } from "@angular/router";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import {
     faCartPlus,
@@ -21,6 +21,7 @@ import { InputText } from "primeng/inputtext";
         ToastModule,
         UserMenuComponent,
         InputText,
+        RouterLink,
     ],
     providers: [MessageService],
     templateUrl: "./app.component.html",

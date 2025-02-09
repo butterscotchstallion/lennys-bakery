@@ -49,8 +49,4 @@ public class Users {
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "updated_at")
     private Instant updatedAt;
-
-    @Size(max = 255)
-    @Column(name = "avatar_filename")
-    private String avatarFilename;
 }
