@@ -6,6 +6,7 @@ import { Ripple } from "primeng/ripple";
 import { Badge } from "primeng/badge";
 import { NgIf } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { MenuItem } from "primeng/api";
 
 @Component({
     selector: "app-user-menu",
@@ -13,22 +14,22 @@ import { RouterLink } from "@angular/router";
     imports: [MenuModule, Avatar, Ripple, Badge, NgIf, RouterLink],
 })
 export class UserMenuComponent implements OnInit {
-    userMenuVisible = false;
-    userMenuItems = [
+    isLoading: boolean = false;
+    userMenuItems: MenuItem[] = [
         {
             label: "Account",
             icon: "pi pi-fw pi-user",
-            path: "/account/profile",
+            url: "/account/profile",
         },
         {
             label: "Settings",
             icon: "pi pi-fw pi-cog",
-            path: "/account/settings",
+            url: "/account/settings",
         },
         {
             label: "Logout",
             icon: "pi pi-fw pi-power-off",
-            path: "/account/logout",
+            url: "/account/logout",
         },
     ];
     protected readonly faUser = faUser;

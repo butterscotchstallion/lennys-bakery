@@ -99,7 +99,16 @@ export class ProductListComponent implements OnInit {
                 }));
             }),
             tap((_) => {
-                this.cartService.getUserCart();
+                /**
+                 * Normally, the cart map is fetched when first visiting the page through
+                 * the cart component. However, after navigating to the profile page, this
+                 * data is gone. This means when returning to the product listing, the cart
+                 * map is gone. So here we check if the cart map is empty, and only then we
+                 * fetch the cart.
+                 */
+                if (this.cartMap.size === 0) {
+                    this.cartService.getUserCart();
+                }
             }),
             catchError((err) => {
                 console.error("Error fetching products:", err);

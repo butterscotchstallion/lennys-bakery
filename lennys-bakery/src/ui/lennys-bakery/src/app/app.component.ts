@@ -9,7 +9,7 @@ import {
 import { CartComponent } from "./components/cart/CartComponent";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
-import { UserMenuComponent } from "./components/user/Menu/UserComponent";
+import { UserMenuComponent } from "./components/user/Menu/UserMenuComponent";
 import { InputText } from "primeng/inputtext";
 
 @Component({

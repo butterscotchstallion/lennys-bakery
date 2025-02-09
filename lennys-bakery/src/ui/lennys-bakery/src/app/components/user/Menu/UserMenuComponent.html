@@ -7,7 +7,7 @@
 
 <p-menu #menu [model]="userMenuItems" [popup]="true">
     <ng-template #item let-item>
-        <a [routerLink]="item.path" class="flex items-center p-menu-item-link" pRipple>
+        <a [routerLink]="item.url" class="flex items-center p-menu-item-link" pRipple>
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" [value]="item.badge" class="ml-auto"/>

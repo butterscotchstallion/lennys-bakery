@@ -2,8 +2,15 @@ package com.loco.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@Table(name = "account_profile", schema = "public")
+@ToString
+@Getter
+@NoArgsConstructor
 public class AccountProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "account_profile_sequence_gen")

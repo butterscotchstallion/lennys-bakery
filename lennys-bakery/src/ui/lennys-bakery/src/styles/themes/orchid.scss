@@ -4,4 +4,7 @@ html[data-theme="orchid"] {
     --color-card-background: #483D5E;
     --color-secondary: #A990DE;
     --color-tertiary: #7B738C;
+
+    // TW overrides
+    --p-primary-color: var(--color-header);
 }
