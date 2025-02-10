@@ -21,7 +21,7 @@ public class UserService {
      *
      * @return int userId
      */
-    public int getUserIdFromSession() {
+    public long getUserIdFromSession() {
         return 2;
     }
 }

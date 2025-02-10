@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @Table(name = "account_profile", schema = "public")
 @ToString
 @Getter
+@Setter
 @NoArgsConstructor
 public class AccountProfile {
     @Id
