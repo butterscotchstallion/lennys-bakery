@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import { MenuModule } from "primeng/menu";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "primeng/avatar";
@@ -6,7 +6,10 @@ import { Ripple } from "primeng/ripple";
 import { Badge } from "primeng/badge";
 import { NgIf } from "@angular/common";
 import { RouterLink } from "@angular/router";
-import { MenuItem } from "primeng/api";
+import { MenuItem, MessageService } from "primeng/api";
+import { AccountService } from "../../../services/AccountService";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { IAccountProfile } from "../../../models/IAccountProfile";
 
 @Component({
     selector: "app-user-menu",
@@ -32,7 +35,33 @@ export class UserMenuComponent implements OnInit {
             url: "/account/logout",
         },
     ];
+    accountProfile: IAccountProfile;
     protected readonly faUser = faUser;
+    private destroyRef: DestroyRef = inject(DestroyRef);
 
-    ngOnInit(): void {}
+    constructor(
+        private accountService: AccountService,
+        private messageService: MessageService,
+    ) {}
+
+    ngOnInit(): void {
+        this.isLoading = true;
+        this.accountService
+            .getProfile(2)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (accountProfile: IAccountProfile) => {
+                    this.accountProfile = accountProfile;
+                    this.isLoading = false;
+                },
+                error: () => {
+                    this.messageService.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: "Failed to load account info",
+                    });
+                    this.isLoading = false;
+                },
+            });
+    }
 }

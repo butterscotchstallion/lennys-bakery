@@ -1,9 +1,13 @@
-<p-avatar (click)="menu.toggle($event)"
-          class="mr-2 ml-6 cursor-pointer"
-          image="/images/avatar.webp"
-          shape="circle"
-          size="large"
-/>
+@if (accountProfile) {
+    <p-avatar
+        (click)="menu.toggle($event)"
+        class="mr-2 ml-6 cursor-pointer"
+        image="/images/avatars/{{ accountProfile.avatarFilename }}"
+        shape="circle"
+        size="large"
+        title="Signed in as {{ accountProfile.user.username }}"
+    />
+}
 
 <p-menu #menu [model]="userMenuItems" [popup]="true">
     <ng-template #item let-item>
