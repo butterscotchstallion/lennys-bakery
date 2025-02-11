@@ -15,23 +15,23 @@ export class AccountService {
         cached: boolean = true,
     ): Subject<IAccountProfile> {
         const profile$ = new Subject<IAccountProfile>();
-        const cachedProfile = this.accountCache.get(userId);
+        /*const cachedProfile = this.accountCache.get(userId);
         if (cachedProfile && cached) {
             profile$.next(cachedProfile);
-        } else {
-            fetch(this.apiUrl + "/" + userId + "/profile")
-                .then((response) => {
-                    if (response.ok) {
-                        response.json().then((profile: IAccountProfile) => {
-                            this.accountCache.set(userId, profile);
-                            profile$.next(profile);
-                        });
-                    }
-                })
-                .catch((error) => {
-                    profile$.error(error);
-                });
-        }
+        } else {*/
+        fetch(this.apiUrl + "/" + userId + "/profile")
+            .then((response) => {
+                if (response.ok) {
+                    response.json().then((profile: IAccountProfile) => {
+                        this.accountCache.set(userId, profile);
+                        profile$.next(profile);
+                    });
+                }
+            })
+            .catch((error) => {
+                profile$.error(error);
+            });
+        //}
         return profile$;
     }
 }
