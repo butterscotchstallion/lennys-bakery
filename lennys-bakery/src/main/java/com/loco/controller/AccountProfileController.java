@@ -7,12 +7,13 @@ import com.loco.service.AccountProfileService;
 import com.loco.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.HashMap;
 
 @RestController
@@ -21,9 +22,11 @@ public class AccountProfileController {
     private final static Logger log = LoggerFactory.getLogger(AccountProfileController.class);
     private final AccountProfileService accountProfileService;
     private final UserService userService;
-    // 500kb
-    private final int maxAvatarFileSize = 500000;
-    private String avatarTempStorageDir = null;
+    private final String[] validFileTypes = {"image/jpeg", "image/png", "image/jpg"};
+    @Value("${upload.path}")
+    private String uploadPath;
+    @Value("${spring.servlet.multipart.max-file-size}")
+    private String maxFileSize;
 
     public AccountProfileController(AccountProfileService accountProfileService, UserService userService) {
         this.accountProfileService = accountProfileService;
@@ -41,31 +44,41 @@ public class AccountProfileController {
         return ResponseEntity.ok(accountProfile);
     }
 
-    private String createTempDir() throws IOException {
-        if (avatarTempStorageDir == null) {
-            String tmpdir = Files.createTempDirectory("tmpDirPrefix").toFile().getAbsolutePath();
-            String tmpDirsLocation = System.getProperty("java.io.tmpdir");
-            this.avatarTempStorageDir = tmpDirsLocation + tmpdir;
-            return this.avatarTempStorageDir;
-        } else {
-            return avatarTempStorageDir;
-        }
-    }
-
     @PostMapping("/profile/avatar")
-    public ResponseEntity<HashMap<String, String>> uploadAvatar(@RequestParam("file") byte[] file) {
+    public ResponseEntity<HashMap<String, String>> uploadAvatar(@RequestParam("file") MultipartFile file) {
         try {
-            String tmpDir = this.createTempDir();
-
             HashMap<String, String> response = new HashMap<>();
-            response.put("status", "OK");
-            response.put("message", "Account avatar uploaded.");
-            return new ResponseEntity<>(response, HttpStatus.OK);
 
+            if (file == null || file.isEmpty()) {
+                response.put("status", "ERROR");
+                response.put("message", "No file uploaded.");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
+
+            if (file.getContentType() != null && !Arrays.asList(validFileTypes).contains(file.getContentType())) {
+                response.put("status", "ERROR");
+                response.put("message", "Invalid file type.");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
+
+            if (file.getSize() > 1_000_000) {
+                response.put("status", "ERROR");
+                response.put("message", "File too large");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
+
+            try {
+                file.transferTo(new java.io.File(uploadPath + file.getOriginalFilename()));
+                response.put("status", "OK");
+                response.put("message", "Account avatar uploaded.");
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            } catch (Exception e) {
+                response.put("status", "ERROR");
+                response.put("message", "Error uploading avatar");
+                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
