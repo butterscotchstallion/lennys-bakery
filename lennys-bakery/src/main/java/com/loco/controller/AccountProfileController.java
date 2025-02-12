@@ -93,6 +93,25 @@ public class AccountProfileController {
         }
     }
 
+    private void deleteOldAvatar(String filenameWithPath) {
+        try {
+            // remove file
+            java.io.File file = new java.io.File(filenameWithPath);
+            if (file.exists()) {
+                boolean deleted = file.delete();
+                if (deleted) {
+                    log.info("Deleted avatar file successfully: {}", filenameWithPath);
+                } else {
+                    log.error("Error deleting avatar");
+                }
+            } else {
+                log.error("Could not find avatar file to delete: {}", filenameWithPath);
+            }
+        } catch (Exception e) {
+            log.error("Error deleting avatar: {}", e.getMessage(), e);
+        }
+    }
+
     private String getAvatarFilename() {
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
@@ -106,6 +125,8 @@ public class AccountProfileController {
      */
     private void updateAccountProfileAvatar(String filename) throws UserNotFoundException {
         AccountProfile accountProfile = this.getAccountProfileOrThrow();
+
+        deleteOldAvatar(uploadPath + accountProfile.getAvatarFilename());
 
         log.debug("Setting avatar filename for user {}", accountProfile.getUser().getUsername());
 
