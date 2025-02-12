@@ -38,11 +38,13 @@ dependencies {
     // https://mavenlibs.com/maven/dependency/org.modelmapper/modelmapper
     implementation 'org.modelmapper:modelmapper:3.1.1'
 
+    implementation 'commons-io:commons-io:2.15.1'
+
     // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security:3.4.2'
 
     // Apache Commons FileUpload
-    implementation 'commons-fileupload:commons-fileupload:2.0'
+    implementation 'commons-fileupload:commons-fileupload:1.5'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

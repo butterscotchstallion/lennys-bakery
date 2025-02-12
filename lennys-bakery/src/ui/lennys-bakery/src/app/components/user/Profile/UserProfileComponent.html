@@ -13,12 +13,17 @@
                         <div class="col-span-full">
                             <label class="block text-sm/6 font-medium text-slate-200" for="user-avatar">Avatar</label>
                             <div class="mt-2 flex items-center gap-x-3">
+                                <input #fileUpload
+                                       (change)="onFileSelected($event)"
+                                       class="file-input hidden"
+                                       type="file">
+
                                 @if (accountProfile?.avatarFilename) {
                                     <p-avatar
                                         (click)="uploadAvatar()"
                                         id="user-avatar"
                                         class="mr-2 ml-6 cursor-pointer"
-                                        image="/images/avatars/{{ accountProfile.avatarFilename }}"
+                                        image="images/avatars/{{ accountProfile.avatarFilename }}"
                                         shape="circle"
                                         size="large"
                                     />
@@ -30,6 +35,13 @@
                                         size="xlarge"
                                         shape="circle"/>
                                 }
+                                <p-button (click)="fileUpload.click()"
+                                          class="mt-2"
+                                          icon="pi pi-cloud-upload"
+                                          label="Upload New Avatar"
+                                          type="button"/>
+
+                                <p-progress-bar *ngIf="uploadProgress" [value]="uploadProgress" mode="determinate"/>
                             </div>
                         </div>
 

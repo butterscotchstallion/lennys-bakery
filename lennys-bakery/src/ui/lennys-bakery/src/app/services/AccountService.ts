@@ -15,10 +15,6 @@ export class AccountService {
         cached: boolean = true,
     ): Subject<IAccountProfile> {
         const profile$ = new Subject<IAccountProfile>();
-        /*const cachedProfile = this.accountCache.get(userId);
-        if (cachedProfile && cached) {
-            profile$.next(cachedProfile);
-        } else {*/
         fetch(this.apiUrl + "/" + userId + "/profile")
             .then((response) => {
                 if (response.ok) {
@@ -31,7 +27,6 @@ export class AccountService {
             .catch((error) => {
                 profile$.error(error);
             });
-        //}
         return profile$;
     }
 }
