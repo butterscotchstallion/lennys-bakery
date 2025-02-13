@@ -1,4 +1,5 @@
 export interface IAddToCartItem {
-  inventoryItemId: number;
-  quantity: number;
+    inventoryItemId: number;
+    quantity: number;
+    overwriteQuantity?: boolean;
 }

@@ -42,6 +42,7 @@ export class ProductComponent {
         const cartItem: IAddToCartItem = {
             inventoryItemId: product.id,
             quantity: 1,
+            overwriteQuantity: false,
         };
         this.cartService
             .addItemToCart(cartItem)

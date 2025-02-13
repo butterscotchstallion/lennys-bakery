@@ -10,7 +10,7 @@
     </p-button>
 
     <p-drawer [(visible)]="cartDrawerVisible" header="Cart" position="right" styleClass="!w-[28rem]">
-        <p-table [value]="cartItems">
+        <p-table [value]="cartItems" class="w-full" sortField="inventoryItem.name">
             <ng-template #header>
                 <tr>
                     <th>Name</th>
@@ -24,7 +24,7 @@
                     <td>${{ cartItem.inventoryItem.price.toFixed(2) }}</td>
                     <td>
                         <p-select
-                            (onChange)="onQuantityChange(cartItems)"
+                            (onChange)="onQuantityChange(cartItems, cartItem)"
                             [(ngModel)]="cartItem.quantity"
                             [ngModelOptions]="{standalone: true}"
                             [options]="quantityOptions"

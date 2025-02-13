@@ -13,4 +13,6 @@ public class AddCartItemRequestDto {
     @Positive
     @NotBlank
     private int quantity;
+
+    private Boolean overwriteQuantity;
 }

@@ -45,7 +45,7 @@ public class CartItemsService {
      * @param userId          User id
      * @param quantity        Number of items
      */
-    public void addItemToCart(long inventoryItemId, long userId, int quantity) {
+    public void addItemToCart(long inventoryItemId, long userId, int quantity, boolean overwriteQuantity) {
         Users cartOwnerUser = this.getUserOrThrowException(userId);
         InventoryItems inventoryItem = this.inventoryItemService.getInventoryItemById(inventoryItemId);
         if (inventoryItem == null) {
@@ -56,7 +56,9 @@ public class CartItemsService {
         CartItems cartItems = this.getCartItemsByUserIdAndInventoryItemId(cartOwnerUser, inventoryItem);
         int updatedQuantity = quantity;
         if (cartItems != null) {
-            updatedQuantity += cartItems.getQuantity();
+            if (!overwriteQuantity) {
+                updatedQuantity += cartItems.getQuantity();
+            }
         } else {
             cartItems = new CartItems();
         }
@@ -64,7 +66,8 @@ public class CartItemsService {
         cartItems.setQuantity(updatedQuantity);
         cartItems.setUser(cartOwnerUser);
 
-        log.debug("CartItemsService: Adding new cart item {} (quantity: {}) to user {}", inventoryItemId, updatedQuantity, userId);
+        log.debug("CartItemsService: Adding new cart item {} (quantity: {} - overwrite: {}) to user {}",
+                inventoryItemId, updatedQuantity, overwriteQuantity, userId);
 
         this.cartItemRepository.save(cartItems);
     }

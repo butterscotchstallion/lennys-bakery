@@ -8,7 +8,7 @@ import {
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { Drawer } from "primeng/drawer";
 import { TableModule } from "primeng/table";
-import { Subject } from "rxjs";
+import { catchError, Subject, throwError } from "rxjs";
 import { ICart } from "../../models/ICart";
 import { CartService } from "../../services/CartService";
 import { CommonModule } from "@angular/common";
@@ -42,6 +42,7 @@ export class CartComponent implements OnInit {
     error: string | null = null;
     quantityOptions: any[] = [];
     protected readonly faShoppingCart: IconDefinition = faShoppingCart;
+    private MAXIMUM_QUANTITY = 50;
     private destroyRef: DestroyRef = inject(DestroyRef);
 
     constructor(
@@ -58,10 +59,13 @@ export class CartComponent implements OnInit {
                 this.recalculateSubtotal(cart);
                 this.calculateCartItemsTotal(cart);
             });
-        this.quantityOptions = Array.from({ length: 50 }, (_, i) => ({
-            label: String(i + 1),
-            value: i + 1,
-        }));
+        this.quantityOptions = Array.from(
+            { length: this.MAXIMUM_QUANTITY },
+            (_, i) => ({
+                label: String(i + 1),
+                value: i + 1,
+            }),
+        );
     }
 
     calculateCartItemsTotal(cartItems: ICart[]) {
@@ -71,14 +75,34 @@ export class CartComponent implements OnInit {
         );
     }
 
-    onQuantityChange(cartItems: ICart[]) {
+    onQuantityChange(cartItems: ICart[], cartItem: ICart) {
         this.calculateCartItemsTotal(cartItems);
         this.recalculateSubtotal(cartItems);
-        this.messageService.add({
-            severity: "success",
-            summary: "Success",
-            detail: "Cart updated",
-        });
+
+        this.cartService
+            .addItemToCart({
+                inventoryItemId: cartItem.inventoryItem.id,
+                quantity: cartItem.quantity,
+                overwriteQuantity: true,
+            })
+            .pipe(
+                catchError(() => {
+                    this.messageService.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: "There was a problem updating your cart.",
+                    });
+                    return throwError(() => "Failed to update cart");
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe(() => {
+                this.messageService.add({
+                    severity: "success",
+                    summary: "Success",
+                    detail: "Cart updated",
+                });
+            });
     }
 
     recalculateSubtotal(cartItems: ICart[]) {

@@ -36,12 +36,12 @@ public class CartItemsController {
     @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     @Valid
     public ResponseEntity<Object> addItemToCart(@RequestBody AddCartItemRequestDto cartItemRequestDto) {
-        //CartItems cartItem = this.modelMapper.map(cartItemRequestDto, CartItems.class);
         try {
             this.cartItemsService.addItemToCart(
                     cartItemRequestDto.getInventoryItemId(),
                     this.userService.getUserIdFromSession(),
-                    cartItemRequestDto.getQuantity()
+                    cartItemRequestDto.getQuantity(),
+                    cartItemRequestDto.getOverwriteQuantity()
             );
             HashMap<String, String> response = new HashMap<>();
             response.put("status", "OK");
