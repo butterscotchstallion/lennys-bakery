@@ -8,18 +8,35 @@ import { Subject } from "rxjs";
 })
 export class AccountService {
     private readonly apiUrl = getApiUrl("user");
-    private accountCache: Map<number, IAccountProfile> = new Map();
 
-    getProfile(
-        userId: number,
-        cached: boolean = true,
-    ): Subject<IAccountProfile> {
+    updateProfile(accountProfile: IAccountProfile): Subject<IAccountProfile> {
+        const profile$ = new Subject<IAccountProfile>();
+        fetch(this.apiUrl + "/profile", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(accountProfile),
+        })
+            .then((response: Response) => {
+                if (response.ok) {
+                    response.json().then((profile: IAccountProfile) => {
+                        profile$.next(profile);
+                    });
+                }
+            })
+            .catch((error) => {
+                profile$.error(error);
+            });
+        return profile$;
+    }
+
+    getProfile(userId: number): Subject<IAccountProfile> {
         const profile$ = new Subject<IAccountProfile>();
         fetch(this.apiUrl + "/" + userId + "/profile")
             .then((response) => {
                 if (response.ok) {
                     response.json().then((profile: IAccountProfile) => {
-                        this.accountCache.set(userId, profile);
                         profile$.next(profile);
                     });
                 }

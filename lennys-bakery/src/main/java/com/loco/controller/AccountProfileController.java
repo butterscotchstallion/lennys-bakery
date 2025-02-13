@@ -145,17 +145,13 @@ public class AccountProfileController {
         return accountProfile;
     }
 
-    @PostMapping("/profile")
+    @PutMapping("/profile")
     public ResponseEntity<HashMap<String, String>> saveUserProfile(SaveAccountProfileDto saveAccountProfileDto) {
         try {
             AccountProfile accountProfile = this.getAccountProfileOrThrow();
 
-            if (saveAccountProfileDto.getAbout() != null && saveAccountProfileDto.getAbout().length() > 1) {
+            if (saveAccountProfileDto.getAbout() != null) {
                 accountProfile.setAbout(saveAccountProfileDto.getAbout());
-            }
-
-            if (saveAccountProfileDto.getAvatarFilename() != null && saveAccountProfileDto.getAvatarFilename().length() > 1) {
-                accountProfile.setAvatarFilename(saveAccountProfileDto.getAvatarFilename());
             }
 
             this.accountProfileService.saveAccountProfile(accountProfile);

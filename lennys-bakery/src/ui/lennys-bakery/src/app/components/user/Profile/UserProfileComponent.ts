@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import { UserProfileMenuComponent } from "./UserProfileMenuComponent";
 import { Button } from "primeng/button";
 import { Textarea } from "primeng/textarea";
@@ -15,7 +15,7 @@ import {
     Subscription,
     throwError,
 } from "rxjs";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
     HttpClient,
     HttpErrorResponse,
@@ -26,9 +26,9 @@ import {
     HttpSentEvent,
     HttpUserEvent,
 } from "@angular/common/http";
-import { ProgressBar } from "primeng/progressbar";
 import { MessageService } from "primeng/api";
 import { FileUploadService } from "../../../services/FileUploadService";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
     selector: "app-user-profile",
@@ -42,14 +42,17 @@ import { FileUploadService } from "../../../services/FileUploadService";
         CommonModule,
         ProgressSpinner,
         ReactiveFormsModule,
-        ProgressBar,
+        FormsModule,
     ],
 })
 export class UserProfileComponent implements OnInit {
     accountProfile$: Subject<IAccountProfile>;
+    accountProfile: IAccountProfile;
     fileName: string;
     uploadProgress: number;
     uploadSub: Subscription;
+    isUploading = false;
+    private destroyRef: any = inject(DestroyRef);
 
     constructor(
         private accountService: AccountService,
@@ -59,11 +62,16 @@ export class UserProfileComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.accountProfile$ = this.getAccountProfile();
+        this.getAccountProfile();
     }
 
-    getAccountProfile(): Subject<IAccountProfile> {
-        return this.accountService.getProfile(2);
+    getAccountProfile() {
+        this.accountService
+            .getProfile(2)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((accountProfile: IAccountProfile) => {
+                this.accountProfile = accountProfile;
+            });
     }
 
     onFileSelected(event: any) {
@@ -73,6 +81,7 @@ export class UserProfileComponent implements OnInit {
             this.fileName = file.name;
             const formData = new FormData();
             formData.append("file", file);
+            this.isUploading = true;
             const upload$: Observable<
                 | HttpSentEvent
                 | HttpHeaderResponse
@@ -140,8 +149,41 @@ export class UserProfileComponent implements OnInit {
 
     reset() {
         this.uploadProgress = null;
+        this.isUploading = false;
         this.uploadSub = null;
     }
 
-    uploadAvatar() {}
+    saveProfile() {
+        this.accountService
+            .updateProfile(this.accountProfile)
+            .pipe(
+                takeUntilDestroyed(this.destroyRef),
+                catchError((error: HttpErrorResponse) => {
+                    let errorMessage = "Failed to update profile";
+
+                    if (error.error instanceof ErrorEvent) {
+                        errorMessage = `Error: ${error.error.message}`;
+                    } else {
+                        errorMessage = `Error: ${error.status} - ${error.message}`;
+                    }
+
+                    this.messageService.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: errorMessage,
+                    });
+
+                    return throwError(() => error);
+                }),
+            )
+            .subscribe({
+                next: () => {
+                    this.messageService.add({
+                        severity: "success",
+                        summary: "Success",
+                        detail: "Profile updated successfully",
+                    });
+                },
+            });
+    }
 }

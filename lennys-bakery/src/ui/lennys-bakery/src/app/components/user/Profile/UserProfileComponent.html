@@ -6,70 +6,79 @@
     </menu>
 
     <main class="bg-[var(--color-tertiary)] p-4 w-[60rem]">
-        <form>
-            <ng-container *ngIf="(accountProfile$ | async) as accountProfile; else loading">
-                <div class="border-b border-gray-900/10 pb-12">
-                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="col-span-full">
-                            <label class="block text-sm/6 font-medium text-slate-200" for="user-avatar">Avatar</label>
-                            <div class="mt-2 flex items-center gap-x-3">
-                                <input #fileUpload
-                                       (change)="onFileSelected($event)"
-                                       class="file-input hidden"
-                                       type="file">
+        <ng-container *ngIf="accountProfile; else loading">
+            <div class="border-b border-gray-900/10 pb-12">
+                <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="col-span-full">
+                        <label class="block text-sm/6 font-medium text-slate-200" for="user-avatar">Avatar</label>
+                        <div class="mt-2 flex items-center gap-x-3">
+                            <input #fileUpload
+                                   (change)="onFileSelected($event)"
+                                   class="file-input hidden"
+                                   type="file">
 
-                                @if (accountProfile?.avatarFilename) {
-                                    <p-avatar
-                                        (click)="uploadAvatar()"
-                                        id="user-avatar"
-                                        class="mr-2 ml-6 cursor-pointer"
-                                        image="./images/avatars/{{ accountProfile.avatarFilename }}"
-                                        shape="circle"
-                                        size="xlarge"
-                                    />
-                                } @else {
-                                    <p-avatar
-                                        (click)="uploadAvatar()"
-                                        icon="pi pi-user"
-                                        class="mr-2"
-                                        size="xlarge"
-                                        shape="circle"/>
-                                }
-                                <p-button (click)="fileUpload.click()"
-                                          class="mt-2"
-                                          icon="pi pi-cloud-upload"
-                                          label="Upload New Avatar"
-                                          type="button"/>
-
-                                <p-progress-bar *ngIf="uploadProgress" [value]="uploadProgress" mode="determinate"/>
-                            </div>
+                            @if (accountProfile?.avatarFilename) {
+                                <p-avatar
+                                    (click)="fileUpload.click()"
+                                    id="user-avatar"
+                                    class="mr-2 ml-6 cursor-pointer"
+                                    image="./images/avatars/{{ accountProfile.avatarFilename }}"
+                                    shape="circle"
+                                    size="xlarge"
+                                />
+                            } @else {
+                                <p-avatar
+                                    (click)="fileUpload.click()"
+                                    icon="pi pi-user"
+                                    class="mr-2"
+                                    size="xlarge"
+                                    shape="circle"/>
+                            }
+                            <p-button (click)="fileUpload.click()"
+                                      [disabled]="isUploading"
+                                      [ngClass]="{ 'opacity-50': isUploading }"
+                                      class="mt-2"
+                                      icon="pi pi-cloud-upload"
+                                      label="Upload New Avatar"
+                                      type="button"/>
+                            <!--
+                            <p-progress-bar *ngIf="uploadProgress || isUploading"
+                                            [value]="uploadProgress"
+                                            mode="determinate"/>
+                                            -->
+                            <p-progress-spinner *ngIf="isUploading"
+                                                [style]="{ width: '30px', height: '30px' }"></p-progress-spinner>
                         </div>
+                    </div>
 
-                        <div class="col-span-4">
-                            <label class="block text-sm/6 font-medium text-slate-200" for="about">About</label>
-                            <div class="mt-2">
+                    <div class="col-span-4">
+                        <label class="block text-sm/6 font-medium text-slate-200" for="about">About</label>
+                        <div class="mt-2">
                                 <textarea
+                                    [(ngModel)]="accountProfile.about"
+                                    [ngModel]="accountProfile?.about || ''"
                                     class="block w-full rounded-md px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                                     id="about"
                                     maxlength="255"
                                     name="about"
                                     pTextarea
                                     placeholder="Tell us about yourself"
-                                    rows="3">{{ accountProfile?.about }}</textarea>
-                            </div>
+                                    rows="3"
+                                ></textarea>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="mt-6 flex items-center justify-end gap-x-6">
-                    <p-button
-                        icon="pi pi-save"
-                        iconPos="left"
-                        label="Save"
-                        type="submit"/>
-                </div>
-            </ng-container>
-        </form>
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+                <p-button
+                    (onClick)="saveProfile()"
+                    icon="pi pi-save"
+                    iconPos="left"
+                    label="Save"
+                    type="button"/>
+            </div>
+        </ng-container>
 
         <ng-template #loading>
             <p-progressSpinner [style]="{ width: '50px', height: '50px' }"></p-progressSpinner>
