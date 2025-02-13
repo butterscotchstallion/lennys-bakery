@@ -71,6 +71,16 @@ export class CartComponent implements OnInit {
         );
     }
 
+    onQuantityChange(cartItems: ICart[]) {
+        this.calculateCartItemsTotal(cartItems);
+        this.recalculateSubtotal(cartItems);
+        this.messageService.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Cart updated",
+        });
+    }
+
     recalculateSubtotal(cartItems: ICart[]) {
         this.cartSubtotal = cartItems.reduce(
             (acc: number, item: ICart) =>

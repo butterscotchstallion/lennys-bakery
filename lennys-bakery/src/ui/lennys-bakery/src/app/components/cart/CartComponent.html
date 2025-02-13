@@ -23,13 +23,14 @@
                     <td><a href="#">{{ cartItem.inventoryItem.name }}</a></td>
                     <td>${{ cartItem.inventoryItem.price.toFixed(2) }}</td>
                     <td>
-                        {{ cartItem.quantity }}
                         <p-select
+                            (onChange)="onQuantityChange(cartItems)"
                             [(ngModel)]="cartItem.quantity"
                             [ngModelOptions]="{standalone: true}"
                             [options]="quantityOptions"
                             class="w-full"
                             optionLabel="label"
+                            optionValue="value"
                         >
                             <ng-template #selectedItem let-selectedOption>
                                 <div *ngIf="selectedOption" class="flex items-center gap-2">
