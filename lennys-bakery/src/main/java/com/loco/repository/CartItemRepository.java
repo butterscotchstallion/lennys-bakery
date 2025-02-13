@@ -14,4 +14,10 @@ public interface CartItemRepository extends CrudRepository<CartItems, Long> {
     List<CartItems> getCartItemsByUser(@NonNull Users users);
 
     CartItems getCartItemsByUserAndInventoryItem(Users user, InventoryItems inventoryItem);
+
+    void deleteCartItemsByUserAndInventoryItem(Users user, InventoryItems inventoryItem);
+
+    CartItems getCartItemsById(Long id);
+
+    void deleteCartItemsByUserAndId(Users user, Long id);
 }

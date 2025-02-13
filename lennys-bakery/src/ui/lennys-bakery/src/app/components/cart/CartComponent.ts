@@ -14,9 +14,10 @@ import { CartService } from "../../services/CartService";
 import { CommonModule } from "@angular/common";
 import { ProgressSpinner } from "primeng/progressspinner";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { MessageService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { Select } from "primeng/select";
 import { FormsModule } from "@angular/forms";
+import { ConfirmPopupModule } from "primeng/confirmpopup";
 
 @Component({
     selector: "app-cart",
@@ -31,8 +32,10 @@ import { FormsModule } from "@angular/forms";
         ProgressSpinner,
         Select,
         FormsModule,
+        ConfirmPopupModule,
     ],
     styleUrls: ["CartComponent.scss"],
+    providers: [ConfirmationService],
 })
 export class CartComponent implements OnInit {
     cartSubtotal: number = 0;
@@ -48,6 +51,7 @@ export class CartComponent implements OnInit {
     constructor(
         private cartService: CartService,
         private messageService: MessageService,
+        private confirmationService: ConfirmationService,
     ) {}
 
     ngOnInit() {
@@ -131,5 +135,34 @@ export class CartComponent implements OnInit {
                     });
                 },
             });
+    }
+
+    removeFromCart(item: ICart, event: Event) {
+        this.confirmationService.confirm({
+            message:
+                "Are you sure you want to remove this item from your cart?",
+            accept: () => {
+                this.cartService
+                    .removeFromCart(item)
+                    .pipe(takeUntilDestroyed(this.destroyRef))
+                    .subscribe({
+                        next: () => {
+                            this.messageService.add({
+                                severity: "success",
+                                summary: "Success",
+                                detail: "Item removed from cart",
+                            });
+                        },
+                        error: () => {
+                            this.messageService.add({
+                                severity: "error",
+                                summary: "Error",
+                                detail: "Failed to remove item from cart",
+                            });
+                        },
+                    });
+            },
+            target: event.target,
+        });
     }
 }

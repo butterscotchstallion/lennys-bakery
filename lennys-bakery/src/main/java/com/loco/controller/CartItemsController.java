@@ -2,6 +2,7 @@ package com.loco.controller;
 
 import com.loco.dto.AddCartItemRequestDto;
 import com.loco.model.CartItems;
+import com.loco.model.Users;
 import com.loco.service.CartItemsService;
 import com.loco.service.UserService;
 import jakarta.validation.Valid;
@@ -9,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +33,29 @@ public class CartItemsController {
     public List<CartItems> getCartItemsByUserId() {
         // TODO: tie this to the current session and get user from that
         return cartItemsService.getCartItemsByUserId(this.userService.getUserIdFromSession());
+    }
+
+    @DeleteMapping("/{cartItemId}")
+    public ResponseEntity<HashMap<String, String>> deleteCartItem(@PathVariable long cartItemId) {
+        CartItems cartItem = cartItemsService.getCartItemById(cartItemId);
+        if (cartItem == null) {
+            log.error("Cart item not found: {}", cartItemId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart item not found");
+        }
+        long userId = this.userService.getUserIdFromSession();
+        Users cartOwnerUser = this.userService.getUserById(userId);
+        if (cartOwnerUser == null) {
+            log.error("User not found: {}", userId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        this.cartItemsService.deleteCartItem(cartOwnerUser, cartItem);
+        HashMap<String, String> response = new HashMap<>();
+        response.put("status", "OK");
+        response.put("message", "Item deleted from cart");
+
+        log.debug("CartItemsController: Deleted cart item {} from user {}", cartItemId, userId);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping(value = "", consumes = "application/json", produces = "application/json")

@@ -4,7 +4,6 @@ import com.loco.model.CartItems;
 import com.loco.model.InventoryItems;
 import com.loco.model.Users;
 import com.loco.repository.CartItemRepository;
-import com.loco.repository.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,17 +16,25 @@ import java.util.List;
 public class CartItemsService {
     private static final Logger log = LoggerFactory.getLogger(CartItemsService.class);
     private final CartItemRepository cartItemRepository;
-    private final UsersRepository usersRepository;
+    private final UserService userService;
     private final InventoryItemService inventoryItemService;
 
-    public CartItemsService(CartItemRepository cartItemRepository, UsersRepository usersRepository, InventoryItemService inventoryItemService) {
+    public CartItemsService(CartItemRepository cartItemRepository, UserService userService, InventoryItemService inventoryItemService) {
         this.cartItemRepository = cartItemRepository;
-        this.usersRepository = usersRepository;
+        this.userService = userService;
         this.inventoryItemService = inventoryItemService;
     }
 
+    public CartItems getCartItemById(long cartItemId) {
+        return cartItemRepository.getCartItemsById(cartItemId);
+    }
+
+    public void deleteCartItem(Users cartOwnerUser, CartItems cartItems) {
+        this.cartItemRepository.deleteCartItemsByUserAndId(cartOwnerUser, cartItems.getId());
+    }
+
     private Users getUserOrThrowException(long userId) throws ResponseStatusException {
-        Users cartOwnerUser = usersRepository.getUsersById(userId);
+        Users cartOwnerUser = userService.getUserById(userId);
         if (cartOwnerUser == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
