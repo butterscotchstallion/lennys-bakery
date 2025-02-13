@@ -29,8 +29,12 @@ public class CartItemsService {
         return cartItemRepository.getCartItemsById(cartItemId);
     }
 
+    public CartItems getCartItemsByUserAndInventoryItem(Users user, InventoryItems inventoryItem) {
+        return cartItemRepository.getCartItemsByUserAndInventoryItem(user, inventoryItem);
+    }
+
     public void deleteCartItem(Users cartOwnerUser, CartItems cartItems) {
-        this.cartItemRepository.deleteCartItemsByUserAndId(cartOwnerUser, cartItems.getId());
+        this.cartItemRepository.deleteCartItemsByUserAndInventoryItem(cartOwnerUser, cartItems.getInventoryItem());
     }
 
     private Users getUserOrThrowException(long userId) throws ResponseStatusException {

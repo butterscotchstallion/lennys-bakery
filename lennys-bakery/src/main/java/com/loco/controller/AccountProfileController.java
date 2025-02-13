@@ -146,7 +146,7 @@ public class AccountProfileController {
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<HashMap<String, String>> saveUserProfile(SaveAccountProfileDto saveAccountProfileDto) {
+    public ResponseEntity<HashMap<String, String>> saveUserProfile(@RequestBody SaveAccountProfileDto saveAccountProfileDto) {
         try {
             AccountProfile accountProfile = this.getAccountProfileOrThrow();
 
@@ -155,6 +155,8 @@ public class AccountProfileController {
             }
 
             this.accountProfileService.saveAccountProfile(accountProfile);
+
+            log.info("Updated account profile {}", accountProfile);
 
             HashMap<String, String> response = new HashMap<>();
             response.put("status", "OK");

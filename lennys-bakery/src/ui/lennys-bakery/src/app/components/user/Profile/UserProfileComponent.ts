@@ -77,6 +77,8 @@ export class UserProfileComponent implements OnInit {
     onFileSelected(event: any) {
         const file: File = event.target.files[0];
         let errorOccurred = false;
+        event.preventDefault();
+
         if (file) {
             this.fileName = file.name;
             const formData = new FormData();
@@ -91,6 +93,7 @@ export class UserProfileComponent implements OnInit {
             > = this.fileUploadService
                 .uploadFile("user/profile/avatar", formData)
                 .pipe(
+                    takeUntilDestroyed(this.destroyRef),
                     catchError((error: HttpErrorResponse) => {
                         let errorMessage = "An error occurred during upload";
 

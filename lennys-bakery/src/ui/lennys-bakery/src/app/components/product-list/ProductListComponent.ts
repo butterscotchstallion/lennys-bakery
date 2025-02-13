@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Select } from "primeng/select";
 import { FormsModule } from "@angular/forms";
 import { Checkbox } from "primeng/checkbox";
+import { ProgressSpinner } from "primeng/progressspinner";
 
 @Component({
     selector: "app-product-list",
@@ -23,9 +24,11 @@ import { Checkbox } from "primeng/checkbox";
         Select,
         FormsModule,
         Checkbox,
+        ProgressSpinner,
     ],
 })
 export class ProductListComponent implements OnInit {
+    isLoading = false;
     products$: Observable<IProduct[]> = of([]);
     error: string | null = null;
     cartMap: Map<number, ICart> = new Map();
@@ -91,6 +94,7 @@ export class ProductListComponent implements OnInit {
     }
 
     fetchProducts() {
+        this.isLoading = true;
         this.products$ = this.productService.getProducts().pipe(
             map((products: IProduct[]) => {
                 return products.map((product) => ({
@@ -109,6 +113,7 @@ export class ProductListComponent implements OnInit {
                 if (this.cartMap.size === 0) {
                     this.cartService.getUserCart();
                 }
+                this.isLoading = false;
             }),
             catchError((err) => {
                 console.error("Error fetching products:", err);
