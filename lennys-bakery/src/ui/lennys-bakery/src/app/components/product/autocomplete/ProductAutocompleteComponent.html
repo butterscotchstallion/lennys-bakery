@@ -1,6 +1,10 @@
 <p-autocomplete
     (completeMethod)="filterProducts($event)"
-    [(ngModel)]="selectedProduct"
+    [(ngModel)]="query"
     [forceSelection]="true"
     [suggestions]="filteredProducts"
-    optionLabel="q"></p-autocomplete>
+    maxlength="25"
+    minlength="3"
+    optionLabel="name"
+    placeholder="Search"
+    size="large"></p-autocomplete>
