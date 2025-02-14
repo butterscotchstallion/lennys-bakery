@@ -1,0 +1,6 @@
+<p-autocomplete
+    (completeMethod)="filterProducts($event)"
+    [(ngModel)]="selectedProduct"
+    [forceSelection]="true"
+    [suggestions]="filteredProducts"
+    optionLabel="q"></p-autocomplete>

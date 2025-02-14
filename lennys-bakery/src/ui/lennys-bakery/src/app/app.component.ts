@@ -10,7 +10,7 @@ import { CartComponent } from "./components/cart/CartComponent";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
 import { UserMenuComponent } from "./components/user/Menu/UserMenuComponent";
-import { InputText } from "primeng/inputtext";
+import { ProductAutocompleteComponent } from "./components/product/autocomplete/ProductAutocompleteComponent";
 
 @Component({
     selector: "app-root",
@@ -20,8 +20,8 @@ import { InputText } from "primeng/inputtext";
         CartComponent,
         ToastModule,
         UserMenuComponent,
-        InputText,
         RouterLink,
+        ProductAutocompleteComponent,
     ],
     providers: [MessageService],
     templateUrl: "./app.component.html",

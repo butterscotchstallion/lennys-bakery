@@ -28,6 +28,10 @@ public class InventoryItemService {
                 inventoryItemRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
+    public List<InventoryItems> getInventoryItemsBySearchText(String searchText) {
+        return this.inventoryItemRepository.findInventoryItemsBySearchText(searchText);
+    }
+
     public void saveInventoryItem(InventoryItems inventoryItem) {
         inventoryItemRepository.save(inventoryItem);
     }
