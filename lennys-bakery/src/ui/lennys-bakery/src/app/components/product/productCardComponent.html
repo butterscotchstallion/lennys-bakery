@@ -1,33 +1,33 @@
-<div class="product-image">
-  <img alt="{{product.description}}" height="202" ngSrc="/images/dog-treat.png" priority width="300"/>
+<div class="product-image bg-[var(--color-card-background)]">
+    <img alt="{{product.description}}" height="202" ngSrc="/images/dog-treat.png" priority width="300"/>
 </div>
 <div class="product-card bg-[var(--color-card-background)] p-4 text-center text-white">
-  <h2 class="font-bold text-white mt-0">{{ product.name }}</h2>
-  <p class="mb-4 text-[var(--color-secondary)]">{{ product.description }}</p>
+    <h2 class="font-bold text-white mt-0">{{ product.name }}</h2>
+    <p class="mb-4 text-[var(--color-secondary)]">{{ product.description }}</p>
 
-  <div class="mt-4 flex justify-between">
-    <div class="text-left">
-      <div class="product-price text-green-500 font-bold">
-        ${{ product.price.toFixed(2) }}
-      </div>
-      <div>
-        <a class="text-[var(--color-secondary)]" href="#" title="View reviews">
-          <fa-icon [icon]="faComments"></fa-icon>
-          {{ product.numReviews }} Reviews
-        </a>
-      </div>
+    <div class="mt-4 flex justify-between">
+        <div class="text-left">
+            <div class="product-price text-green-500 font-bold">
+                ${{ product.price.toFixed(2) }}
+            </div>
+            <div>
+                <a class="text-[var(--color-secondary)]" href="#" title="View reviews">
+                    <fa-icon [icon]="faComments"></fa-icon>
+                    {{ product.numReviews }} Reviews
+                </a>
+            </div>
+        </div>
+
+        <p-button
+            (onClick)="addToCart(product)"
+            [badge]="getCartQuantity(product.id)"
+            [disabled]="isLoading"
+            [ngClass]="{ 'disabled': isLoading}"
+            class="product-button"
+            label="Add"
+            styleClass="bg-[var(--color-secondary)]"
+        >
+            <fa-icon [icon]="faCartPlus"></fa-icon>
+        </p-button>
     </div>
-
-    <p-button
-      (onClick)="addToCart(product)"
-      [badge]="getCartQuantity(product.id)"
-      [disabled]="isLoading"
-      [ngClass]="{ 'disabled': isLoading}"
-      class="product-button"
-      label="Add"
-      styleClass="bg-[var(--color-secondary)]"
-    >
-      <fa-icon [icon]="faCartPlus"></fa-icon>
-    </p-button>
-  </div>
 </div>

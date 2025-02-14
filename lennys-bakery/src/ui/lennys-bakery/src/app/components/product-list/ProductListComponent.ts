@@ -11,6 +11,8 @@ import { Select } from "primeng/select";
 import { FormsModule } from "@angular/forms";
 import { Checkbox } from "primeng/checkbox";
 import { ProgressSpinner } from "primeng/progressspinner";
+import { Skeleton } from "primeng/skeleton";
+import { Button } from "primeng/button";
 
 @Component({
     selector: "app-product-list",
@@ -25,6 +27,8 @@ import { ProgressSpinner } from "primeng/progressspinner";
         FormsModule,
         Checkbox,
         ProgressSpinner,
+        Skeleton,
+        Button,
     ],
 })
 export class ProductListComponent implements OnInit {
@@ -121,5 +125,9 @@ export class ProductListComponent implements OnInit {
                 return of([]);
             }),
         );
+    }
+
+    refresh() {
+        this.fetchProducts();
     }
 }
