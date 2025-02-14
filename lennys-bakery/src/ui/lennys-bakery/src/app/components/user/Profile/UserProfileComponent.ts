@@ -11,7 +11,6 @@ import {
     catchError,
     finalize,
     Observable,
-    Subject,
     Subscription,
     throwError,
 } from "rxjs";
@@ -29,6 +28,7 @@ import {
 import { MessageService } from "primeng/api";
 import { FileUploadService } from "../../../services/FileUploadService";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { FileUpload } from "primeng/fileupload";
 
 @Component({
     selector: "app-user-profile",
@@ -43,10 +43,10 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
         ProgressSpinner,
         ReactiveFormsModule,
         FormsModule,
+        FileUpload,
     ],
 })
 export class UserProfileComponent implements OnInit {
-    accountProfile$: Subject<IAccountProfile>;
     accountProfile: IAccountProfile;
     fileName: string;
     uploadProgress: number;
@@ -77,6 +77,7 @@ export class UserProfileComponent implements OnInit {
     onFileSelected(event: any) {
         const file: File = event.target.files[0];
         let errorOccurred = false;
+
         event.preventDefault();
 
         if (file) {
@@ -123,7 +124,6 @@ export class UserProfileComponent implements OnInit {
                     }),
                     finalize(() => {
                         this.reset();
-
                         if (!errorOccurred) {
                             this.messageService.add({
                                 severity: "success",
@@ -143,11 +143,6 @@ export class UserProfileComponent implements OnInit {
                 }
             });
         }
-    }
-
-    cancelUpload() {
-        this.uploadSub.unsubscribe();
-        this.reset();
     }
 
     reset() {

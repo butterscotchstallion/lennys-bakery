@@ -4,6 +4,7 @@ import {
     HttpErrorResponse,
     HttpEvent,
     HttpEventType,
+    HttpHeaders,
 } from "@angular/common/http";
 import { BehaviorSubject, catchError, EMPTY, finalize } from "rxjs";
 import { getApiUrl } from "./ApiService";
@@ -25,11 +26,13 @@ export class FileUploadService {
         });
 
         const fullUrl = this.apiUrl + url;
+        const headers = new HttpHeaders();
 
         this.http
             .post<unknown>(fullUrl, formData, {
                 reportProgress: true,
                 observe: "events",
+                headers: headers,
             })
             .pipe(
                 catchError((error: HttpErrorResponse) => {

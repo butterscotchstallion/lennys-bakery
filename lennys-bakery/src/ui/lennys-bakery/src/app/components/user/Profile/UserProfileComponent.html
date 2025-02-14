@@ -21,7 +21,7 @@
                                 <p-avatar
                                     (click)="fileUpload.click()"
                                     id="user-avatar"
-                                    class="mr-2 ml-6 cursor-pointer"
+                                    class="mr-2 cursor-pointer"
                                     image="./images/avatars/{{ accountProfile.avatarFilename }}"
                                     shape="circle"
                                     size="xlarge"
@@ -34,18 +34,27 @@
                                     size="xlarge"
                                     shape="circle"/>
                             }
-                            <p-button (click)="fileUpload.click()"
-                                      [disabled]="isUploading"
-                                      [ngClass]="{ 'opacity-50': isUploading }"
-                                      class="mt-2"
-                                      icon="pi pi-cloud-upload"
-                                      label="Upload New Avatar"
-                                      type="button"/>
                             <!--
-                            <p-progress-bar *ngIf="uploadProgress || isUploading"
-                                            [value]="uploadProgress"
-                                            mode="determinate"/>
-                                            -->
+                            <p-fileupload
+                                [multiple]="false"
+                                accept="image/*"
+                                maxFileSize="1000000"
+                                name="file"
+                                url="http://localhost:8080/api/v1/user/profile/avatar">
+                                <ng-template #empty>
+                                    <div>Drag and drop files to here to upload.</div>
+                                </ng-template>
+                            </p-fileupload>
+                            -->
+                            <p-fileupload
+                                [auto]="true"
+                                accept="image/*"
+                                chooseIcon="pi pi-upload"
+                                chooseLabel="Browse"
+                                maxFileSize="1000000"
+                                mode="basic"
+                                name="file"
+                                url="http://localhost:8080/api/v1/user/profile/avatar"/>
                             <p-progress-spinner *ngIf="isUploading"
                                                 [style]="{ width: '30px', height: '30px' }"></p-progress-spinner>
                         </div>

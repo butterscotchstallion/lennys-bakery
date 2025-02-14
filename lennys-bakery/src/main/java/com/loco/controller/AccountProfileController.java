@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/user")
 public class AccountProfileController {
@@ -25,7 +26,6 @@ public class AccountProfileController {
     private final AccountProfileService accountProfileService;
     private final UserService userService;
     private final String[] validFileTypes = {"image/jpeg", "image/png", "image/jpg"};
-    private final int maxAvatarFileSizeInBytes = 500000;
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -63,7 +63,8 @@ public class AccountProfileController {
                 return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
 
-            if (file.getSize() > this.maxAvatarFileSizeInBytes) {
+            int maxAvatarFileSizeInBytes = 500000;
+            if (file.getSize() > maxAvatarFileSizeInBytes) {
                 response.put("status", "ERROR");
                 response.put("message", "File too large");
                 log.error("File too large: {}", file.getSize());

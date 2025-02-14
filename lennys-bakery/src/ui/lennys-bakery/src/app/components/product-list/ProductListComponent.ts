@@ -12,7 +12,6 @@ import { FormsModule } from "@angular/forms";
 import { Checkbox } from "primeng/checkbox";
 import { ProgressSpinner } from "primeng/progressspinner";
 import { Skeleton } from "primeng/skeleton";
-import { Button } from "primeng/button";
 
 @Component({
     selector: "app-product-list",
@@ -28,7 +27,6 @@ import { Button } from "primeng/button";
         Checkbox,
         ProgressSpinner,
         Skeleton,
-        Button,
     ],
 })
 export class ProductListComponent implements OnInit {
