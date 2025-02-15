@@ -1,9 +1,18 @@
 <div class="product-image bg-[var(--color-card-background)]">
-    <img alt="{{product.description}}" height="202" ngSrc="/images/dog-treat.png" priority width="300"/>
+    <a routerLink="/inventory/item/{{product.slug}}">
+        <img alt="{{product.description}}" height="202" src="/images/dog-treat.png" width="300"/>
+    </a>
 </div>
+
 <div class="product-card bg-[var(--color-card-background)] p-4 text-center text-white">
-    <h2 class="font-bold text-white mt-0">{{ product.name }}</h2>
-    <p class="mb-4 text-[var(--color-secondary)]">{{ product.description }}</p>
+    <h2 class="text-lg font-bold text-white mt-0 underline">
+        <a routerLink="/inventory/item/{{product.slug}}">{{ product.name }}</a>
+    </h2>
+    <p class="mb-4 text-[var(--color-secondary)]">
+        <a routerLink="/inventory/item/{{product.slug}}">
+            {{ product.description }}
+        </a>
+    </p>
 
     <div class="mt-4 flex justify-between">
         <div class="text-left">
@@ -11,7 +20,9 @@
                 ${{ product.price.toFixed(2) }}
             </div>
             <div>
-                <a class="text-[var(--color-secondary)]" href="#" title="View reviews">
+                <a class="text-[var(--color-secondary)]"
+                   routerLink="/inventory/item/{{product.slug}}"
+                   title="View reviews">
                     <fa-icon [icon]="faComments"></fa-icon>
                     {{ product.numReviews }} Reviews
                 </a>
@@ -22,7 +33,6 @@
             (onClick)="addToCart(product)"
             [badge]="getCartQuantity(product.id)"
             [disabled]="isLoading"
-            [ngClass]="{ 'disabled': isLoading}"
             class="product-button"
             label="Add"
             styleClass="bg-[var(--color-secondary)]"

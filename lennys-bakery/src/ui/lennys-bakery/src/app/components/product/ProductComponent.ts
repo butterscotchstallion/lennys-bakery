@@ -1,5 +1,4 @@
 import { Component, DestroyRef, inject, Input } from "@angular/core";
-import { NgClass, NgOptimizedImage } from "@angular/common";
 import { Button } from "primeng/button";
 import {
     FaIconComponent,
@@ -12,11 +11,13 @@ import { IAddToCartItem } from "../../models/IAddToCartItem";
 import { MessageService } from "primeng/api";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ICart } from "../../models/ICart";
+import { RouterLink } from "@angular/router";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: "app-product",
     templateUrl: "./productCardComponent.html",
-    imports: [NgOptimizedImage, Button, FaIconComponent, NgClass],
+    imports: [Button, FaIconComponent, RouterLink, CommonModule],
     styleUrls: ["./productCardStyles.scss"],
 })
 export class ProductComponent {
