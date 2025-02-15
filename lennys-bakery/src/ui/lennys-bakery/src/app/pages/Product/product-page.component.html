@@ -2,6 +2,15 @@
     <div class="flex justify-between pr-[6rem] items-center">
         <h1 class="text-2xl font-bold my-4 text-[var(--color-secondary)]">{{ product.name }}</h1>
     </div>
+
+    <div class="flex gap-4 product-details">
+        <div class="product-image">
+            <app-product-image [product]="product"/>
+        </div>
+        <div class="product-description">
+            <p>{{ product.description }}</p>
+        </div>
+    </div>
 } @else {
     <p-progressSpinner [style]="{ width: '100px', height: '100px' }" styleClass="mx-auto"></p-progressSpinner>
 }

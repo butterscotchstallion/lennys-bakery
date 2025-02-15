@@ -7,12 +7,13 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { catchError } from "rxjs";
 import { Message } from "primeng/message";
 import { FormsModule } from "@angular/forms";
+import { ProductImageComponent } from "../../components/product/ProductImage/ProductImageComponent";
 
 @Component({
     selector: "app-product-page",
     templateUrl: "./product-page.component.html",
     styleUrls: ["./product-page.component.scss"],
-    imports: [ProgressSpinner, Message, FormsModule],
+    imports: [ProgressSpinner, Message, FormsModule, ProductImageComponent],
 })
 export class ProductPageComponent implements OnInit {
     product: IProduct;

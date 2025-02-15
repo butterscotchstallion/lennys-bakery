@@ -1,12 +1,12 @@
 <div class="product-image bg-[var(--color-card-background)]">
     <a routerLink="/inventory/item/{{product.slug}}">
-        <img alt="{{product.description}}" height="202" src="/images/dog-treat.png" width="300"/>
+        <app-product-image [product]="product"/>
     </a>
 </div>
 
 <div class="product-card bg-[var(--color-card-background)] p-4 text-center text-white">
     <h2 class="text-lg font-bold text-white mt-0 underline">
-        <a routerLink="/inventory/item/{{product.slug}}">{{ product.name }}</a>
+        <a routerLink="/inventory/item/{{product.slug}}" title="Visit product page">{{ product.name }}</a>
     </h2>
     <p class="mb-4 text-[var(--color-secondary)]">
         <a routerLink="/inventory/item/{{product.slug}}">

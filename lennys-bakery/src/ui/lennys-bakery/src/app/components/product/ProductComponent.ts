@@ -13,11 +13,18 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ICart } from "../../models/ICart";
 import { RouterLink } from "@angular/router";
 import { CommonModule } from "@angular/common";
+import { ProductImageComponent } from "./ProductImage/ProductImageComponent";
 
 @Component({
     selector: "app-product",
     templateUrl: "./productCardComponent.html",
-    imports: [Button, FaIconComponent, RouterLink, CommonModule],
+    imports: [
+        Button,
+        FaIconComponent,
+        RouterLink,
+        CommonModule,
+        ProductImageComponent,
+    ],
     styleUrls: ["./productCardStyles.scss"],
 })
 export class ProductComponent {
