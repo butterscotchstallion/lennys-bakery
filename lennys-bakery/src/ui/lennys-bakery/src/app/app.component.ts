@@ -10,7 +10,7 @@ import { CartComponent } from "./components/cart/CartComponent";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
 import { UserMenuComponent } from "./components/user/Menu/UserMenuComponent";
-import { ProductAutocompleteComponent } from "./components/product/autocomplete/ProductAutocompleteComponent";
+import { ProductAutocompleteComponent } from "./components/product/AutoComplete/ProductAutocompleteComponent";
 
 @Component({
     selector: "app-root",

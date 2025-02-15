@@ -3,12 +3,45 @@
         <h1 class="text-2xl font-bold my-4 text-[var(--color-secondary)]">{{ product.name }}</h1>
     </div>
 
-    <div class="flex gap-4 product-details">
-        <div class="product-image">
-            <app-product-image [product]="product"/>
+    <div class="flex product-details w-[80rem] justify-between">
+        <div>
+            <div class="flex gap-4">
+                <div class="product-image">
+                    <app-product-image [product]="product"/>
+                </div>
+                <div class="product-description">
+                    <h2 class="text-lg font-bold text-white">About this item</h2>
+                    <p>{{ product.description }}</p>
+                </div>
+            </div>
         </div>
-        <div class="product-description">
-            <p>{{ product.description }}</p>
+        <div class="w-[15rem] bg-[var(--color-card-background)] p-4 text-lg">
+            <h2 class="text-lg font-bold text-white mt-0">
+                Add To Cart
+            </h2>
+            <ul>
+                <li class="mb-4">${{ product.price.toFixed(2) }}</li>
+                <li class="mb-2">Quantity</li>
+                <li class="mb-2">
+                    <p-select
+                        [(ngModel)]="quantity"
+                        [options]="quantityOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        styleClass="w-full"
+                    />
+                </li>
+                <li class="mb-4">
+                    <p-button
+                        (onClick)="addToCart(product)"
+                        [disabled]="isLoading"
+                        label="Add To Cart"
+                        styleClass="mt-5 bg-[var(--color-secondary)] w-full"
+                    >
+                        <fa-icon [icon]="faCartPlus"></fa-icon>
+                    </p-button>
+                </li>
+            </ul>
         </div>
     </div>
 } @else {
