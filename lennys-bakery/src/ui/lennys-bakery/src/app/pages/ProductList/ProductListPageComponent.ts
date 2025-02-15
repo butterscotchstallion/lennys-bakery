@@ -2,34 +2,32 @@ import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import { catchError, map, Observable, of, tap } from "rxjs";
 import { ProductService } from "../../services/ProductService";
 import { IProduct } from "../../models/IProduct";
-import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
-import { ProductComponent } from "../product/ProductComponent";
 import { ICart } from "../../models/ICart";
 import { CartService } from "../../services/CartService";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { Select } from "primeng/select";
 import { FormsModule } from "@angular/forms";
+import { ProductComponent } from "../../components/product/ProductComponent";
+import { Select } from "primeng/select";
 import { Checkbox } from "primeng/checkbox";
-import { ProgressSpinner } from "primeng/progressspinner";
 import { Skeleton } from "primeng/skeleton";
+import { ProgressSpinner } from "primeng/progressspinner";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: "app-product-list",
-    templateUrl: "./ProductListComponent.html",
+    templateUrl: "./ProductListPageComponent.html",
     styleUrls: [],
     imports: [
-        NgIf,
-        NgForOf,
-        ProductComponent,
-        AsyncPipe,
-        Select,
         FormsModule,
+        ProductComponent,
+        Select,
         Checkbox,
-        ProgressSpinner,
         Skeleton,
+        ProgressSpinner,
+        CommonModule,
     ],
 })
-export class ProductListComponent implements OnInit {
+export class ProductListPageComponent implements OnInit {
     isLoading = false;
     products$: Observable<IProduct[]> = of([]);
     error: string | null = null;
