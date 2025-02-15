@@ -12,6 +12,7 @@ import { Button } from "primeng/button";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { Select } from "primeng/select";
+import { Rating } from "primeng/rating";
 
 @Component({
     selector: "app-product-page",
@@ -25,9 +26,11 @@ import { Select } from "primeng/select";
         Button,
         FaIconComponent,
         Select,
+        Rating,
     ],
 })
 export class ProductPageComponent implements OnInit {
+    productRating: number = 3;
     isLoading = false;
     product: IProduct;
     productNotFound: boolean = false;

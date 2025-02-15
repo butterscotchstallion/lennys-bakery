@@ -3,13 +3,14 @@
         <div class="flex">
             <div class="w-[14rem] mr-5">
                 <h1 class="text-3xl font-bold text-white">
-                    <a routerLink="" title="Lenny's Bakery">Lenny's Bakery</a>
+                    <a class="hover:text-[var(--color-secondary)]" routerLink="" title="Lenny's Bakery">Lenny's
+                        Bakery</a>
                 </h1>
             </div>
 
             <i class="pi pr-2 text-xl pi-map-marker content-center"></i>
             <div class="flex flex-col pr-4 justify-items-center w-[20rem]">
-                <a href="/settings" title="Edit your delivery address">
+                <a class="hover:text-[var(--color-secondary)]" href="/settings" title="Edit your delivery address">
                     Deliver to John
                     <br/>
                     <div class="font-bold">Austin, TX 12345</div>
@@ -51,4 +52,14 @@
 
 <p-toast position="top-right"></p-toast>
 
+
+<footer class="flex justify-between bg-[var(--color-header)] p-5">
+    <div>Lenny's Bakery &copy; 2025</div>
+    <ul class="flex gap-4">
+        <li><a class="hover:text-[var(--color-secondary)]" routerLink="/about">About</a></li>
+        <li><a class="hover:text-[var(--color-secondary)]" routerLink="/privacy-policy" title="Privacy Policy">Privacy
+            Policy</a></li>
+        <li><a class="hover:text-[var(--color-secondary)]" routerLink="/contact-us">Contact Us</a></li>
+    </ul>
+</footer>
 
