@@ -6,7 +6,7 @@ import { ICart } from "../../models/ICart";
 import { CartService } from "../../services/CartService";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormsModule } from "@angular/forms";
-import { ProductComponent } from "../../components/product/ProductComponent";
+import { ProductCardComponent } from "../../components/product/ProductCardComponent";
 import { Select } from "primeng/select";
 import { Checkbox } from "primeng/checkbox";
 import { Skeleton } from "primeng/skeleton";
@@ -19,7 +19,7 @@ import { CommonModule } from "@angular/common";
     styleUrls: [],
     imports: [
         FormsModule,
-        ProductComponent,
+        ProductCardComponent,
         Select,
         Checkbox,
         Skeleton,

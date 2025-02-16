@@ -17,7 +17,7 @@ import { ProductImageComponent } from "./ProductImage/ProductImageComponent";
 
 @Component({
     selector: "app-product",
-    templateUrl: "./productCardComponent.html",
+    templateUrl: "./ProductCardComponent.html",
     imports: [
         Button,
         FaIconComponent,
@@ -25,9 +25,9 @@ import { ProductImageComponent } from "./ProductImage/ProductImageComponent";
         CommonModule,
         ProductImageComponent,
     ],
-    styleUrls: ["./productCardStyles.scss"],
+    styleUrls: ["./ProductCardComponent.scss"],
 })
-export class ProductComponent {
+export class ProductCardComponent {
     @Input() product: IProduct;
     @Input() cartMap: Map<number, ICart>;
     isLoading = false;

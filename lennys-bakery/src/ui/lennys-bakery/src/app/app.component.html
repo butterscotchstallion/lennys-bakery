@@ -10,7 +10,8 @@
 
             <i class="pi pr-2 text-xl pi-map-marker content-center"></i>
             <div class="flex flex-col pr-4 justify-items-center w-[20rem]">
-                <a class="hover:text-[var(--color-secondary)]" href="/settings" title="Edit your delivery address">
+                <a class="hover:text-[var(--color-secondary)]" routerLink="/account/addresses"
+                   title="Edit your delivery address">
                     Deliver to John
                     <br/>
                     <div class="font-bold">Austin, TX 12345</div>
@@ -44,16 +45,14 @@
     </div>
 </header>
 
-<main class="main bg-[var(--color-background)] pb-10">
+<main class="flex-1 shrink-0 bg-[var(--color-background)] pb-10">
     <div class="container mx-auto">
         <router-outlet/>
     </div>
 </main>
 
-<p-toast position="top-right"></p-toast>
-
-
-<footer class="flex justify-between bg-[var(--color-header)] p-5">
+<footer
+    class="hidden flex shrink-0 justify-between bg-[var(--color-header)] items-center p-5 mt-10">
     <div>Lenny's Bakery &copy; 2025</div>
     <ul class="flex gap-4">
         <li><a class="hover:text-[var(--color-secondary)]" routerLink="/about">About</a></li>
@@ -63,3 +62,4 @@
     </ul>
 </footer>
 
+<p-toast position="top-right"></p-toast>
