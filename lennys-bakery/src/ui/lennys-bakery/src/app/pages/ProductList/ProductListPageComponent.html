@@ -42,7 +42,7 @@
         </ul>
     </menu>
 
-    <div *ngIf="products$ | async as products" class="product-list flex flex-wrap items-center">
+    <div *ngIf="products$ | async as products" class="product-list gap-[10px] flex flex-wrap items-center">
         <app-product
             *ngFor="let product of products"
             [cartMap]="cartMap"

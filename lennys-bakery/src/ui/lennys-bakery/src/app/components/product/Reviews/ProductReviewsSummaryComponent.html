@@ -1,0 +1,22 @@
+<div class="flex justify-between gap-4 pt-4">
+    <aside class="text-center flex flex-col gap-4">
+        <h5 class="font-bold text-lg">4.5</h5>
+        <p-rating [(ngModel)]="averageProductRating" [readonly]="true" class="mx-auto"/>
+        <p class="text-sm">Based on 10 reviews</p>
+    </aside>
+
+    <section class="product-reviews-bars justify-end min-w-[300px]">
+        <ul>
+            @for (r of ratings; track r) {
+                <li class="pb-4">
+                    <div class="flex justify-between">
+                        <p-progressbar [value]="r.percentage">
+                            <ng-template #content let-value></ng-template>
+                        </p-progressbar>
+                        <div>{{ r.rating }}</div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </section>
+</div>

@@ -13,10 +13,13 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { Select } from "primeng/select";
 import { Rating } from "primeng/rating";
+import { Card } from "primeng/card";
+import { StockStatusIndicatorComponent } from "../../components/StockStatusIndicator/StockStatusIndicatorComponent";
+import { ProductReviewsSummaryComponent } from "../../components/product/Reviews/ProductReviewsSummaryComponent";
 
 @Component({
     selector: "app-product-page",
-    templateUrl: "./product-page.component.html",
+    templateUrl: "./ProductPageComponent.html",
     styleUrls: ["./product-page.component.scss"],
     imports: [
         ProgressSpinner,
@@ -27,6 +30,9 @@ import { Rating } from "primeng/rating";
         FaIconComponent,
         Select,
         Rating,
+        Card,
+        StockStatusIndicatorComponent,
+        ProductReviewsSummaryComponent,
     ],
 })
 export class ProductPageComponent implements OnInit {

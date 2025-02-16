@@ -1,0 +1,88 @@
+@if (product) {
+    <div class="mb-3">
+        <h1 class="text-2xl mb-1 font-bold my-4 text-[var(--color-secondary)]">{{ product.name }}</h1>
+        <p-rating class="" [(ngModel)]="productRating"/>
+    </div>
+
+    <div class="flex product-details gap-8 justify-between">
+        <div class="flex flex-col gap-4 flex-1">
+            <div class="flex gap-4">
+                <div class="product-image">
+                    <app-product-image [product]="product"/>
+                </div>
+                <div class="product-description">
+                    <!--
+                    <h2 class="text-lg font-bold text-[var(--color-secondary)]">About this item</h2>
+                    <p>{{ product.description }}</p>
+                    -->
+
+                    <p-card header="About this item" [style]="{ 'background-color': 'var(--color-card-background)' }">
+                        <p class="m-0">
+                            {{ product.description }}
+                        </p>
+                        <p class="m-0 mt-[4rem]">
+                            <app-stock-status-indicator [inStock]="true"/>
+                        </p>
+                    </p-card>
+                </div>
+            </div>
+
+            <div class="gap-4">
+                <h2 class="text-lg font-bold text-[var(--color-secondary)]">Reviews</h2>
+                <div class="flex flex-col gap-4 mt-4">
+                    <div class="flex justify-between gap-4">
+                        <div class="w-full max-w-md">
+                            <p-card [style]="{ 'background-color': 'var(--color-card-background)' }"
+                                    header="Average Rating">
+                                <app-product-reviews-summary [product]="product"/>
+                            </p-card>
+                        </div>
+
+                        <div class="max-w-[60rem]">
+                            <p-card [style]="{ 'background-color': 'var(--color-card-background)' }"
+                                    header="Great product!">
+                                <ng-template #subtitle>Posted by SomeUser</ng-template>
+                                <p class="m-0">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis diam euismod,
+                                    condimentum diam sed, malesuada diam.
+                                </p>
+                            </p-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-to-cart-area max-w-[15rem] w-full bg-[var(--color-card-background)] p-4 text-lg">
+            <ul>
+                <li class="mb-4">${{ product.price.toFixed(2) }}</li>
+                <li class="mb-2">Quantity</li>
+                <li class="mb-2">
+                    <p-select
+                        [(ngModel)]="quantity"
+                        [options]="quantityOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        styleClass="w-full"
+                    />
+                </li>
+                <li class="mb-4">
+                    <p-button
+                        (onClick)="addToCart(product)"
+                        [disabled]="isLoading"
+                        label="Add To Cart"
+                        styleClass="mt-5 bg-[var(--color-secondary)] w-full"
+                    >
+                        <fa-icon [icon]="faCartPlus"></fa-icon>
+                    </p-button>
+                </li>
+            </ul>
+        </div>
+    </div>
+} @else {
+    <p-progressSpinner [style]="{ width: '100px', height: '100px' }" styleClass="mx-auto"></p-progressSpinner>
+}
+
+@if (productNotFound) {
+    <p-message severity="error" class="p-4">Product not found.</p-message>
+}
