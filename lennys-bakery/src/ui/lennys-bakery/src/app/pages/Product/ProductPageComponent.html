@@ -7,23 +7,30 @@
     <div class="flex product-details gap-8 justify-between">
         <div class="flex flex-col gap-4 flex-1">
             <div class="flex gap-4">
-                <div class="product-image">
+                <div class="product-image max-w-">
                     <app-product-image [product]="product"/>
                 </div>
-                <div class="product-description">
-                    <!--
-                    <h2 class="text-lg font-bold text-[var(--color-secondary)]">About this item</h2>
-                    <p>{{ product.description }}</p>
-                    -->
-
-                    <p-card header="About this item" [style]="{ 'background-color': 'var(--color-card-background)' }">
-                        <p class="m-0">
-                            {{ product.description }}
-                        </p>
-                        <p class="m-0 mt-[4rem]">
-                            <app-stock-status-indicator [inStock]="true"/>
-                        </p>
-                    </p-card>
+                <div class="product-description w-full flex justify-between gap-4">
+                    <section>
+                        <p-card header="About this item"
+                                [style]="{ 'background-color': 'var(--color-card-background)' }">
+                            <p class="m-0">
+                                {{ product.description }}
+                            </p>
+                            <p class="m-0 mt-[4rem]">
+                                <app-stock-status-indicator [inStock]="true"/>
+                            </p>
+                        </p-card>
+                    </section>
+                    <section>
+                        <p-card header="Product Details"
+                                [style]="{ 'background-color': 'var(--color-card-background)' }">
+                            <p class="m-0">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis diam euismod,
+                                condimentum diam sed, malesuada diam.
+                            </p>
+                        </p-card>
+                    </section>
                 </div>
             </div>
 
@@ -39,44 +46,51 @@
                         </div>
 
                         <div class="max-w-[60rem]">
-                            <p-card [style]="{ 'background-color': 'var(--color-card-background)' }"
-                                    header="Great product!">
-                                <ng-template #subtitle>Posted by SomeUser</ng-template>
-                                <p class="m-0">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis diam euismod,
-                                    condimentum diam sed, malesuada diam.
-                                </p>
-                            </p-card>
+                            @for (j of [].constructor(25); track j) {
+                                <p-card styleClass="mb-4"
+                                        [style]="{ 'background-color': 'var(--color-card-background)' }"
+                                        header="Great product!">
+                                    <ng-template #subtitle>Posted by SomeUser on February 16 2025</ng-template>
+                                    <p class="m-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis diam
+                                        euismod,
+                                        condimentum diam sed, malesuada diam.
+                                    </p>
+                                </p-card>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="add-to-cart-area max-w-[15rem] w-full bg-[var(--color-card-background)] p-4 text-lg">
-            <ul>
-                <li class="mb-4">${{ product.price.toFixed(2) }}</li>
-                <li class="mb-2">Quantity</li>
-                <li class="mb-2">
-                    <p-select
-                        [(ngModel)]="quantity"
-                        [options]="quantityOptions"
-                        optionLabel="label"
-                        optionValue="value"
-                        styleClass="w-full"
-                    />
-                </li>
-                <li class="mb-4">
-                    <p-button
-                        (onClick)="addToCart(product)"
-                        [disabled]="isLoading"
-                        label="Add To Cart"
-                        styleClass="mt-5 bg-[var(--color-secondary)] w-full"
-                    >
-                        <fa-icon [icon]="faCartPlus"></fa-icon>
-                    </p-button>
-                </li>
-            </ul>
+        <div class="add-to-cart-area max-w-[15rem] w-full text-lg">
+            <p-card header="Product Details"
+                    [style]="{ 'background-color': 'var(--color-card-background)' }">
+                <ul>
+                    <li class="mb-4">${{ product.price.toFixed(2) }}</li>
+                    <li class="mb-2">Quantity</li>
+                    <li class="mb-2">
+                        <p-select
+                            [(ngModel)]="quantity"
+                            [options]="quantityOptions"
+                            optionLabel="label"
+                            optionValue="value"
+                            styleClass="w-full"
+                        />
+                    </li>
+                    <li class="mb-4">
+                        <p-button
+                            (onClick)="addToCart(product)"
+                            [disabled]="isLoading"
+                            label="Add To Cart"
+                            styleClass="mt-5 bg-[var(--color-secondary)] w-full"
+                        >
+                            <fa-icon [icon]="faCartPlus"></fa-icon>
+                        </p-button>
+                    </li>
+                </ul>
+            </p-card>
         </div>
     </div>
 } @else {
