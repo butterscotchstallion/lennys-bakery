@@ -5,15 +5,15 @@ import {
     IconDefinition,
 } from "@fortawesome/angular-fontawesome";
 import { faCartPlus, faComments } from "@fortawesome/free-solid-svg-icons";
-import { IProduct } from "../../models/IProduct";
-import { CartService } from "../../services/CartService";
-import { IAddToCartItem } from "../../models/IAddToCartItem";
+import { IProduct } from "../../../models/IProduct";
+import { CartService } from "../../../services/CartService";
+import { IAddToCartItem } from "../../../models/IAddToCartItem";
 import { MessageService } from "primeng/api";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { ICart } from "../../models/ICart";
+import { ICart } from "../../../models/ICart";
 import { RouterLink } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { ProductImageComponent } from "./ProductImage/ProductImageComponent";
+import { ProductImageComponent } from "../ProductImage/ProductImageComponent";
 
 @Component({
     selector: "app-product",

@@ -1,0 +1,7 @@
+<ul class="flex flex-col gap-4">
+    @for (product of products; track product.id) {
+        <li>
+            <app-product [product]="product"></app-product>
+        </li>
+    }
+</ul>

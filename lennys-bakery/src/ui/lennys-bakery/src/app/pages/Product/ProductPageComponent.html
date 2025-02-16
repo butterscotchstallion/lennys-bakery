@@ -53,6 +53,13 @@
                 </div>
             </div>
 
+            @if (relatedProducts.length > 0) {
+                <section class="related-products">
+                    <h2 class="text-lg font-bold text-[var(--color-secondary)]">Related Products</h2>
+                    <app-related-product-list/>
+                </section>
+            }
+
             <div class="gap-4">
                 <h2 class="text-lg font-bold text-[var(--color-secondary)]">Reviews</h2>
                 <div class="flex flex-col gap-4 mt-4">

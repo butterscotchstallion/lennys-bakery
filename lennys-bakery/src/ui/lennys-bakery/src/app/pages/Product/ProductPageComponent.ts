@@ -17,6 +17,7 @@ import { Card } from "primeng/card";
 import { StockStatusIndicatorComponent } from "../../components/StockStatusIndicator/StockStatusIndicatorComponent";
 import { ProductReviewsSummaryComponent } from "../../components/product/Reviews/Summary/ProductReviewsSummaryComponent";
 import { ProductReviewsListComponent } from "../../components/product/Reviews/List/ProductReviewsListComponent";
+import { RelatedProductListComponent } from "../../components/product/RelatedProductList/RelatedProductListComponent";
 
 @Component({
     selector: "app-product-page",
@@ -35,6 +36,7 @@ import { ProductReviewsListComponent } from "../../components/product/Reviews/Li
         StockStatusIndicatorComponent,
         ProductReviewsSummaryComponent,
         ProductReviewsListComponent,
+        RelatedProductListComponent,
     ],
 })
 export class ProductPageComponent implements OnInit {
@@ -44,6 +46,7 @@ export class ProductPageComponent implements OnInit {
     productNotFound: boolean = false;
     quantity: number = 1;
     quantityOptions: number[] = Array.from({ length: 50 }, (_, i) => i + 1);
+    relatedProducts: IProduct[] = [];
 
     protected readonly faCartPlus = faCartPlus;
     private productSlug: string;

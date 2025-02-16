@@ -6,7 +6,7 @@ import { ICart } from "../../models/ICart";
 import { CartService } from "../../services/CartService";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormsModule } from "@angular/forms";
-import { ProductCardComponent } from "../../components/product/ProductCardComponent";
+import { ProductCardComponent } from "../../components/product/Card/ProductCardComponent";
 import { Select } from "primeng/select";
 import { Checkbox } from "primeng/checkbox";
 import { Skeleton } from "primeng/skeleton";
