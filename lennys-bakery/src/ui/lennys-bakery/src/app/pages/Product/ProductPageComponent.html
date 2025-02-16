@@ -1,17 +1,17 @@
 @if (product) {
     <div class="mb-3">
         <h1 class="text-2xl mb-1 font-bold my-4 text-[var(--color-secondary)]">{{ product.name }}</h1>
-        <p-rating class="" [(ngModel)]="productRating"/>
+        <p-rating class="" readonly="true" [(ngModel)]="productRating"/>
     </div>
 
-    <div class="flex product-details gap-8 justify-between">
+    <div class="flex product-details gap-4 justify-between">
         <div class="flex flex-col gap-4 flex-1">
             <div class="flex gap-4">
                 <div class="product-image max-w-">
                     <app-product-image [product]="product"/>
                 </div>
                 <div class="product-description w-full flex justify-between gap-4">
-                    <section>
+                    <section class="w-1/2">
                         <p-card header="About this item"
                                 [style]="{ 'background-color': 'var(--color-card-background)' }">
                             <p class="m-0">
@@ -22,13 +22,32 @@
                             </p>
                         </p-card>
                     </section>
-                    <section>
+                    <section class="w-1/2">
                         <p-card header="Product Details"
                                 [style]="{ 'background-color': 'var(--color-card-background)' }">
-                            <p class="m-0">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis diam euismod,
-                                condimentum diam sed, malesuada diam.
-                            </p>
+                            <section class="m-0">
+                                <ul class="list-disc">
+                                    <li class="ml-4">These natural dog treats are made with added vitamins and minerals
+                                        and contain
+                                        no corn, wheat, or soy.
+                                    </li>
+                                    <li class="ml-4">Keep your pup begging for more with these soft treats featuring
+                                        real ingredients
+                                        like cherries and beef.
+                                    </li>
+                                    <li class="ml-4">These treats come in a resealable pouch and are great for training,
+                                        traveling,
+                                        or just to share some love.
+                                    </li>
+                                    <li class="ml-4">These chewy treats are crafted in the USA using the Earth’s best
+                                        ingredients
+                                    </li>
+                                    <li class="ml-4">Choose your adventure and bring along these convenient treats with
+                                        only 2
+                                        calories a snack.
+                                    </li>
+                                </ul>
+                            </section>
                         </p-card>
                     </section>
                 </div>
@@ -46,18 +65,7 @@
                         </div>
 
                         <div class="max-w-[60rem]">
-                            @for (j of [].constructor(25); track j) {
-                                <p-card styleClass="mb-4"
-                                        [style]="{ 'background-color': 'var(--color-card-background)' }"
-                                        header="Great product!">
-                                    <ng-template #subtitle>Posted by SomeUser on February 16 2025</ng-template>
-                                    <p class="m-0">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis diam
-                                        euismod,
-                                        condimentum diam sed, malesuada diam.
-                                    </p>
-                                </p-card>
-                            }
+                            <app-product-reviews-list/>
                         </div>
                     </div>
                 </div>
@@ -69,11 +77,14 @@
                     [style]="{ 'background-color': 'var(--color-card-background)' }">
                 <ul>
                     <li class="mb-4">${{ product.price.toFixed(2) }}</li>
-                    <li class="mb-2">Quantity</li>
+                    <li class="mb-2">
+                        <label for="product-cart-quantity">Quantity</label>
+                    </li>
                     <li class="mb-2">
                         <p-select
                             [(ngModel)]="quantity"
                             [options]="quantityOptions"
+                            id="product-cart-quantity"
                             optionLabel="label"
                             optionValue="value"
                             styleClass="w-full"

@@ -1,0 +1,12 @@
+@for (j of [].constructor(10); track j) {
+    <p-card styleClass="mb-4"
+            [style]="{ 'background-color': 'var(--color-card-background)' }"
+            header="Great product!">
+        <ng-template #subtitle>Posted by SomeUser on February 16 2025</ng-template>
+        <p class="m-0">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis diam
+            euismod,
+            condimentum diam sed, malesuada diam.
+        </p>
+    </p-card>
+}

@@ -1,6 +1,6 @@
 <p-select
     (onChange)="onQuantityChange(cartItem)"
-    [(ngModel)]="cartItem.quantity"
+    [(ngModel)]="itemQuantity"
     [ngModelOptions]="{standalone: true}"
     [options]="quantityOptions"
     class="w-full"

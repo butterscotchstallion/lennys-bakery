@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { Rating } from "primeng/rating";
 import { FormsModule } from "@angular/forms";
-import { IProduct } from "../../../models/IProduct";
+import { IProduct } from "../../../../models/IProduct";
 import { ProgressBar, ProgressBarModule } from "primeng/progressbar";
 
 @Component({

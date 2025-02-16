@@ -16,6 +16,7 @@ export class ProductQuantitySelectorComponent implements OnInit {
     @Input() onChange = noop;
     maxQuantity: number = 50;
     quantityOptions: any[] = [];
+    itemQuantity: number = 1;
     private destroyRef: DestroyRef = inject(DestroyRef);
 
     constructor(

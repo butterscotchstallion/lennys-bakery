@@ -15,7 +15,8 @@ import { Select } from "primeng/select";
 import { Rating } from "primeng/rating";
 import { Card } from "primeng/card";
 import { StockStatusIndicatorComponent } from "../../components/StockStatusIndicator/StockStatusIndicatorComponent";
-import { ProductReviewsSummaryComponent } from "../../components/product/Reviews/ProductReviewsSummaryComponent";
+import { ProductReviewsSummaryComponent } from "../../components/product/Reviews/Summary/ProductReviewsSummaryComponent";
+import { ProductReviewsListComponent } from "../../components/product/Reviews/List/ProductReviewsListComponent";
 
 @Component({
     selector: "app-product-page",
@@ -33,6 +34,7 @@ import { ProductReviewsSummaryComponent } from "../../components/product/Reviews
         Card,
         StockStatusIndicatorComponent,
         ProductReviewsSummaryComponent,
+        ProductReviewsListComponent,
     ],
 })
 export class ProductPageComponent implements OnInit {
