@@ -1,1 +1,5 @@
-<h1 class="text-2xl font-bold my-4 text-[var(--color-secondary)]">{{ headerText }}</h1>
+@if (isSubheader) {
+    <h2 class="text-lg font-bold text-[var(--color-secondary)]">{{ headerText }}</h2>
+} @else {
+    <h1 class="text-2xl font-bold my-4 text-[var(--color-secondary)]">{{ headerText }}</h1>
+}

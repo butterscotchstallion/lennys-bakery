@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import { IProduct } from "../../models/IProduct";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { ProductService } from "../../services/ProductService";
 import { ProgressSpinner } from "primeng/progressspinner";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
@@ -37,6 +37,7 @@ import { RelatedProductListComponent } from "../../components/product/RelatedPro
         ProductReviewsSummaryComponent,
         ProductReviewsListComponent,
         RelatedProductListComponent,
+        RouterLink,
     ],
 })
 export class ProductPageComponent implements OnInit {

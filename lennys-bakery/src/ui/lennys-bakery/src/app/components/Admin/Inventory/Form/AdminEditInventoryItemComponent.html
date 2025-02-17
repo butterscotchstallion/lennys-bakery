@@ -1,0 +1,63 @@
+@if (item) {
+    <form [formGroup]="itemForm">
+        <section class="w-full">
+            <section class="flex  gap-4">
+                <!-- Left -->
+                <section class="flex flex-col mb-4 w-1/3 gap-4">
+                    <div>
+                        <label class="block pb-2" for="item-name">Name</label>
+                        <input formControlName="name" id="item-name" pInputText type="text"/>
+                    </div>
+
+                    <div>
+                        <label class="block pb-2" for="item-price">Price</label>
+                        <input formControlName="price" id="item-price" pInputText type="number"/>
+                    </div>
+                </section>
+
+                <!-- Right -->
+                <section class="w-1/2">
+                    <label class="block pb-2" for="item-image">Image</label>
+                    <div class="flex gap-4">
+                        <section class="mb-4">
+                            @if (item.imageFilename) {
+                                <img src="/images/products/{{ item.imageFilename }}" alt="Item image"/>
+                            } @else {
+                                <div
+                                    class="flex items-center justify-center bg-[var(--color-card-background)] h-[100px] w-[100px] rounded-md text-2xl text-white">
+                                    <i class="pi pi-image"></i>
+                                </div>
+                            }
+                        </section>
+
+                        <p-fileupload
+                            id="item-image"
+                            mode="basic"
+                            name="item.imageFilename"
+                            chooseIcon="pi pi-upload"
+                            url="http://localhost:8080/api/v1/inventory/item/{{item.slug}}/image"
+                            accept="image/*"
+                            maxFileSize="1000000"
+                            (onUpload)="onUploadItemImage($event)"
+                            [auto]="true"
+                            chooseLabel="Browse"/>
+                    </div>
+                </section>
+            </section>
+
+            <section class="flex justify-between max-w-md gap-4 mt-4">
+                <div>
+                    <label class="block pb-2" for="item-short-description">Short Description</label>
+                    <textarea rows="5" cols="30" maxlength="255" pTextarea
+                              formControlName="shortDescription"></textarea>
+                </div>
+                <div>
+                    <label class="block pb-2" for="item-description">Description</label>
+                    <textarea rows="5" cols="30" maxlength="1000" pTextarea formControlName="description"></textarea>
+                </div>
+            </section>
+        </section>
+    </form>
+} @else {
+    <p-progressSpinner/>
+}

@@ -9,4 +9,5 @@ export const routes: Routes = [
     { path: "inventory/item/:slug", component: ProductPageComponent },
     { path: "account/profile", component: UserProfileComponent },
     { path: "admin", component: AdminPageComponent },
+    { path: "admin/inventory/item/:slug", component: AdminPageComponent },
 ];

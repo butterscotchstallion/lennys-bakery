@@ -1,1 +1,31 @@
 <app-page-header headerText="Admin"/>
+
+<div class="flex text-white">
+    <menu class="w-[15rem] bg-[var(--color-card-background)] p-4 text-lg">
+        <ul>
+            <li class="pb-3">
+                <a class="hover:text-[var(--color-secondary)]" routerLink="inventory">
+                    <i class="pi pi-box"></i> Inventory
+                </a>
+            </li>
+            <li class="pb-3">
+                <a class="hover:text-[var(--color-secondary)]" routerLink="users">
+                    <i class="pi pi-user"></i> Users
+                </a>
+            </li>
+            <li class="pb-3">
+                <a class="hover:text-[var(--color-secondary)]" routerLink="orders">
+                    <i class="pi pi-truck"></i> Orders
+                </a>
+            </li>
+        </ul>
+    </menu>
+
+    <main class="bg-[var(--color-tertiary)] p-4 w-[60rem]">
+        <section>
+            <h2 class="text-lg font-bold text-white">Inventory</h2>
+
+            <app-admin-edit-inventory-item [item]="(product$ | async)"/>
+        </section>
+    </main>
+</div>
