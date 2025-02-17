@@ -1,0 +1,16 @@
+INSERT INTO public.tags (name, description, slug)
+VALUES ('Grain-Free', 'Treats made without any grain ingredients', 'grain-free'),
+       ('Natural', 'All-natural ingredients without artificial additives', 'natural'),
+       ('Dental Care', 'Promotes dental health and fresh breath', 'dental-care'),
+       ('Training', 'Small, easily portable treats perfect for training sessions', 'training'),
+       ('Limited Ingredient', 'Made with minimal ingredients for sensitive dogs', 'limited-ingredient'),
+       ('Protein Rich', 'High protein content for active dogs', 'protein-rich'),
+       ('Organic', 'Made with certified organic ingredients', 'organic'),
+       ('Puppy Friendly', 'Specially formulated for growing puppies', 'puppy-friendly'),
+       ('Senior Care', 'Suitable for older dogs with specific needs', 'senior-care'),
+       ('Hypoallergenic', 'Designed for dogs with food sensitivities', 'hypoallergenic'),
+       ('Low Calorie', 'Perfect for weight management', 'low-calorie'),
+       ('Hip & Joint', 'Contains ingredients supporting joint health', 'hip-and-joint'),
+       ('Vegetarian', 'Made without animal products', 'vegetarian'),
+       ('Freeze Dried', 'Preserved through freeze-drying process', 'freeze-dried'),
+       ('Small Breed', 'Sized appropriately for small dog breeds', 'small-breed');

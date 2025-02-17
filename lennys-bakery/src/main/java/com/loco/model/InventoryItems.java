@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Set;
 
 @Entity
 @Table(name = "inventory_items", schema = "public")
@@ -60,17 +61,23 @@ public class InventoryItems {
     @Column(name = "image_filename")
     private String imageFilename;
 
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "tags_id", nullable = false)
+    private Set<Tags> tags;
+
     public InventoryItems(
             String name,
             String description,
             String shortDescription,
             BigDecimal price,
-            String imageFilename) {
+            String imageFilename,
+            Set<Tags> tags) {
         this.name = name;
         this.description = description;
         this.shortDescription = shortDescription;
         this.price = price;
         this.imageFilename = imageFilename;
         this.slug = UrlSafeStringGenerator.generateUrlSafeString(name);
+        this.tags = tags;
     }
 }

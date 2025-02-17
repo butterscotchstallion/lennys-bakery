@@ -31,8 +31,8 @@ public class InventoryItemService {
     public List<InventoryItems> getInventoryItemsBySearchText(String searchText) {
         return this.inventoryItemRepository.findInventoryItemsBySearchText(searchText);
     }
-
+    
     public void saveInventoryItem(InventoryItems inventoryItem) {
-        inventoryItemRepository.save(inventoryItem);
+        this.inventoryItemRepository.save(inventoryItem);
     }
 }

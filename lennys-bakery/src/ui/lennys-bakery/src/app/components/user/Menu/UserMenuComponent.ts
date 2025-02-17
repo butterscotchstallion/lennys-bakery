@@ -4,7 +4,6 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Avatar } from "primeng/avatar";
 import { Ripple } from "primeng/ripple";
 import { Badge } from "primeng/badge";
-import { NgIf } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { MenuItem, MessageService } from "primeng/api";
 import { AccountService } from "../../../services/AccountService";
@@ -14,11 +13,16 @@ import { IAccountProfile } from "../../../models/IAccountProfile";
 @Component({
     selector: "app-user-menu",
     templateUrl: "./UserMenuComponent.html",
-    imports: [MenuModule, Avatar, Ripple, Badge, NgIf, RouterLink],
+    imports: [MenuModule, Avatar, Ripple, Badge, RouterLink],
 })
 export class UserMenuComponent implements OnInit {
     isLoading: boolean = false;
     userMenuItems: MenuItem[] = [
+        {
+            label: "Admin",
+            icon: "pi pi-fw pi-user",
+            url: "/admin",
+        },
         {
             label: "Account",
             icon: "pi pi-fw pi-user",
