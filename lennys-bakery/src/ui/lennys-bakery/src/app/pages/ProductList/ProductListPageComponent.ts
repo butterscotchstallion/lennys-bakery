@@ -1,13 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from "@angular/core";
-import {
-    catchError,
-    debounceTime,
-    map,
-    Observable,
-    of,
-    tap,
-    throwError,
-} from "rxjs";
+import { catchError, debounceTime, map, of, tap, throwError } from "rxjs";
 import { ProductService } from "../../services/ProductService";
 import { IProduct } from "../../models/IProduct";
 import { ICart } from "../../models/ICart";
@@ -44,8 +36,8 @@ import { MessageService } from "primeng/api";
     ],
 })
 export class ProductListPageComponent implements OnInit {
-    isLoading = false;
-    products$: Observable<IProduct[]> = of([]);
+    isLoading: boolean = false;
+    skeletonDebug: boolean = false;
     products: IProduct[] = [];
     error: string | null = null;
     cartMap: Map<number, ICart> = new Map();

@@ -1,4 +1,4 @@
-<div class="flex justify-between items-center">
+<div class="flex justify-between items-center pr-[39px]">
     <h1 class="text-2xl font-bold my-4 text-[var(--color-secondary)]">Gourmet Tasty Treats</h1>
 
     <!--
@@ -15,7 +15,7 @@
 </div>
 
 <!-- Products Grid -->
-<div class="flex gap-20">
+<div class="flex gap-10">
     <menu class="min-w-[10rem]">
         <div class="mb-4">
             <p-checkbox
@@ -50,7 +50,7 @@
     </menu>
 
     <!-- Product grid -->
-    @if (products) {
+    @if (products && !skeletonDebug) {
         <div class="product-list gap-[10px] flex flex-wrap">
             @for (product of products; track $index) {
                 <app-product
@@ -63,7 +63,7 @@
     }
 
     <!-- Skeletons -->
-    @if (products.length === 0 || isLoading) {
+    @if (products.length === 0 || isLoading || skeletonDebug) {
         <div class="product-list gap-[10px] flex flex-wrap">
             @for (i of [].constructor(12); track $index) {
                 <p-skeleton width="280px" height="370px"></p-skeleton>
