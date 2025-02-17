@@ -18,6 +18,7 @@ import { StockStatusIndicatorComponent } from "../../components/StockStatusIndic
 import { ProductReviewsSummaryComponent } from "../../components/product/Reviews/Summary/ProductReviewsSummaryComponent";
 import { ProductReviewsListComponent } from "../../components/product/Reviews/List/ProductReviewsListComponent";
 import { RelatedProductListComponent } from "../../components/product/RelatedProductList/RelatedProductListComponent";
+import { Tag } from "primeng/tag";
 
 @Component({
     selector: "app-product-page",
@@ -38,6 +39,7 @@ import { RelatedProductListComponent } from "../../components/product/RelatedPro
         ProductReviewsListComponent,
         RelatedProductListComponent,
         RouterLink,
+        Tag,
     ],
 })
 export class ProductPageComponent implements OnInit {

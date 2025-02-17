@@ -30,6 +30,17 @@
                             <p class="m-0 mt-[4rem]">
                                 <app-stock-status-indicator [inStock]="true"/>
                             </p>
+                            <p class="m-0 mt-4">
+                                @if (product.tags.length > 0) {
+                                    <ul>
+                                        @for (tag of product.tags; track $index) {
+                                            <li class="pr-2 inline-block">
+                                                <p-tag severity="success" [value]="tag.name" [rounded]="true"/>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </p>
                         </p-card>
                     </section>
                     <section class="w-1/2">
