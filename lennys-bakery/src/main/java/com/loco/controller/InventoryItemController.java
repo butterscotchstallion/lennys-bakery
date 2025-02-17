@@ -176,7 +176,9 @@ public class InventoryItemController {
             return ResponseEntity.badRequest().build();
         }
 
-        List<InventoryItems> itemsWithTags = inventoryItemService.getInventoryItemsByTags(searchTags);
+        log.debug("Searching for inventory items with tags: {}", searchTags);
+
+        List<InventoryItems> itemsWithTags = inventoryItemService.findItemsByAnyTag(searchTags);
 
         return ResponseEntity.ok(itemsWithTags);
     }

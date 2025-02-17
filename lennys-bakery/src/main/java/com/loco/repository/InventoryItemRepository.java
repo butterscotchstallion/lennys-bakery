@@ -24,5 +24,5 @@ public interface InventoryItemRepository extends PagingAndSortingRepository<Inve
             "LOWER(i.shortDescription) LIKE LOWER(CONCAT('%', :searchText, '%'))")
     List<InventoryItems> findInventoryItemsBySearchText(@Param("searchText") String searchText);
 
-    List<InventoryItems> findInventoryItemsByTags(Set<Tags> tags);
+    List<InventoryItems> findDistinctByTagsIn(Set<Tags> tags);
 }

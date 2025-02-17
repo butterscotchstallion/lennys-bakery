@@ -25,8 +25,8 @@ public class InventoryItemService {
         return inventoryItemRepository.findBySlug(slug);
     }
 
-    public List<InventoryItems> getInventoryItemsByTags(Set<Tags> tags) {
-        return inventoryItemRepository.findInventoryItemsByTags(tags);
+    public List<InventoryItems> findItemsByAnyTag(Set<Tags> tags) {
+        return inventoryItemRepository.findDistinctByTagsIn(tags);
     }
 
     public List<InventoryItems> getAllInventoryItems() {
