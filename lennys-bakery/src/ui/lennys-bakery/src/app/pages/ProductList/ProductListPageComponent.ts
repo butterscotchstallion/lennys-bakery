@@ -24,7 +24,6 @@ import { ProductCardComponent } from "../../components/product/Card/ProductCardC
 import { Select } from "primeng/select";
 import { Checkbox, CheckboxChangeEvent } from "primeng/checkbox";
 import { Skeleton } from "primeng/skeleton";
-import { ProgressSpinner } from "primeng/progressspinner";
 import { CommonModule } from "@angular/common";
 import { TagService } from "../../services/TagService";
 import { ITag } from "../../models/ITag";
@@ -40,7 +39,6 @@ import { MessageService } from "primeng/api";
         Select,
         Checkbox,
         Skeleton,
-        ProgressSpinner,
         CommonModule,
         ReactiveFormsModule,
     ],
@@ -48,6 +46,7 @@ import { MessageService } from "primeng/api";
 export class ProductListPageComponent implements OnInit {
     isLoading = false;
     products$: Observable<IProduct[]> = of([]);
+    products: IProduct[] = [];
     error: string | null = null;
     cartMap: Map<number, ICart> = new Map();
     sortOrder: string = "newest";
@@ -113,10 +112,7 @@ export class ProductListPageComponent implements OnInit {
     }
 
     filterProductsByTags(selectedTags: ITag[]) {
-        if (selectedTags.length === 0) {
-            this.fetchProducts();
-        }
-
+        this.products = [];
         this.isLoading = true;
         this.productService
             .getProductsWithTags(selectedTags)
@@ -135,38 +131,45 @@ export class ProductListPageComponent implements OnInit {
             )
             .subscribe((products: IProduct[]) => {
                 this.isLoading = false;
-                this.products$ = of(products);
+                this.products = products;
             });
     }
 
     fetchProducts() {
         this.isLoading = true;
-        this.products$ = this.productService.getProducts().pipe(
-            map((products: IProduct[]) => {
-                return products.map((product) => ({
-                    ...product,
-                    numReviews: Math.floor(Math.random() * 50) + 1,
-                }));
-            }),
-            tap((_) => {
-                /**
-                 * Normally, the cart map is fetched when first visiting the page through
-                 * the cart component. However, after navigating to the profile page, this
-                 * data is gone. This means when returning to the product listing, the cart
-                 * map is gone. So here we check if the cart map is empty, and only then we
-                 * fetch the cart.
-                 */
-                if (this.cartMap.size === 0) {
-                    this.cartService.getUserCart();
-                }
-                this.isLoading = false;
-            }),
-            catchError((err) => {
-                console.error("Error fetching products:", err);
-                this.error = "Failed to load products. Please try again later.";
-                return of([]);
-            }),
-        );
+        this.productService
+            .getProducts()
+            .pipe(
+                map((products: IProduct[]) => {
+                    return products.map((product) => ({
+                        ...product,
+                        numReviews: Math.floor(Math.random() * 50) + 1,
+                    }));
+                }),
+                tap((_) => {
+                    /**
+                     * Normally, the cart map is fetched when first visiting the page through
+                     * the cart component. However, after navigating to the profile page, this
+                     * data is gone. This means when returning to the product listing, the cart
+                     * map is gone. So here we check if the cart map is empty, and only then we
+                     * fetch the cart.
+                     */
+                    if (this.cartMap.size === 0) {
+                        this.cartService.getUserCart();
+                    }
+                    this.isLoading = false;
+                }),
+                catchError((err) => {
+                    console.error("Error fetching products:", err);
+                    this.error =
+                        "Failed to load products. Please try again later.";
+                    return of([]);
+                }),
+                takeUntilDestroyed(this.destroyRef),
+            )
+            .subscribe((products: IProduct[]) => {
+                this.products = products;
+            });
     }
 
     refresh() {

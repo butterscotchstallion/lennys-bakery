@@ -50,7 +50,6 @@
     </menu>
 
     <!-- Product grid -->
-    @let products = products$ | async;
     @if (products) {
         <div class="product-list gap-[10px] flex flex-wrap">
             @for (product of products; track $index) {
@@ -64,7 +63,7 @@
     }
 
     <!-- Skeletons -->
-    @if (!products || isLoading) {
+    @if (products.length === 0 || isLoading) {
         <div class="product-list gap-[10px] flex flex-wrap">
             @for (i of [].constructor(12); track $index) {
                 <p-skeleton width="300px" height="370px"></p-skeleton>

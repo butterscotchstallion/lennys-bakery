@@ -173,7 +173,7 @@ public class InventoryItemController {
         Set<Tags> searchTags = getInventoryItemsByTagsDto.getTags();
         if (searchTags == null || searchTags.isEmpty()) {
             log.error("No tags provided for search");
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.ok(inventoryItemService.getAllInventoryItems());
         }
 
         log.debug("Searching for inventory items with tags: {}", searchTags);

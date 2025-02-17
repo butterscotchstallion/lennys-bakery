@@ -15,7 +15,7 @@
         </a>
     </p>
 
-    <div class="mt-4 flex justify-between">
+    <div class="mt-4 flex justify-between align-bottom">
         <div class="text-left">
             <div class="product-price text-green-500 font-bold">
                 ${{ product.price.toFixed(2) }}
@@ -36,7 +36,8 @@
             [disabled]="isLoading"
             class="product-button"
             label="Add"
-            styleClass="bg-[var(--color-secondary)]"
+            size="small"
+            styleClass="bg-[var(--color-secondary)] mt-4"
         >
             <fa-icon [icon]="faCartPlus"></fa-icon>
         </p-button>

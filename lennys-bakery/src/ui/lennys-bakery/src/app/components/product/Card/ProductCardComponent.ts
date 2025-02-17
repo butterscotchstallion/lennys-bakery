@@ -31,6 +31,7 @@ export class ProductCardComponent {
     @Input() product: IProduct;
     @Input() cartMap: Map<number, ICart>;
     isLoading = false;
+    showTags: boolean = false;
     protected readonly faComments: IconDefinition = faComments;
     protected readonly faCartPlus: IconDefinition = faCartPlus;
     private destroyRef: DestroyRef = inject(DestroyRef);
@@ -39,6 +40,10 @@ export class ProductCardComponent {
         private cartService: CartService,
         private messageService: MessageService,
     ) {}
+
+    showTagsToggle() {
+        this.showTags = !this.showTags;
+    }
 
     getCartQuantity(productId: number): string {
         const cartItem: ICart | undefined = this.cartMap.get(productId);
