@@ -26,10 +26,13 @@
             <div class="flex justify-between">
                 <h2 class="text-lg font-bold text-white">Inventory</h2>
 
-                <p-button
-                    icon="pi pi-box"
-                    label="View Item"
-                    routerLink="/inventory/item/{{product.slug}}"/>
+                @if (product) {
+                    <p-button
+                        icon="pi pi-box"
+                        label="View Item"
+                        severity="info"
+                        routerLink="/inventory/item/{{product.slug}}"/>
+                }
             </div>
 
             @if (product) {

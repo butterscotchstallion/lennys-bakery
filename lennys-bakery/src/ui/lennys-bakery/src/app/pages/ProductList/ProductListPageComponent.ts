@@ -12,6 +12,8 @@ import { Checkbox } from "primeng/checkbox";
 import { Skeleton } from "primeng/skeleton";
 import { ProgressSpinner } from "primeng/progressspinner";
 import { CommonModule } from "@angular/common";
+import { TagService } from "../../services/TagService";
+import { ITag } from "../../models/ITag";
 
 @Component({
     selector: "app-product-list",
@@ -33,6 +35,7 @@ export class ProductListPageComponent implements OnInit {
     error: string | null = null;
     cartMap: Map<number, ICart> = new Map();
     sortOrder: string = "newest";
+    tags: ITag[] = [];
     filterOptions = [
         {
             label: "Jerky",
@@ -82,6 +85,7 @@ export class ProductListPageComponent implements OnInit {
     constructor(
         private productService: ProductService,
         private cartService: CartService,
+        private tagService: TagService,
     ) {}
 
     ngOnInit() {
@@ -90,6 +94,12 @@ export class ProductListPageComponent implements OnInit {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((cartMap: Map<number, ICart>) => {
                 this.cartMap = cartMap;
+            });
+        this.tagService
+            .getTags()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((tags: ITag[]) => {
+                this.tags = tags;
             });
     }
 

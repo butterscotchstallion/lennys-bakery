@@ -34,7 +34,7 @@
                                 @if (product.tags.length > 0) {
                                     <ul>
                                         @for (tag of product.tags; track $index) {
-                                            <li class="pr-2 inline-block">
+                                            <li class="pr-2 pb-2 inline-block">
                                                 <p-tag severity="success" [value]="tag.name" [rounded]="true"/>
                                             </li>
                                         }
