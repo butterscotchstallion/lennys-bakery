@@ -40,7 +40,10 @@
                             inputId="product-filter-{{tag.id}}"
                             (onChange)="onTagChange($event, tag)"
                         />
-                        <label class="pl-1 cursor-pointer" for="product-filter-{{tag.id}}">
+                        <label
+                            title="{{tag.name}}"
+                            class="truncate pl-1 cursor-pointer"
+                            for="product-filter-{{tag.id}}">
                             {{ tag.name }}
                         </label>
                     </li>
