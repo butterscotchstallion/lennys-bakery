@@ -50,21 +50,25 @@
     </menu>
 
     <!-- Product grid -->
-    <div *ngIf="products$ | async as products" class="product-list gap-[10px] flex flex-wrap">
-        <app-product
-            *ngFor="let product of products"
-            [cartMap]="cartMap"
-            [product]="product"
-            class="flex-shrink-0"
-        ></app-product>
-    </div>
+    @let products = products$ | async;
+    @if (products) {
+        <div class="product-list gap-[10px] flex flex-wrap">
+            @for (product of products; track $index) {
+                <app-product
+                    [cartMap]="cartMap"
+                    [product]="product"
+                    class="flex-shrink-0"
+                ></app-product>
+            }
+        </div>
+    }
 
     <!-- Skeletons -->
-    @if ((products$ | async) === null || isLoading) {
+    @if (!products || isLoading) {
         <div class="product-list gap-[10px] flex flex-wrap">
-            <ng-container *ngFor="let i of [].constructor(12)">
+            @for (i of [].constructor(12); track $index) {
                 <p-skeleton width="300px" height="370px"></p-skeleton>
-            </ng-container>
+            }
         </div>
     }
 
