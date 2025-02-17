@@ -8,6 +8,7 @@ import { CommonModule } from "@angular/common";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { catchError, throwError } from "rxjs";
 import { MessageService } from "primeng/api";
+import { Button } from "primeng/button";
 
 @Component({
     selector: "app-admin-page",
@@ -17,6 +18,7 @@ import { MessageService } from "primeng/api";
         RouterLink,
         AdminEditInventoryItemComponent,
         CommonModule,
+        Button,
     ],
 })
 export class AdminPageComponent {
