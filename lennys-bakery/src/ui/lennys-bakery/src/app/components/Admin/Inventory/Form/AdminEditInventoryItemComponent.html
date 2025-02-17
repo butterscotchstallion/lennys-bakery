@@ -13,6 +13,17 @@
                         <label class="block pb-2" for="item-price">Price</label>
                         <input formControlName="price" id="item-price" pInputText type="number"/>
                     </div>
+
+                    <div>
+                        <label class="block pb-2" for="item-tags">Tags</label>
+                        <p-multiselect
+                            id="item-tags"
+                            [options]="tagList"
+                            formControlName="tags"
+                            optionLabel="name"
+                            placeholder="Select Tags"
+                            styleClass="w-full md:w-80"></p-multiselect>
+                    </div>
                 </section>
 
                 <!-- Right -->
@@ -30,6 +41,7 @@
                             }
                         </section>
 
+                        <!--
                         <p-fileupload
                             id="item-image"
                             mode="basic"
@@ -39,13 +51,34 @@
                             accept="image/*"
                             maxFileSize="1000000"
                             (onUpload)="onUploadItemImage($event)"
-                            [auto]="true"
                             chooseLabel="Browse"/>
+                            -->
+
+                        <p-fileupload
+                            name="file"
+                            url="http://localhost:8080/api/v1/inventory/item/{{item.slug}}/image"
+                            (onUpload)="onUploadItemImage($event)"
+                            [multiple]="true"
+                            accept="image/*"
+                            maxFileSize="1000000"
+                            mode="advanced">
+                            <ng-template #empty>
+                                <div>Drag and drop files to here to upload.</div>
+                            </ng-template>
+                            <ng-template #content>
+                                <!--
+                                <ul *ngIf="uploadedFiles.length">
+                                    <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                                </ul>
+                                -->
+
+                            </ng-template>
+                        </p-fileupload>
                     </div>
                 </section>
             </section>
 
-            <section class="flex justify-between max-w-md gap-4 mt-4">
+            <section class="flex justify-between gap-4 mt-4 max-w-md">
                 <div>
                     <label class="block pb-2" for="item-short-description">Short Description</label>
                     <textarea rows="5" cols="30" maxlength="255" pTextarea
@@ -56,6 +89,16 @@
                     <textarea rows="5" cols="30" maxlength="1000" pTextarea formControlName="description"></textarea>
                 </div>
             </section>
+        </section>
+
+        <section class="justify-end mt-4 flex">
+            <p-button
+                (onClick)="save()"
+                icon="pi pi-save"
+                iconPos="left"
+                label="Save"
+                [disabled]="itemForm.invalid"
+                type="submit"/>
         </section>
     </form>
 } @else {
