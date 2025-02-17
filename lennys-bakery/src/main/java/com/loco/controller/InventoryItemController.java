@@ -92,7 +92,7 @@ public class InventoryItemController {
      */
     private ArrayList<String> transferFilesAndReturnFilenames(MultipartFile[] files) {
         try {
-            ArrayList<String> filenames = new ArrayList<String>();
+            ArrayList<String> filenames = new ArrayList<>();
             for (MultipartFile file : files) {
                 String originalFileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
                 String imageFilenameWithExtension = UUID.randomUUID() + "." + originalFileExtension;

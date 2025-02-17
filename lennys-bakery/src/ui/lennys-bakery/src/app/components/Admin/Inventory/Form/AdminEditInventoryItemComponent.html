@@ -41,19 +41,6 @@
                             }
                         </section>
 
-                        <!--
-                        <p-fileupload
-                            id="item-image"
-                            mode="basic"
-                            name="item.imageFilename"
-                            chooseIcon="pi pi-upload"
-                            url="http://localhost:8080/api/v1/inventory/item/{{item.slug}}/image"
-                            accept="image/*"
-                            maxFileSize="1000000"
-                            (onUpload)="onUploadItemImage($event)"
-                            chooseLabel="Browse"/>
-                            -->
-
                         <p-fileupload
                             name="file"
                             url="http://localhost:8080/api/v1/inventory/item/{{item.slug}}/image"
@@ -71,7 +58,6 @@
                                     <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
                                 </ul>
                                 -->
-
                             </ng-template>
                         </p-fileupload>
                     </div>
@@ -97,7 +83,7 @@
                 icon="pi pi-save"
                 iconPos="left"
                 label="Save"
-                [disabled]="itemForm.invalid"
+                [disabled]="itemForm.invalid || isLoading"
                 type="submit"/>
         </section>
     </form>

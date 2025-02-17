@@ -61,7 +61,7 @@ public class InventoryItems {
     @Column(name = "image_filename")
     private String imageFilename;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany()
     @JoinColumn(name = "tags_id", nullable = false)
     private Set<Tags> tags;
 

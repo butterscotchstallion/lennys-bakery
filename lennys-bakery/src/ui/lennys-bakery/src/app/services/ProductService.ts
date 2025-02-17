@@ -11,6 +11,26 @@ export class ProductService {
 
     constructor() {}
 
+    updateProduct(product: IProduct, itemSlug: string) {
+        const product$ = new Subject<IProduct>();
+
+        fetch(this.apiUrl + "/item/" + itemSlug, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(product),
+        }).then((response: Response) => {
+            if (response.ok) {
+                product$.next(product);
+            } else {
+                product$.error(response.body);
+            }
+        });
+
+        return product$;
+    }
+
     getProductBySlug(slug: string): Subject<IProduct> {
         const product$ = new Subject<IProduct>();
         fetch(this.apiUrl + "/item/" + slug)
