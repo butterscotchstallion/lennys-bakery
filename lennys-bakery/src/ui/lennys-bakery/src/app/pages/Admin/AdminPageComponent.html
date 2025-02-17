@@ -25,7 +25,9 @@
         <section>
             <h2 class="text-lg font-bold text-white">Inventory</h2>
 
-            <app-admin-edit-inventory-item [item]="(product$ | async)"/>
+            @if (product) {
+                <app-admin-edit-inventory-item [item]="product"/>
+            }
         </section>
     </main>
 </div>
