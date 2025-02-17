@@ -1,19 +1,34 @@
 import { Component, DestroyRef, inject, OnInit } from "@angular/core";
-import { catchError, map, Observable, of, tap } from "rxjs";
+import {
+    catchError,
+    debounceTime,
+    map,
+    Observable,
+    of,
+    tap,
+    throwError,
+} from "rxjs";
 import { ProductService } from "../../services/ProductService";
 import { IProduct } from "../../models/IProduct";
 import { ICart } from "../../models/ICart";
 import { CartService } from "../../services/CartService";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { FormsModule } from "@angular/forms";
+import {
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+} from "@angular/forms";
 import { ProductCardComponent } from "../../components/product/Card/ProductCardComponent";
 import { Select } from "primeng/select";
-import { Checkbox } from "primeng/checkbox";
+import { Checkbox, CheckboxChangeEvent } from "primeng/checkbox";
 import { Skeleton } from "primeng/skeleton";
 import { ProgressSpinner } from "primeng/progressspinner";
 import { CommonModule } from "@angular/common";
 import { TagService } from "../../services/TagService";
 import { ITag } from "../../models/ITag";
+import { MessageService } from "primeng/api";
 
 @Component({
     selector: "app-product-list",
@@ -27,6 +42,7 @@ import { ITag } from "../../models/ITag";
         Skeleton,
         ProgressSpinner,
         CommonModule,
+        ReactiveFormsModule,
     ],
 })
 export class ProductListPageComponent implements OnInit {
@@ -35,29 +51,8 @@ export class ProductListPageComponent implements OnInit {
     error: string | null = null;
     cartMap: Map<number, ICart> = new Map();
     sortOrder: string = "newest";
+    tagSearchForm: FormGroup;
     tags: ITag[] = [];
-    filterOptions = [
-        {
-            label: "Jerky",
-            id: "jerky",
-        },
-        {
-            label: "Vegetarian",
-            id: "vegetarian",
-        },
-        {
-            label: "Vegan",
-            id: "vegan",
-        },
-        {
-            label: "Chicken",
-            id: "chicken",
-        },
-        {
-            label: "Salmon",
-            id: "salmon",
-        },
-    ];
     sortOptions = [
         {
             label: "Newest",
@@ -80,15 +75,26 @@ export class ProductListPageComponent implements OnInit {
             value: "topRated",
         },
     ];
+    private selectedTagsMap: Map<string, boolean> = new Map();
+    private tagNameTagMap: Map<string, ITag> = new Map();
     private destroyRef: DestroyRef = inject(DestroyRef);
 
     constructor(
         private productService: ProductService,
         private cartService: CartService,
         private tagService: TagService,
+        private messageService: MessageService,
+        private fb: FormBuilder,
     ) {}
 
     ngOnInit() {
+        const tagNames: string[] = this.tags.map((tag) => tag.name);
+        const tagControls: FormControl[] = this.tags.map((tag: ITag) => {
+            return new FormControl(tagNames.includes(tag.name), []);
+        });
+        this.tagSearchForm = this.fb.group({
+            tags: this.fb.array(tagControls, []),
+        });
         this.fetchProducts();
         this.cartService.cartMapUpdates$
             .pipe(takeUntilDestroyed(this.destroyRef))
@@ -100,6 +106,36 @@ export class ProductListPageComponent implements OnInit {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe((tags: ITag[]) => {
                 this.tags = tags;
+                this.tags.map((tag: ITag) => {
+                    this.tagNameTagMap.set(tag.name, tag);
+                });
+            });
+    }
+
+    filterProductsByTags(selectedTags: ITag[]) {
+        if (selectedTags.length === 0) {
+            this.fetchProducts();
+        }
+
+        this.isLoading = true;
+        this.productService
+            .getProductsWithTags(selectedTags)
+            .pipe(
+                debounceTime(3000),
+                takeUntilDestroyed(this.destroyRef),
+                catchError(() => {
+                    this.isLoading = false;
+                    this.messageService.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: "There was a problem filtering products.",
+                    });
+                    return throwError(() => "Failed to filter products");
+                }),
+            )
+            .subscribe((products: IProduct[]) => {
+                this.isLoading = false;
+                this.products$ = of(products);
             });
     }
 
@@ -135,5 +171,21 @@ export class ProductListPageComponent implements OnInit {
 
     refresh() {
         this.fetchProducts();
+    }
+
+    onTagChange($event: CheckboxChangeEvent, tag: ITag) {
+        this.selectedTagsMap.set(tag.name, $event.checked);
+        const selectedTags: ITag[] = this.getSelectedTags();
+        this.filterProductsByTags(selectedTags);
+    }
+
+    private getSelectedTags(): ITag[] {
+        const selectedTags: ITag[] = [];
+        this.selectedTagsMap.forEach((isSelected: boolean, tagName: string) => {
+            if (isSelected) {
+                selectedTags.push(this.tagNameTagMap.get(tagName));
+            }
+        });
+        return selectedTags;
     }
 }

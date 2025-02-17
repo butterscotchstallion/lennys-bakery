@@ -1,7 +1,9 @@
 package com.loco.controller;
 
+import com.loco.dto.GetInventoryItemsByTagsDto;
 import com.loco.exception.UserNotFoundException;
 import com.loco.model.InventoryItems;
+import com.loco.model.Tags;
 import com.loco.service.InventoryItemService;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -164,5 +166,18 @@ public class InventoryItemController {
         response.put("message", "Inventory item updated");
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/search/tags")
+    public ResponseEntity<List<InventoryItems>> getInventoryItemsByTags(@RequestBody GetInventoryItemsByTagsDto getInventoryItemsByTagsDto) {
+        Set<Tags> searchTags = getInventoryItemsByTagsDto.getTags();
+        if (searchTags == null || searchTags.isEmpty()) {
+            log.error("No tags provided for search");
+            return ResponseEntity.badRequest().build();
+        }
+
+        List<InventoryItems> itemsWithTags = inventoryItemService.getInventoryItemsByTags(searchTags);
+
+        return ResponseEntity.ok(itemsWithTags);
     }
 }

@@ -1,11 +1,13 @@
 package com.loco.service;
 
 import com.loco.model.InventoryItems;
+import com.loco.model.Tags;
 import com.loco.repository.InventoryItemRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class InventoryItemService {
@@ -23,6 +25,10 @@ public class InventoryItemService {
         return inventoryItemRepository.findBySlug(slug);
     }
 
+    public List<InventoryItems> getInventoryItemsByTags(Set<Tags> tags) {
+        return inventoryItemRepository.findInventoryItemsByTags(tags);
+    }
+
     public List<InventoryItems> getAllInventoryItems() {
         return (List<InventoryItems>)
                 inventoryItemRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
@@ -31,7 +37,7 @@ public class InventoryItemService {
     public List<InventoryItems> getInventoryItemsBySearchText(String searchText) {
         return this.inventoryItemRepository.findInventoryItemsBySearchText(searchText);
     }
-    
+
     public void saveInventoryItem(InventoryItems inventoryItem) {
         this.inventoryItemRepository.save(inventoryItem);
     }

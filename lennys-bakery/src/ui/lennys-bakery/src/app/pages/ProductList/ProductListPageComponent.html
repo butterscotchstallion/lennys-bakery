@@ -29,17 +29,24 @@
         </div>
 
         <h3 class="text-lg font-bold">Categories</h3>
-        <ul>
-            @for (tag of tags; track $index) {
-                <li class="pb-1">
-                    <p-checkbox [binary]="true"
-                                inputId="product-filter-{{tag.id}}"/>
-                    <label class="pl-1 cursor-pointer" for="product-filter-{{tag.id}}">
-                        {{ tag.name }}
-                    </label>
-                </li>
-            }
-        </ul>
+        <form [formGroup]="tagSearchForm">
+            <ul>
+                @for (tag of tags; track $index) {
+                    <li class="pb-1">
+                        <p-checkbox
+                            [binary]="true"
+                            formArrayName="tags"
+                            name="tags[]"
+                            inputId="product-filter-{{tag.id}}"
+                            (onChange)="onTagChange($event, tag)"
+                        />
+                        <label class="pl-1 cursor-pointer" for="product-filter-{{tag.id}}">
+                            {{ tag.name }}
+                        </label>
+                    </li>
+                }
+            </ul>
+        </form>
     </menu>
 
     <div *ngIf="products$ | async as products" class="product-list gap-[10px] flex flex-wrap items-center">

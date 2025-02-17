@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject, Subscriber } from "rxjs";
 import { IProduct } from "../models/IProduct";
 import { getApiUrl } from "./ApiService";
+import { ITag } from "../models/ITag";
 
 @Injectable({
     providedIn: "root",
@@ -72,5 +73,29 @@ export class ProductService {
                     observer.error(error); // Propagate any errors
                 });
         });
+    }
+
+    getProductsWithTags(tags: ITag[]): Subject<IProduct[]> {
+        const products$ = new Subject<IProduct[]>();
+
+        fetch(this.apiUrl + "/search/tags", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                tags: tags,
+            }),
+        }).then((response: Response) => {
+            if (response.ok) {
+                response.json().then((products: IProduct[]) => {
+                    products$.next(products);
+                });
+            } else {
+                products$.error(response.body);
+            }
+        });
+
+        return products$;
     }
 }
