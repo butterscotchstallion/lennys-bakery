@@ -6,6 +6,7 @@ import { ICart } from "../../models/ICart";
 import { CartService } from "../../services/CartService";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import {
+    FormArray,
     FormBuilder,
     FormControl,
     FormGroup,
@@ -20,6 +21,7 @@ import { CommonModule } from "@angular/common";
 import { TagService } from "../../services/TagService";
 import { ITag } from "../../models/ITag";
 import { MessageService } from "primeng/api";
+import { Tag } from "primeng/tag";
 
 @Component({
     selector: "app-product-list",
@@ -33,6 +35,7 @@ import { MessageService } from "primeng/api";
         Skeleton,
         CommonModule,
         ReactiveFormsModule,
+        Tag,
     ],
 })
 export class ProductListPageComponent implements OnInit {
@@ -66,6 +69,7 @@ export class ProductListPageComponent implements OnInit {
             value: "topRated",
         },
     ];
+    selectedTagFilters: ITag[] = [];
     private selectedTagsMap: Map<string, boolean> = new Map();
     private tagNameTagMap: Map<string, ITag> = new Map();
     private destroyRef: DestroyRef = inject(DestroyRef);
@@ -77,6 +81,10 @@ export class ProductListPageComponent implements OnInit {
         private messageService: MessageService,
         private fb: FormBuilder,
     ) {}
+
+    get tagFormControls() {
+        return this.tagSearchForm.get("tags") as FormArray;
+    }
 
     ngOnInit() {
         const tagNames: string[] = this.tags.map((tag) => tag.name);
@@ -99,6 +107,7 @@ export class ProductListPageComponent implements OnInit {
                 this.tags = tags;
                 this.tags.map((tag: ITag) => {
                     this.tagNameTagMap.set(tag.name, tag);
+                    this.tagFormControls.push(new FormControl(false));
                 });
             });
     }
@@ -168,11 +177,24 @@ export class ProductListPageComponent implements OnInit {
         this.fetchProducts();
     }
 
+    clearFilters() {
+        this.selectedTagFilters = [];
+        this.selectedTagsMap.clear();
+        this.tagFormControls.controls.forEach((control) => {
+            control.setValue(false);
+        });
+        this.tagSearchForm.reset();
+        this.fetchProducts();
+    }
+
     onTagChange($event: CheckboxChangeEvent, tag: ITag) {
         this.selectedTagsMap.set(tag.name, $event.checked);
         const selectedTags: ITag[] = this.getSelectedTags();
+        this.selectedTagFilters = selectedTags;
         this.filterProductsByTags(selectedTags);
     }
+
+    onTagRemoved(tagName: string) {}
 
     private getSelectedTags(): ITag[] {
         const selectedTags: ITag[] = [];
@@ -181,6 +203,7 @@ export class ProductListPageComponent implements OnInit {
                 selectedTags.push(this.tagNameTagMap.get(tagName));
             }
         });
+        selectedTags.sort((a, b) => a.name.localeCompare(b.name));
         return selectedTags;
     }
 }

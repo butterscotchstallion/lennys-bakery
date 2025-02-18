@@ -35,8 +35,6 @@
                     <li class="pb-1">
                         <p-checkbox
                             [binary]="true"
-                            formArrayName="tags"
-                            name="tags[]"
                             inputId="product-filter-{{tag.id}}"
                             (onChange)="onTagChange($event, tag)"
                         />
@@ -52,27 +50,49 @@
         </form>
     </menu>
 
-    <!-- Product grid -->
-    @if (products && !skeletonDebug) {
-        <div class="product-list gap-[10px] flex flex-wrap">
-            @for (product of products; track $index) {
-                <app-product
-                    [cartMap]="cartMap"
-                    [product]="product"
-                    class="flex-shrink-0"
-                ></app-product>
+    <div class="flex flex-col gap-4 w-full">
+        <!-- Product grid -->
+        @if (products && !skeletonDebug) {
+            @if (selectedTagFilters.length > 0) {
+                <section class="product-list-filters w-full">
+                    <ul class="flex flex-wrap gap-2">
+                        @for (tag of selectedTagFilters; track $index) {
+                            <li class="mb-2">
+                                <p-tag
+                                    styleClass="cursor-pointer"
+                                    icon="pi pi-tag"
+                                    severity="secondary"
+                                    value="{{tag.name}} &times;"
+                                    (click)="onTagRemoved(tag.name)"/>
+                            </li>
+                        }
+                        <li>
+                            <a class="underline cursor-pointer"
+                               (click)="clearFilters()">Clear Filters</a>
+                        </li>
+                    </ul>
+                </section>
             }
-        </div>
-    }
+            <div class="product-list gap-[10px] flex flex-wrap">
+                @for (product of products; track $index) {
+                    <app-product
+                        [cartMap]="cartMap"
+                        [product]="product"
+                        class="flex-shrink-0"
+                    ></app-product>
+                }
+            </div>
+        }
 
-    <!-- Skeletons -->
-    @if (products.length === 0 || isLoading || skeletonDebug) {
-        <div class="product-list gap-[10px] flex flex-wrap">
-            @for (i of [].constructor(12); track $index) {
-                <p-skeleton width="280px" height="370px"></p-skeleton>
-            }
-        </div>
-    }
+        <!-- Skeletons -->
+        @if (products.length === 0 || isLoading || skeletonDebug) {
+            <div class="product-list gap-[10px] flex flex-wrap">
+                @for (i of [].constructor(12); track $index) {
+                    <p-skeleton width="280px" height="370px"></p-skeleton>
+                }
+            </div>
+        }
+    </div>
 
     <!-- Error State -->
     @if (error) {

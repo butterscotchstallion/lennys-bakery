@@ -64,7 +64,7 @@ public class InventoryItems {
     @OneToMany()
     @JoinColumn(name = "tags_id", nullable = false)
     private Set<Tags> tags;
-
+    
     public InventoryItems(
             String name,
             String description,
