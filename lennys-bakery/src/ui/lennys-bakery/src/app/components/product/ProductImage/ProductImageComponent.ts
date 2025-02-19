@@ -7,4 +7,5 @@ import { IProduct } from "../../../models/IProduct";
 })
 export class ProductImageComponent {
     @Input() product: IProduct;
+    @Input() rounded: boolean = false;
 }

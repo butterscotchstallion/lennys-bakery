@@ -1,4 +1,5 @@
 <img
+    [class]="{ 'rounded-tl-lg': rounded, 'rounded-tr-lg': rounded }"
     alt="{{ product.description }}"
     height="202"
     src="/images/products/{{ product.imageFilename || 'default.png' }}"

@@ -1,10 +1,11 @@
-<div class="product-image object-cover max-w-[280px] bg-[var(--color-card-background)]">
+<div class="product-image rounded-md object-cover max-w-[280px] bg-[var(--color-card-background)]">
     <a routerLink="/inventory/item/{{product.slug}}">
-        <app-product-image [product]="product"/>
+        <app-product-image [product]="product" [rounded]="true"/>
     </a>
 </div>
 
-<div class="product-card shadow-lg max-w-[280px] bg-[var(--color-card-background)] p-4 text-center text-white">
+<div
+    class="product-card rounded-lg shadow-lg max-w-[280px] bg-[var(--color-card-background)] p-4 text-center text-white">
     <h2 class="text-lg font-bold text-white mt-0 underline">
         <a class="hover:text-[var(--color-secondary)]" routerLink="/inventory/item/{{product.slug}}"
            title="Visit product page">{{ product.name }}</a>
