@@ -32,7 +32,7 @@
                     <div class="flex gap-4">
                         <section class="mb-4">
                             @if (item.imageFilename) {
-                                <img src="/images/products/{{ item.imageFilename }}" alt="Item image"/>
+                                <img ngSrc="/images/products/{{ item.imageFilename }}" alt="Item image" fill/>
                             } @else {
                                 <div
                                     class="flex items-center justify-center bg-[var(--color-card-background)] h-[100px] w-[100px] rounded-md text-2xl text-white">

@@ -11,7 +11,6 @@ import { ProductImageComponent } from "../../components/product/ProductImage/Pro
 import { Button } from "primeng/button";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
-import { Select } from "primeng/select";
 import { Rating } from "primeng/rating";
 import { Card } from "primeng/card";
 import { StockStatusIndicatorComponent } from "../../components/StockStatusIndicator/StockStatusIndicatorComponent";
@@ -19,6 +18,7 @@ import { ProductReviewsSummaryComponent } from "../../components/product/Reviews
 import { ProductReviewsListComponent } from "../../components/product/Reviews/List/ProductReviewsListComponent";
 import { RelatedProductListComponent } from "../../components/product/RelatedProductList/RelatedProductListComponent";
 import { Tag } from "primeng/tag";
+import { ProductQuantitySelectorComponent } from "../../components/product/ProductQuantity/ProductQuantitySelectorComponent";
 
 @Component({
     selector: "app-product-page",
@@ -31,7 +31,6 @@ import { Tag } from "primeng/tag";
         ProductImageComponent,
         Button,
         FaIconComponent,
-        Select,
         Rating,
         Card,
         StockStatusIndicatorComponent,
@@ -40,6 +39,7 @@ import { Tag } from "primeng/tag";
         RelatedProductListComponent,
         RouterLink,
         Tag,
+        ProductQuantitySelectorComponent,
     ],
 })
 export class ProductPageComponent implements OnInit {

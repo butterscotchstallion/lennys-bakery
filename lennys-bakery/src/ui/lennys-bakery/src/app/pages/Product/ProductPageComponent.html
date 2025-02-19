@@ -109,14 +109,7 @@
                         <label for="product-cart-quantity">Quantity</label>
                     </li>
                     <li class="mb-2">
-                        <p-select
-                            [(ngModel)]="quantity"
-                            [options]="quantityOptions"
-                            id="product-cart-quantity"
-                            optionLabel="label"
-                            optionValue="value"
-                            styleClass="w-full"
-                        />
+                        <app-product-quantity-selector/>
                     </li>
                     <li class="mb-4">
                         <p-button

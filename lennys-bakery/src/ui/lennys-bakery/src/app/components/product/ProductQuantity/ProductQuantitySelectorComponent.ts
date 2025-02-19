@@ -1,11 +1,11 @@
-import { Component, DestroyRef, inject, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Select } from "primeng/select";
 import { FormsModule } from "@angular/forms";
-import { catchError, noop, throwError } from "rxjs";
-import { ICart } from "../../../models/ICart";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { CartService } from "../../../services/CartService";
-import { MessageService } from "primeng/api";
+
+interface IQuantityOption {
+    label: string;
+    value: number;
+}
 
 @Component({
     selector: "app-product-quantity-selector",
@@ -13,42 +13,15 @@ import { MessageService } from "primeng/api";
     imports: [Select, FormsModule],
 })
 export class ProductQuantitySelectorComponent implements OnInit {
-    @Input() onChange = noop;
+    @Input() onChange: (itemQuantity: number) => void;
     maxQuantity: number = 50;
-    quantityOptions: any[] = [];
+    quantityOptions: IQuantityOption[] = [];
     itemQuantity: number = 1;
-    private destroyRef: DestroyRef = inject(DestroyRef);
 
-    constructor(
-        private cartService: CartService,
-        private messageService: MessageService,
-    ) {}
+    constructor() {}
 
-    onQuantityChange(cartItem: ICart) {
-        this.cartService
-            .addItemToCart({
-                inventoryItemId: cartItem.inventoryItem.id,
-                quantity: cartItem.quantity,
-                overwriteQuantity: true,
-            })
-            .pipe(
-                catchError(() => {
-                    this.messageService.add({
-                        severity: "error",
-                        summary: "Error",
-                        detail: "There was a problem updating your cart.",
-                    });
-                    return throwError(() => "Failed to update cart");
-                }),
-                takeUntilDestroyed(this.destroyRef),
-            )
-            .subscribe(() => {
-                this.messageService.add({
-                    severity: "success",
-                    summary: "Success",
-                    detail: "Cart updated",
-                });
-            });
+    onQuantityChange() {
+        this.onChange(this.itemQuantity);
     }
 
     ngOnInit() {

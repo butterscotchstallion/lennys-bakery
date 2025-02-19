@@ -1,22 +1,8 @@
 <p-select
-    (onChange)="onQuantityChange(cartItem)"
+    (onChange)="onQuantityChange()"
     [(ngModel)]="itemQuantity"
     [ngModelOptions]="{standalone: true}"
     [options]="quantityOptions"
     class="w-full"
     optionLabel="label"
-    optionValue="value"
->
-    <ng-template #selectedItem let-selectedOption>
-        @if (selectedOption) {
-            <div class="flex items-center gap-2">
-                <div>{{ selectedOption.label }}</div>
-            </div>
-        }
-    </ng-template>
-    <ng-template #item let-option>
-        <div class="flex items-center gap-2">
-            <div>{{ option.label }}</div>
-        </div>
-    </ng-template>
-</p-select>
+    optionValue="value"/>

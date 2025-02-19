@@ -18,6 +18,7 @@ import { TagService } from "../../../../services/TagService";
 import { ProductService } from "../../../../services/ProductService";
 import { catchError, throwError } from "rxjs";
 import { MessageService } from "primeng/api";
+import { NgOptimizedImage } from "@angular/common";
 
 @Component({
     selector: "app-admin-edit-inventory-item",
@@ -30,6 +31,7 @@ import { MessageService } from "primeng/api";
         FileUpload,
         Button,
         MultiSelect,
+        NgOptimizedImage,
     ],
 })
 export class AdminEditInventoryItemComponent implements OnInit {
