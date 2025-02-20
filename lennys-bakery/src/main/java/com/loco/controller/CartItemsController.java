@@ -70,17 +70,34 @@ public class CartItemsController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    private boolean isPositiveInteger(Number number) {
+        if (number == null) return false;
+        return number.doubleValue() > 0 && number.doubleValue() == Math.floor(number.doubleValue());
+    }
+
     @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     @Valid
-    public ResponseEntity<Object> addItemToCart(@RequestBody AddCartItemRequestDto cartItemRequestDto) {
+    public ResponseEntity<HashMap<String, String>> addItemToCart(@RequestBody AddCartItemRequestDto cartItemRequestDto) {
+        HashMap<String, String> response = new HashMap<>();
         try {
+            if (!this.isPositiveInteger(cartItemRequestDto.getQuantity())) {
+                response.put("status", "ERROR");
+                response.put("message", "Invalid quantity");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
+
+            if (!this.isPositiveInteger(cartItemRequestDto.getInventoryItemId())) {
+                response.put("status", "ERROR");
+                response.put("message", "Invalid inventory item id");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
+
             this.cartItemsService.addItemToCart(
                     cartItemRequestDto.getInventoryItemId(),
                     this.userService.getUserIdFromSession(),
                     cartItemRequestDto.getQuantity(),
                     cartItemRequestDto.getOverwriteQuantity()
             );
-            HashMap<String, String> response = new HashMap<>();
             response.put("status", "OK");
             response.put("message", "Item added to cart");
             return new ResponseEntity<>(response, HttpStatus.OK);
