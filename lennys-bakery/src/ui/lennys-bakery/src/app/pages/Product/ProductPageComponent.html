@@ -109,7 +109,9 @@
                         <label for="product-cart-quantity">Quantity</label>
                     </li>
                     <li class="mb-2">
-                        <app-product-quantity-selector/>
+                        <app-product-quantity-selector
+                            id="product-cart-quantity"
+                            (onChange)="onProductQuantityChange($event)"/>
                     </li>
                     <li class="mb-4">
                         <p-button

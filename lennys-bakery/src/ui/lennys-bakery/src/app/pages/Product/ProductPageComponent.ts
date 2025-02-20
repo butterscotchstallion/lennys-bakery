@@ -10,7 +10,10 @@ import { FormsModule } from "@angular/forms";
 import { ProductImageComponent } from "../../components/product/ProductImage/ProductImageComponent";
 import { Button } from "primeng/button";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+import {
+    FaIconComponent,
+    IconDefinition,
+} from "@fortawesome/angular-fontawesome";
 import { Rating } from "primeng/rating";
 import { Card } from "primeng/card";
 import { StockStatusIndicatorComponent } from "../../components/StockStatusIndicator/StockStatusIndicatorComponent";
@@ -19,6 +22,9 @@ import { ProductReviewsListComponent } from "../../components/product/Reviews/Li
 import { RelatedProductListComponent } from "../../components/product/RelatedProductList/RelatedProductListComponent";
 import { Tag } from "primeng/tag";
 import { ProductQuantitySelectorComponent } from "../../components/product/ProductQuantity/ProductQuantitySelectorComponent";
+import { IAddToCartItem } from "../../models/IAddToCartItem";
+import { MessageService } from "primeng/api";
+import { CartService } from "../../services/CartService";
 
 @Component({
     selector: "app-product-page",
@@ -47,17 +53,18 @@ export class ProductPageComponent implements OnInit {
     isLoading = false;
     product: IProduct;
     productNotFound: boolean = false;
-    quantity: number = 1;
-    quantityOptions: number[] = Array.from({ length: 50 }, (_, i) => i + 1);
     relatedProducts: IProduct[] = [];
+    productQuantity: number = 1;
 
-    protected readonly faCartPlus = faCartPlus;
+    protected readonly faCartPlus: IconDefinition = faCartPlus;
     private productSlug: string;
     private destroyRef: DestroyRef = inject(DestroyRef);
 
     constructor(
         private productService: ProductService,
         private route: ActivatedRoute,
+        private messageService: MessageService,
+        private cartService: CartService,
     ) {
         this.route.params
             .pipe(takeUntilDestroyed(this.destroyRef))
@@ -66,8 +73,39 @@ export class ProductPageComponent implements OnInit {
             });
     }
 
+    onProductQuantityChange(quantity: number) {
+        this.productQuantity = quantity;
+    }
+
     addToCart(product: IProduct) {
-        console.log(product);
+        this.isLoading = true;
+        const cartItem: IAddToCartItem = {
+            inventoryItemId: product.id,
+            quantity: this.productQuantity,
+            overwriteQuantity: false,
+        };
+        console.log(cartItem);
+        this.cartService
+            .addItemToCart(cartItem)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.messageService.add({
+                        severity: "success",
+                        summary: "Success",
+                        detail: product.name + " added to cart",
+                    });
+                    this.isLoading = false;
+                },
+                error: () => {
+                    this.messageService.add({
+                        severity: "error",
+                        summary: "Error",
+                        detail: "Failed to add " + product.name + " to cart",
+                    });
+                    this.isLoading = false;
+                },
+            });
     }
 
     ngOnInit() {

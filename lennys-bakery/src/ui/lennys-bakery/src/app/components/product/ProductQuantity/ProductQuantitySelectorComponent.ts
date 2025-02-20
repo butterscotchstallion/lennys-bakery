@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Select } from "primeng/select";
 import { FormsModule } from "@angular/forms";
 
@@ -13,7 +13,7 @@ interface IQuantityOption {
     imports: [Select, FormsModule],
 })
 export class ProductQuantitySelectorComponent implements OnInit {
-    @Input() onChange: (itemQuantity: number) => void;
+    @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
     maxQuantity: number = 50;
     quantityOptions: IQuantityOption[] = [];
     itemQuantity: number = 1;
@@ -21,7 +21,7 @@ export class ProductQuantitySelectorComponent implements OnInit {
     constructor() {}
 
     onQuantityChange() {
-        this.onChange(this.itemQuantity);
+        this.onChange.emit(this.itemQuantity);
     }
 
     ngOnInit() {
