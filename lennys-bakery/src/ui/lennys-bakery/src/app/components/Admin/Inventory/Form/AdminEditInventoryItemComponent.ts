@@ -1,4 +1,11 @@
-import { Component, DestroyRef, inject, Input, OnInit } from "@angular/core";
+import {
+    Component,
+    DestroyRef,
+    HostBinding,
+    inject,
+    Input,
+    OnInit,
+} from "@angular/core";
 import { IProduct } from "../../../../models/IProduct";
 import { InputText } from "primeng/inputtext";
 import {
@@ -35,6 +42,7 @@ import { NgOptimizedImage } from "@angular/common";
     ],
 })
 export class AdminEditInventoryItemComponent implements OnInit {
+    @HostBinding("class") class = "flex flex-row";
     @Input() item: IProduct;
     isLoading: boolean = false;
     itemForm: FormGroup;

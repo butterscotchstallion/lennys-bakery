@@ -1,4 +1,4 @@
-import { Component, ContentChild } from "@angular/core";
+import { Component } from "@angular/core";
 import { PageHeaderComponent } from "../../../components/PageHeader/PageHeaderComponent";
 import { RouterLink } from "@angular/router";
 
@@ -7,6 +7,4 @@ import { RouterLink } from "@angular/router";
     templateUrl: "./AdminPageWrapperComponent.html",
     imports: [PageHeaderComponent, RouterLink],
 })
-export class AdminPageWrapperComponent {
-    @ContentChild("content") content: any;
-}
+export class AdminPageWrapperComponent {}
