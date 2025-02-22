@@ -1,9 +1,9 @@
 @if (item) {
-    <form [formGroup]="itemForm">
+    <form [formGroup]="itemForm" class="w-full">
         <section class="w-full">
             <section class="flex  gap-4">
                 <!-- Left -->
-                <section class="flex flex-col mb-4 w-1/3 gap-4">
+                <section class="flex flex-col mb-4  gap-4">
                     <div>
                         <label class="block pb-2" for="item-name">Name</label>
                         <input formControlName="name" id="item-name" pInputText type="text"/>
@@ -27,7 +27,7 @@
                 </section>
 
                 <!-- Right -->
-                <section class="w-1/2">
+                <section class="justify-end">
                     <label class="block pb-2" for="item-image">Image</label>
                     <div class="flex gap-4">
                         <section class="mb-4">
@@ -66,13 +66,28 @@
 
             <section class="flex justify-between gap-4 mt-4 max-w-md">
                 <div>
-                    <label class="block pb-2" for="item-short-description">Short Description</label>
-                    <textarea rows="5" cols="30" maxlength="255" pTextarea
-                              formControlName="shortDescription"></textarea>
+                    <label class="block pb-2" for="item-short-description">
+                        Short Description
+                        <p class="text-sm text-gray-900">Max. 255 characters</p>
+                    </label>
+                    <textarea
+                        rows="5"
+                        cols="40"
+                        maxlength="255"
+                        pTextarea
+                        formControlName="shortDescription"></textarea>
                 </div>
                 <div>
-                    <label class="block pb-2" for="item-description">Description</label>
-                    <textarea rows="5" cols="30" maxlength="1000" pTextarea formControlName="description"></textarea>
+                    <label class="block pb-2" for="item-description">
+                        Description
+                        <p class="text-sm text-gray-900">Max. 1000 characters</p>
+                    </label>
+                    <textarea
+                        rows="8"
+                        cols="40"
+                        maxlength="1000"
+                        pTextarea
+                        formControlName="description"></textarea>
                 </div>
             </section>
         </section>
