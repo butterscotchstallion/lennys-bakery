@@ -9,6 +9,7 @@ import { MessageService } from "primeng/api";
 import { AdminEditInventoryItemComponent } from "../../../components/Admin/Inventory/Form/AdminEditInventoryItemComponent";
 import { Button } from "primeng/button";
 import { AdminPageWrapperComponent } from "../AdminPageWrapper/AdminPageWrapperComponent";
+import { Tag } from "primeng/tag";
 
 @Component({
     selector: "app-admin-inventory-page",
@@ -19,6 +20,7 @@ import { AdminPageWrapperComponent } from "../AdminPageWrapper/AdminPageWrapperC
         Button,
         RouterLink,
         AdminPageWrapperComponent,
+        Tag,
     ],
 })
 export class AdminInventoryPageComponent {
