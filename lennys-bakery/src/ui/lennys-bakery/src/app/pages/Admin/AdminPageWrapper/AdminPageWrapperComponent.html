@@ -24,28 +24,8 @@
     <main class="bg-[var(--color-tertiary)] p-4 w-[60rem]">
         <section>
             <div class="flex justify-between">
-                <h2 class="text-lg font-bold text-white">Inventory</h2>
-
-                <div class="flex gap-4">
-                    <p-button
-                        icon="pi pi-plus"
-                        label="Add Item"
-                        routerLink="/inventory/add-item"
-                        severity="info"/>
-
-                    @if (product) {
-                        <p-button
-                            icon="pi pi-box"
-                            label="View Item"
-                            severity="info"
-                            routerLink="/inventory/item/{{product.slug}}"/>
-                    }
-                </div>
+                <ng-content></ng-content>
             </div>
-
-            @if (product) {
-                <app-admin-edit-inventory-item [item]="product"/>
-            }
         </section>
     </main>
 </div>

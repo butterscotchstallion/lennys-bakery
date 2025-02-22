@@ -1,0 +1,19 @@
+<app-admin-page-wrapper>
+    <p-button
+        icon="pi pi-plus"
+        label="Add Item"
+        routerLink="/inventory/add-item"
+        severity="info"/>
+
+    @if (product) {
+        <p-button
+            icon="pi pi-box"
+            label="View Item"
+            severity="info"
+            routerLink="/inventory/item/{{product.slug}}"/>
+    }
+    
+    @if (product) {
+        <app-admin-edit-inventory-item [item]="product"/>
+    }
+</app-admin-page-wrapper>
