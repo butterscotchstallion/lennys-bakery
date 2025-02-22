@@ -3,18 +3,6 @@
         <div class="w-1/2">
             @if (product) {
                 <h2 class="text-lg font-bold pb-2">{{ product.name }}</h2>
-                @if (product.tags.length > 0) {
-                    <ul class="flex flex-wrap gap-1">
-                        @for (tag of product.tags; track $index) {
-                            <li class="mb-1">
-                                <p-tag
-                                    icon="pi pi-tag"
-                                    severity="secondary"
-                                    value="{{tag.name}}"/>
-                            </li>
-                        }
-                    </ul>
-                }
             }
         </div>
 
