@@ -30,12 +30,6 @@
                     {{ product.numReviews }} Reviews
                 </a>
             </div>
-            @if (product.rapidShipAvailable) {
-                <div>
-                    <fa-icon [icon]="faBoltLightning"></fa-icon>
-                    Rapid Ship Available
-                </div>
-            }
         </div>
 
         <p-button
@@ -47,7 +41,11 @@
             size="small"
             styleClass="bg-[var(--color-secondary)] mt-4"
         >
-            <fa-icon [icon]="faCartPlus"></fa-icon>
+            @if (product.rapidShipAvailable) {
+                <fa-icon [icon]="faBoltLightning"></fa-icon>
+            } @else {
+                <fa-icon [icon]="faCartPlus"></fa-icon>
+            }
         </p-button>
     </div>
 </div>
