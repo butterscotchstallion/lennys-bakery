@@ -1,0 +1,14 @@
+@if (product.inventoryItemImages.length > 0) {
+    <p-galleria
+        [(value)]="product.inventoryItemImages"
+        [containerStyle]="{ 'max-width': '640px' }"
+        [numVisible]="5"
+        [responsiveOptions]="responsiveOptions">
+        <ng-template #item let-item>
+            <img ngSrc="item.itemImageSrc" class="w-full" alt="" fill/>
+        </ng-template>
+        <ng-template #thumbnail let-item>
+            <img ngSrc="item.thumbnailImageSrc" alt="" fill/>
+        </ng-template>
+    </p-galleria>
+}

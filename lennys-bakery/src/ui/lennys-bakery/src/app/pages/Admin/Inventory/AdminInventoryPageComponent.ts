@@ -9,7 +9,8 @@ import { MessageService } from "primeng/api";
 import { AdminEditInventoryItemComponent } from "../../../components/Admin/Inventory/Form/AdminEditInventoryItemComponent";
 import { Button } from "primeng/button";
 import { AdminPageWrapperComponent } from "../AdminPageWrapper/AdminPageWrapperComponent";
-import { Tag } from "primeng/tag";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "primeng/tabs";
+import { AdminInventoryImagesComponent } from "../../../components/Admin/Inventory/InventoryImages/AdminInventoryImagesComponent";
 
 @Component({
     selector: "app-admin-inventory-page",
@@ -20,7 +21,12 @@ import { Tag } from "primeng/tag";
         Button,
         RouterLink,
         AdminPageWrapperComponent,
-        Tag,
+        Tabs,
+        TabList,
+        Tab,
+        TabPanels,
+        TabPanel,
+        AdminInventoryImagesComponent,
     ],
 })
 export class AdminInventoryPageComponent {

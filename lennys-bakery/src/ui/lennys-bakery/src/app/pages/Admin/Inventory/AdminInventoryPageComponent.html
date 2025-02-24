@@ -1,5 +1,5 @@
 <app-admin-page-wrapper>
-    <div class="flex justify-between">
+    <div class="flex justify-between mb-2">
         <div class="w-1/2">
             @if (product) {
                 <h2 class="text-lg font-bold pb-2">{{ product.name }}</h2>
@@ -22,7 +22,20 @@
             }
         </div>
     </div>
-    @if (product) {
-        <app-admin-edit-inventory-item [item]="product"/>
-    }
+    <p-tabs value="0">
+        <p-tablist>
+            <p-tab value="0">Info</p-tab>
+            <p-tab value="1">Images</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+            <p-tabpanel value="0">
+                @if (product) {
+                    <app-admin-edit-inventory-item [item]="product"/>
+                }
+            </p-tabpanel>
+            <p-tabpanel value="1">
+                <app-admin-inventory-images [product]="product"/>
+            </p-tabpanel>
+        </p-tabpanels>
+    </p-tabs>
 </app-admin-page-wrapper>
