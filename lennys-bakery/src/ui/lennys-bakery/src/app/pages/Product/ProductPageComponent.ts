@@ -9,7 +9,7 @@ import { Message } from "primeng/message";
 import { FormsModule } from "@angular/forms";
 import { ProductImageComponent } from "../../components/product/ProductImage/ProductImageComponent";
 import { Button } from "primeng/button";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { faBoltLightning, faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import {
     FaIconComponent,
     IconDefinition,
@@ -57,6 +57,7 @@ export class ProductPageComponent implements OnInit {
     productQuantity: number = 1;
 
     protected readonly faCartPlus: IconDefinition = faCartPlus;
+    protected readonly faBoltLightning = faBoltLightning;
     private productSlug: string;
     private destroyRef: DestroyRef = inject(DestroyRef);
 

@@ -26,6 +26,9 @@ import { ProductService } from "../../../../services/ProductService";
 import { catchError, throwError } from "rxjs";
 import { MessageService } from "primeng/api";
 import { NgOptimizedImage } from "@angular/common";
+import { faBoltLightning } from "@fortawesome/free-solid-svg-icons";
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+import { Checkbox } from "primeng/checkbox";
 
 @Component({
     selector: "app-admin-edit-inventory-item",
@@ -39,6 +42,8 @@ import { NgOptimizedImage } from "@angular/common";
         Button,
         MultiSelect,
         NgOptimizedImage,
+        FaIconComponent,
+        Checkbox,
     ],
 })
 export class AdminEditInventoryItemComponent implements OnInit {
@@ -68,6 +73,9 @@ export class AdminEditInventoryItemComponent implements OnInit {
                 Validators.required,
                 Validators.minLength(3),
             ]),
+            rapidShipAvailable: new FormControl<boolean>(
+                this.item?.rapidShipAvailable || false,
+            ),
             tags: new FormControl<ITag[]>(this.item?.tags || [], []),
             price: new FormControl<number>(this.item?.price || 0, [
                 Validators.required,
@@ -113,4 +121,6 @@ export class AdminEditInventoryItemComponent implements OnInit {
                 });
             });
     }
+
+    protected readonly faBoltLightning = faBoltLightning;
 }

@@ -10,4 +10,5 @@ export interface IProduct {
     shortDescription: string;
     slug: string;
     numReviews: number;
+    rapidShipAvailable: boolean;
 }

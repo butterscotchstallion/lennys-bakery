@@ -10,6 +10,18 @@
                     </div>
 
                     <div>
+                        <label class="block pb-2" for="rapid-ship-available">
+                            <fa-icon [icon]="faBoltLightning"></fa-icon>
+                            Rapid Ship Available
+                        </label>
+                        <p-check-box
+                            [binary]="true"
+                            inputId="rapid-ship-available"
+                            formControlName="rapidShipAvailable"
+                            id="rapid-ship-available"/>
+                    </div>
+
+                    <div>
                         <label class="block pb-2" for="item-price">Price</label>
                         <input formControlName="price" id="item-price" pInputText type="number"/>
                     </div>

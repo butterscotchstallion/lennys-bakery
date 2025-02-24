@@ -4,7 +4,11 @@ import {
     FaIconComponent,
     IconDefinition,
 } from "@fortawesome/angular-fontawesome";
-import { faCartPlus, faComments } from "@fortawesome/free-solid-svg-icons";
+import {
+    faBoltLightning,
+    faCartPlus,
+    faComments,
+} from "@fortawesome/free-solid-svg-icons";
 import { IProduct } from "../../../models/IProduct";
 import { CartService } from "../../../services/CartService";
 import { IAddToCartItem } from "../../../models/IAddToCartItem";
@@ -34,6 +38,7 @@ export class ProductCardComponent {
     showTags: boolean = false;
     protected readonly faComments: IconDefinition = faComments;
     protected readonly faCartPlus: IconDefinition = faCartPlus;
+    protected readonly faBoltLightning = faBoltLightning;
     private destroyRef: DestroyRef = inject(DestroyRef);
 
     constructor(

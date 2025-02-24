@@ -24,10 +24,16 @@
                     <section class="w-1/2">
                         <p-card header="About this item"
                                 [style]="{ 'background-color': 'var(--color-card-background)' }">
-                            <p class="m-0">
+                            <p class="m-0 mb-[4rem]">
                                 {{ product.description }}
                             </p>
-                            <p class="m-0 mt-[4rem]">
+                            @if (product.rapidShipAvailable) {
+                                <p class="m-0">
+                                    <fa-icon [icon]="faBoltLightning"></fa-icon>
+                                    Rapid Ship Available
+                                </p>
+                            }
+                            <p class="m-0 mt-4">
                                 <app-stock-status-indicator [inStock]="true"/>
                             </p>
                             <p class="m-0 mt-4">

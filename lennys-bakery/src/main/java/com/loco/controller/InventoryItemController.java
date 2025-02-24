@@ -160,6 +160,8 @@ public class InventoryItemController {
         existingInventoryItem.setDescription(inventoryItem.getDescription());
         existingInventoryItem.setPrice(inventoryItem.getPrice());
         existingInventoryItem.setTags(inventoryItem.getTags());
+        existingInventoryItem.setRapidShipAvailable(inventoryItem.getRapidShipAvailable());
+        
         inventoryItemService.saveInventoryItem(existingInventoryItem);
 
         response.put("status", "OK");
