@@ -58,8 +58,9 @@ public class InventoryItems {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    @Column(name = "image_filename")
-    private String imageFilename;
+    @OneToMany
+    @JoinColumn(name = "inventory_item_images")
+    private Set<InventoryItemImages> inventoryItemImages;
 
     @OneToMany()
     @JoinColumn(name = "tags_id", nullable = false)
@@ -73,14 +74,12 @@ public class InventoryItems {
             String description,
             String shortDescription,
             BigDecimal price,
-            String imageFilename,
             Set<Tags> tags,
             Boolean rapidShipAvailable) {
         this.name = name;
         this.description = description;
         this.shortDescription = shortDescription;
         this.price = price;
-        this.imageFilename = imageFilename;
         this.slug = UrlSafeStringGenerator.generateUrlSafeString(name);
         this.tags = tags;
         this.rapidShipAvailable = rapidShipAvailable;
