@@ -2,6 +2,7 @@ package com.loco.controller;
 
 import com.loco.dto.GetInventoryItemsByTagsDto;
 import com.loco.exception.UserNotFoundException;
+import com.loco.model.InventoryItemImages;
 import com.loco.model.InventoryItems;
 import com.loco.model.Tags;
 import com.loco.service.InventoryItemService;
@@ -112,10 +113,35 @@ public class InventoryItemController {
         return null;
     }
 
+    private Boolean updateInventoryItemImages(ArrayList<String> filenames, InventoryItems inventoryItem) {
+        try {
+            HashSet<InventoryItemImages> images = new HashSet<>();
+            for (String filename : filenames) {
+                InventoryItemImages image = new InventoryItemImages();
+                image.setInventoryItem(inventoryItem);
+                image.setImageFilename(filename);
+                images.add(image);
+            }
+            inventoryItem.setInventoryItemImages(images);
+            inventoryItemService.saveInventoryItem(inventoryItem);
+            log.info("Updated inventory item images: {}", inventoryItem.getInventoryItemImages());
+            return true;
+        } catch (Exception e) {
+            log.error("Error setting images for item {}: {}", inventoryItem, e.getMessage(), e);
+            return false;
+        }
+    }
+
     @PostMapping("/item/{slug}/image")
-    public ResponseEntity<HashMap<String, String>> uploadImage(@RequestParam("files") MultipartFile[] files) {
+    public ResponseEntity<HashMap<String, String>> uploadImage(@RequestParam("files") MultipartFile[] files, @PathVariable String slug) {
         HashMap<String, String> response = new HashMap<>();
         try {
+            if (slug == null || slug.isEmpty()) {
+                response.put("status", "ERROR");
+                response.put("message", "Inventory item not found.");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            }
+
             if (files == null || files.length == 0) {
                 response.put("status", "ERROR");
                 response.put("message", "No files uploaded.");
@@ -123,15 +149,26 @@ public class InventoryItemController {
                 return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
 
+            InventoryItems inventoryItem = this.inventoryItemService.getInventoryItemBySlug(slug);
+            if (inventoryItem == null) {
+                response.put("status", "ERROR");
+                response.put("message", "Inventory item not found");
+                log.error("Inventory item not found for slug: {}", slug);
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            }
+
             String[] validFileTypes = {"image/jpeg", "image/png", "image/jpg"};
             this.validateFiles(files, validFileTypes);
 
             ArrayList<String> filenames = this.transferFilesAndReturnFilenames(files);
 
-            // Add new product images
-//            for (String filename : filenames) {
-//
-//            }
+            Boolean imagesUpdateSuccessful = updateInventoryItemImages(filenames, inventoryItem);
+            if (!imagesUpdateSuccessful) {
+                response.put("status", "ERROR");
+                response.put("message", "Error updating inventory item images");
+                log.error("Error updating inventory item images");
+                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
 
             response.put("status", "OK");
             response.put("message", "Product images uploaded.");
@@ -161,7 +198,7 @@ public class InventoryItemController {
         existingInventoryItem.setPrice(inventoryItem.getPrice());
         existingInventoryItem.setTags(inventoryItem.getTags());
         existingInventoryItem.setRapidShipAvailable(inventoryItem.getRapidShipAvailable());
-        
+
         inventoryItemService.saveInventoryItem(existingInventoryItem);
 
         response.put("status", "OK");
