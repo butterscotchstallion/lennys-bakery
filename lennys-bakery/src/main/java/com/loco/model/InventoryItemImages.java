@@ -14,7 +14,6 @@ import java.time.Instant;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-@ToString
 public class InventoryItemImages {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inventory_item_images_id_gen")
@@ -26,10 +25,11 @@ public class InventoryItemImages {
     @Column(name = "image_filename", nullable = false, unique = true)
     private String imageFilename;
 
+    /*
     @NonNull
     @OneToOne
     @JoinColumn(name = "inventory_item_id", nullable = false)
-    private InventoryItems inventoryItem;
+    private InventoryItems inventoryItem;*/
 
     @Column(name = "created_at")
     @ColumnDefault("CURRENT_TIMESTAMP")
@@ -39,4 +39,9 @@ public class InventoryItemImages {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private Instant updatedAt;
+
+    @Override
+    public String toString() {
+        return "InventoryItems(id=" + id + ", name=" + imageFilename + ")";  // Exclude the images collection
+    }
 }

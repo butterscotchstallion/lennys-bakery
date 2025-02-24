@@ -92,7 +92,13 @@ export class AdminEditInventoryItemComponent implements OnInit {
         });
     }
 
-    onUploadItemImage(event: UploadEvent) {}
+    onUploadItemImage(event: UploadEvent) {
+        this.messageService.add({
+            severity: "info",
+            summary: "Uploaded image(s)",
+            detail: "Updated images for product",
+        });
+    }
 
     save() {
         const product: IProduct = this.itemForm.value;

@@ -54,7 +54,7 @@
                         </section>
 
                         <p-fileupload
-                            name="file"
+                            name="files"
                             url="http://localhost:8080/api/v1/inventory/item/{{item.slug}}/image"
                             (onUpload)="onUploadItemImage($event)"
                             [multiple]="true"
@@ -63,13 +63,6 @@
                             mode="advanced">
                             <ng-template #empty>
                                 <div>Drag and drop files to here to upload.</div>
-                            </ng-template>
-                            <ng-template #content>
-                                <!--
-                                <ul *ngIf="uploadedFiles.length">
-                                    <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-                                </ul>
-                                -->
                             </ng-template>
                         </p-fileupload>
                     </div>

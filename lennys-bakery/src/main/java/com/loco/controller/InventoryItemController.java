@@ -5,6 +5,7 @@ import com.loco.exception.UserNotFoundException;
 import com.loco.model.InventoryItemImages;
 import com.loco.model.InventoryItems;
 import com.loco.model.Tags;
+import com.loco.service.InventoryItemImagesService;
 import com.loco.service.InventoryItemService;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -21,11 +22,13 @@ import java.util.*;
 @RequestMapping("api/v1/inventory")
 public class InventoryItemController {
     private final static Logger log = LoggerFactory.getLogger(InventoryItemController.class);
+    private final InventoryItemImagesService inventoryItemImagesService;
     InventoryItemService inventoryItemService;
     @Value("${inventoryItem.upload.path}")
     private String uploadPath;
 
-    public InventoryItemController(InventoryItemService inventoryItemService) {
+    public InventoryItemController(InventoryItemImagesService inventoryItemImagesService, InventoryItemService inventoryItemService) {
+        this.inventoryItemImagesService = inventoryItemImagesService;
         this.inventoryItemService = inventoryItemService;
     }
 
@@ -115,25 +118,26 @@ public class InventoryItemController {
 
     private Boolean updateInventoryItemImages(ArrayList<String> filenames, InventoryItems inventoryItem) {
         try {
-            HashSet<InventoryItemImages> images = new HashSet<>();
+            Set<InventoryItemImages> images = inventoryItem.getInventoryItemImages();
             for (String filename : filenames) {
                 InventoryItemImages image = new InventoryItemImages();
-                image.setInventoryItem(inventoryItem);
                 image.setImageFilename(filename);
+                inventoryItemImagesService.saveInventoryItemImage(image);
                 images.add(image);
             }
             inventoryItem.setInventoryItemImages(images);
             inventoryItemService.saveInventoryItem(inventoryItem);
-            log.info("Updated inventory item images: {}", inventoryItem.getInventoryItemImages());
+            log.info("Updated inventory item images");
             return true;
         } catch (Exception e) {
-            log.error("Error setting images for item {}: {}", inventoryItem, e.getMessage(), e);
+            log.error("Error setting images for item  {}", e.getMessage(), e);
             return false;
         }
     }
 
     @PostMapping("/item/{slug}/image")
     public ResponseEntity<HashMap<String, String>> uploadImage(@RequestParam("files") MultipartFile[] files, @PathVariable String slug) {
+        ArrayList<String> filenames;
         HashMap<String, String> response = new HashMap<>();
         try {
             if (slug == null || slug.isEmpty()) {
@@ -160,7 +164,7 @@ public class InventoryItemController {
             String[] validFileTypes = {"image/jpeg", "image/png", "image/jpg"};
             this.validateFiles(files, validFileTypes);
 
-            ArrayList<String> filenames = this.transferFilesAndReturnFilenames(files);
+            filenames = this.transferFilesAndReturnFilenames(files);
 
             Boolean imagesUpdateSuccessful = updateInventoryItemImages(filenames, inventoryItem);
             if (!imagesUpdateSuccessful) {
@@ -170,6 +174,8 @@ public class InventoryItemController {
                 return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
+            log.info("Uploaded new product images for item {}", inventoryItem.getName());
+            
             response.put("status", "OK");
             response.put("message", "Product images uploaded.");
             return new ResponseEntity<>(response, HttpStatus.OK);

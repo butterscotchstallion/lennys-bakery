@@ -1,4 +1,5 @@
 import { ITag } from "./ITag";
+import { IInventoryItemImage } from "./IInventoryItemImage";
 
 export interface IProduct {
     id: number;
@@ -11,4 +12,5 @@ export interface IProduct {
     slug: string;
     numReviews: number;
     rapidShipAvailable: boolean;
+    inventoryItemImages: IInventoryItemImage[];
 }

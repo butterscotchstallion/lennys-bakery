@@ -1,4 +1,5 @@
 import { ITag } from "./ITag";
+import { IInventoryItemImage } from "./IInventoryItemImage";
 
 export interface IInventoryItem {
     id: number;
@@ -8,7 +9,7 @@ export interface IInventoryItem {
     shortDescription: string;
     description: string;
     price: number;
-    imageFilename: string;
+    inventoryItemImages: IInventoryItemImage[];
     createdAt: Date;
     updatedAt: Date;
 }

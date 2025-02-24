@@ -58,6 +58,7 @@ public class InventoryItems {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
+    @ToString.Exclude
     @OneToMany
     @JoinColumn(name = "inventory_item_images")
     private Set<InventoryItemImages> inventoryItemImages;
